@@ -4,7 +4,7 @@ Webinate Blacktip - the 2015 theme of the Webinate site
 * Version 1.0
 
 ## Description
-Webinate 'Blacktip' is a codename of the theme designed for the webinate 2015 site. Blacktip is built in Angular and relies on ModePress to provide some its backend content. 
+Webinate 'Blacktip' is a codename of the theme designed for the webinate 2015 site. Blacktip is built in Angular and relies on [ModePress](https://github.com/MKHenson/modepress) to provide some its backend content. 
 
 ## Third Party Credits
 Blacktip makes use of the following third party libraries
