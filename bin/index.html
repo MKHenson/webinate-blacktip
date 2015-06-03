@@ -1,0 +1,42 @@
+﻿<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html>
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0">
+	<title>Webinate</title>
+
+	<!-- SCROLLS & SPELLS -->
+	<link rel="stylesheet" type="text/css" href="http://localhost:8001/style.css" >
+	<link rel="stylesheet" type="text/css" href="http://localhost:8001/animate.css">
+	<link rel="stylesheet" type="text/css" href="http://localhost:8001/style-jssor.css">
+	<script type="text/javascript" src="http://localhost:8001/js-libs/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="http://localhost:8001/js-libs/angular.min.js"></script>
+	<script type="text/javascript" src="http://localhost:8001/js-libs/angular-ui-router.min.js"></script>
+    <script type="text/javascript" src="http://localhost:8001/js-libs/angular-sanitize.min.js"></script>
+	<script type="text/javascript" src="http://localhost:8001/js-libs/jssor.slider.mini.js"></script>
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false "></script>
+	<script src="http://localhost:8001/main.js"></script>
+
+	<link href="https://fonts.googleapis.com/css?family=Lily+Script+One" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,300" rel="stylesheet" type="text/css">
+	<base href="/">
+</head>
+
+<!-- Application -->
+<body>
+	<div class="container" ng-app="webinateApplication">
+		<div class="nav-outer" ng-include="'templates/nav.html'"></div>
+		<div class="content-outer">
+			<div class="content" ui-view>
+				<div>Loading todos</div>
+			</div>
+			<div class="fix"></div>
+			<div class="footer" ng-include="'templates/footer.html'"></div>
+		</div>
+	</div>
+</body>
+</html>
