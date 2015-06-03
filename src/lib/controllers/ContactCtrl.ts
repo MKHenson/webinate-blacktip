@@ -1,4 +1,4 @@
-﻿module client
+﻿module blacktip
 {
 	'use strict';
 
@@ -9,7 +9,7 @@
 	{
 		// An array of todo items
 		private http: ng.IHttpService;
-		private mail: Webinate.IMessage;
+        private mail: modepress.IMessage;
 
 		// The dependency injector
 		public static $inject = ["$http" ];
@@ -40,7 +40,7 @@
 		}
 
 		/*
-		* Sends an email to the webinate admin
+		* Sends an email to the modepress admin
 		*/
 		sendMessage()
 		{

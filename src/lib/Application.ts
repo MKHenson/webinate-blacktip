@@ -1,11 +1,11 @@
 ﻿/**
  * The main entry point of the application
  */
-module client
+module blacktip
 {
     'use strict';
 
-    angular.module("webinateApplication", ["ui.router", 'ngSanitize'])
+    angular.module("modepress", ["ui.router", 'ngSanitize'])
         .config(Config)
         .constant("apiURL", "./api")
         .controller("homeCtrl", HomeCtrl)

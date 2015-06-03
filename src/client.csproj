@@ -28,9 +28,6 @@
     <Content Include="..\bin\index.html">
       <Link>html\index.html</Link>
     </Content>
-    <Content Include="..\bin\main.js">
-      <Link>html\main.js</Link>
-    </Content>
     <Content Include="..\bin\style-jssor.css">
       <Link>html\style-jssor.css</Link>
     </Content>
@@ -76,6 +73,7 @@
     <TypeScriptCompile Include="lib\definitions\jquery.d.ts" />
     <TypeScriptCompile Include="lib\definitions\jssor.d.ts" />
     <TypeScriptCompile Include="lib\Application.ts" />
+    <TypeScriptCompile Include="lib\definitions\modepress.d.ts" />
     <TypeScriptCompile Include="_references.ts" />
   </ItemGroup>
   <ItemGroup />

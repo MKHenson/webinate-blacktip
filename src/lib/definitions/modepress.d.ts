@@ -1,4 +1,4 @@
-﻿declare module Webinate
+﻿declare module modepress
 {
     export interface IPost
     {

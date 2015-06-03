@@ -552,6 +552,9 @@ a .nav-item {
 .contact-clouds a:hover .over {
 	display:block;
 }
+.contact-clouds a:hover {
+    border:none;
+}
 .contact-form h1 {
 	text-align:center;
 	margin: 40px 0 80px 0;

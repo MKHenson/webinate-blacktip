@@ -1,9 +1,9 @@
-﻿module client
+﻿module blacktip
 {
 	'use strict';
 
 	/**
-	* Configures the Angular application
+	* Configures the application
 	*/
 	export class Config
 	{
@@ -12,49 +12,55 @@
         /**
 		* Creates an instance of the config
 		*/
-		constructor(routeProvider: angular.ui.IUrlRouterProvider, stateProvider: angular.ui.IStateProvider, $locationProvider: angular.ILocationProvider)
+        constructor(routeProvider: angular.ui.IUrlRouterProvider, stateProvider: angular.ui.IStateProvider, $locationProvider: angular.ILocationProvider)
         {
             // Creates nice URLs
-			$locationProvider.html5Mode(true);
+            $locationProvider.html5Mode(true);
 
-			// if the path doesn't match any of the urls you configured
-			// 'otherwise' will take care of routing back to the index
-			routeProvider.otherwise("/");
+            // if the path doesn't match any of the urls you configured
+            // 'otherwise' will take care of routing back to the index
+            routeProvider.otherwise("/");
 
-			stateProvider.state("home", { url: "/", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
-			stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html" });
-			stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
+            // Create the states
+            stateProvider.state("home", { url: "/", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
+            stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html" });
+            stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
             stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html" });
+
+            // Prior to the blog state loading, make sure the categories are downloaded
             stateProvider.state("blog", {
                 url: "/blog?author&category&tag&index", templateUrl: "templates/blog.html", controller: "blogCtrl", controllerAs: "controller",
                 resolve: {
                     categories: ["$http", "apiURL", function ($http: ng.IHttpService, apiURL: string)
                     {
-                        return $http.get<Webinate.IGetCategories>(`${apiURL}/posts/get-categories`).then(function (categories)
+                        return $http.get<modepress.IGetCategories>(`${apiURL}/posts/get-categories`).then(function (categories)
                         {
                             return categories.data.data;
                         });
                     }]
                 }
             });
+
+            // Download the post prior to loading this state
+            // then assign the post to the scope
             stateProvider.state("post", {
                 url: "/post/:slug", templateUrl: "templates/post.html",
-                    resolve: {
-                        post: ["$http", "apiURL", "$stateParams", function ($http: ng.IHttpService, apiURL: string, stateParams)
+                resolve: {
+                    post: ["$http", "apiURL", "$stateParams", function ($http: ng.IHttpService, apiURL: string, stateParams)
+                    {
+                        return $http.get<modepress.IGetPost>(`${apiURL}/posts/get-post/${stateParams.slug}`).then(function (posts)
                         {
-                            return $http.get<Webinate.IGetPost>(`${apiURL}/posts/get-post/${stateParams.slug}`).then(function (posts)
-                            {
-                                return posts.data.data;
-                            });
-                        }]
+                            return posts.data.data;
+                        });
+                    }]
                 },
-                controller: ["$scope", "post", "$sce", function (scope: any, post: Webinate.IPost, sce: ng.ISCEService)
+                controller: ["$scope", "post", "$sce", function (scope: any, post: modepress.IPost, sce: ng.ISCEService)
                 {
                     scope.post = post;
                     scope.post.content = sce.getTrustedHtml(scope.post.content);
                 }]
             });
-                
-		}
+
+        }
 	}
 }

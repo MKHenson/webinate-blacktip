@@ -1,22 +1,25 @@
-var client;
-(function (client) {
+var blacktip;
+(function (blacktip) {
     'use strict';
     /**
-    * Configures the Angular application
+    * Configures the application
     */
     var Config = (function () {
         /**
-        * Creates an instance of the configurator
+        * Creates an instance of the config
         */
         function Config(routeProvider, stateProvider, $locationProvider) {
+            // Creates nice URLs
             $locationProvider.html5Mode(true);
             // if the path doesn't match any of the urls you configured
             // 'otherwise' will take care of routing back to the index
             routeProvider.otherwise("/");
+            // Create the states
             stateProvider.state("home", { url: "/", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
             stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html" });
             stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
             stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html" });
+            // Prior to the blog state loading, make sure the categories are downloaded
             stateProvider.state("blog", {
                 url: "/blog?author&category&tag&index", templateUrl: "templates/blog.html", controller: "blogCtrl", controllerAs: "controller",
                 resolve: {
@@ -27,6 +30,8 @@ var client;
                         }]
                 }
             });
+            // Download the post prior to loading this state
+            // then assign the post to the scope
             stateProvider.state("post", {
                 url: "/post/:slug", templateUrl: "templates/post.html",
                 resolve: {
@@ -42,22 +47,17 @@ var client;
                     }]
             });
         }
-        // $inject annotation.
-        Config.$inject = [
-            "$urlRouterProvider",
-            "$stateProvider",
-            "$locationProvider"
-        ];
+        Config.$inject = ["$urlRouterProvider", "$stateProvider", "$locationProvider"];
         return Config;
     })();
-    client.Config = Config;
-})(client || (client = {}));
-var client;
-(function (client) {
+    blacktip.Config = Config;
+})(blacktip || (blacktip = {}));
+var blacktip;
+(function (blacktip) {
     'use strict';
     /**
-     * Controller for the blog page
-     */
+    * Controller for the blog page
+    */
     var BlogCtrl = (function () {
         /**
         * Creates an instance of the home controller
@@ -110,29 +110,49 @@ var client;
         BlogCtrl.$inject = ["$http", "apiURL", "$stateParams", "categories"];
         return BlogCtrl;
     })();
-    client.BlogCtrl = BlogCtrl;
-})(client || (client = {}));
-var client;
-(function (client) {
+    blacktip.BlogCtrl = BlogCtrl;
+})(blacktip || (blacktip = {}));
+var blacktip;
+(function (blacktip) {
     'use strict';
     /**
-     * The main controller for the app. The controller:
-     * - retrieves and persists the model via the todoStorage service
-     * - exposes the model to the template and provides event handlers
-     */
+    * Controller for managing the
+    */
     var HomeCtrl = (function () {
         /**
         * Creates an instance of the home controller
         */
-        function HomeCtrl(http) {
-            this.http = http;
+        function HomeCtrl(scope) {
+            var that = this;
+            this._resizeProxy = this.scaleSlider.bind(this);
+            this._slider = null;
+            scope.$on("$destroy", function () { that.onDestroy(); });
         }
+        /**
+        * Cleans up the controller
+        */
+        HomeCtrl.prototype.onDestroy = function () {
+            $(window).unbind("load", this._resizeProxy);
+            $(window).unbind("resize", this._resizeProxy);
+            $(window).unbind("orientationchange", this._resizeProxy);
+            this._resizeProxy = null;
+            this._slider = null;
+        };
+        /**
+        * Resizes the slider if the window is resized
+        */
+        HomeCtrl.prototype.scaleSlider = function () {
+            var parentWidth = jQuery(".slider-monitor").width();
+            if (parentWidth)
+                this._slider.$ScaleWidth(parentWidth);
+            else
+                window.setTimeout(this._resizeProxy, 30);
+        };
         /**
         * Called after the home content is loaded
         */
         HomeCtrl.prototype.loadSlider = function () {
             var _SlideshowTransitions = [
-                //Fade
                 { $Duration: 1200, $Opacity: 2 }
             ];
             var _CaptionTransitions = [];
@@ -177,29 +197,20 @@ var client;
                     $PlayOutMode: 3 //[Optional] 0 None (no play), 1 Chain (goes before main slide), 3 Chain Flatten (goes before main slide and flatten all caption animations), default value is 1
                 }
             };
-            var jssor_slider1 = new $JssorSlider$("slides", options);
-            //responsive code begin
-            //you can remove responsive code if you don't want the slider scales while window resizes
-            function ScaleSlider() {
-                var parentWidth = jQuery(".slider-monitor").width();
-                if (parentWidth)
-                    jssor_slider1.$ScaleWidth(parentWidth);
-                else
-                    window.setTimeout(ScaleSlider, 30);
-            }
-            ScaleSlider();
-            $(window).bind("load", ScaleSlider);
-            $(window).bind("resize", ScaleSlider);
-            $(window).bind("orientationchange", ScaleSlider);
+            this._slider = new $JssorSlider$("slides", options);
+            this.scaleSlider();
+            $(window).bind("load", this._resizeProxy);
+            $(window).bind("resize", this._resizeProxy);
+            $(window).bind("orientationchange", this._resizeProxy);
         };
         // The dependency injector
-        HomeCtrl.$inject = ["$http"];
+        HomeCtrl.$inject = ["$scope"];
         return HomeCtrl;
     })();
-    client.HomeCtrl = HomeCtrl;
-})(client || (client = {}));
-var client;
-(function (client) {
+    blacktip.HomeCtrl = HomeCtrl;
+})(blacktip || (blacktip = {}));
+var blacktip;
+(function (blacktip) {
     'use strict';
     /**
      * Controller for the contact us page
@@ -225,7 +236,7 @@ var client;
             });
         }
         /*
-        * Sends an email to the webinate admin
+        * Sends an email to the modepress admin
         */
         ContactCtrl.prototype.sendMessage = function () {
             var details = this.mail;
@@ -251,28 +262,26 @@ var client;
         ContactCtrl.$inject = ["$http"];
         return ContactCtrl;
     })();
-    client.ContactCtrl = ContactCtrl;
-})(client || (client = {}));
+    blacktip.ContactCtrl = ContactCtrl;
+})(blacktip || (blacktip = {}));
 /**
- * The main TodoMVC app module.
- *
- * @type {angular.Module}
+ * The main entry point of the application
  */
-var client;
-(function (client) {
+var blacktip;
+(function (blacktip) {
     'use strict';
-    angular.module("webinateApplication", ["ui.router", 'ngSanitize'])
-        .config(client.Config)
+    angular.module("modepress", ["ui.router", 'ngSanitize'])
+        .config(blacktip.Config)
         .constant("apiURL", "./api")
-        .controller("homeCtrl", client.HomeCtrl)
-        .controller("blogCtrl", client.BlogCtrl)
-        .controller("contactCtrl", client.ContactCtrl);
-})(client || (client = {}));
-/// <reference path="../src-interface/interfaces.d.ts" />
+        .controller("homeCtrl", blacktip.HomeCtrl)
+        .controller("blogCtrl", blacktip.BlogCtrl)
+        .controller("contactCtrl", blacktip.ContactCtrl);
+})(blacktip || (blacktip = {}));
 /// <reference path="lib/definitions/jquery.d.ts" />
 /// <reference path="lib/definitions/angular.d.ts" />
 /// <reference path="lib/definitions/angular-ui-router.d.ts" />
 /// <reference path="lib/definitions/jssor.d.ts" />
+/// <reference path="lib/definitions/modepress.d.ts" />
 /// <reference path="lib/Config.ts" />
 /// <reference path="lib/controllers/BlogCtrl.ts" />
 /// <reference path="lib/controllers/HomeCtrl.ts" />

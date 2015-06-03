@@ -1,35 +1,61 @@
-﻿module client
+﻿module blacktip
 {
 	'use strict';
 
-	/**
-	 * The main controller for the app. The controller:
-	 * - retrieves and persists the model via the todoStorage service
-	 * - exposes the model to the template and provides event handlers
-	 */
+    /**
+    * Controller for managing the 
+    */
 	export class HomeCtrl
-	{
-		// An array of todo items
-		private http: ng.IHttpService;
+    {
+        private _resizeProxy: any;
+        private _slider: $JssorSlider$;
 
-		// The dependency injector
-		public static $inject = ["$http" ];
+        // The dependency injector
+        public static $inject = ["$scope"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-		constructor(  http: ng.IHttpService )
-		{
-			this.http = http;
-		}
+        constructor(scope: ng.IScope)
+        {
+            var that = this;
+            this._resizeProxy = this.scaleSlider.bind(this);
+            this._slider = null;
+
+            scope.$on("$destroy", function() { that.onDestroy(); });
+        }
+
+        /**
+        * Cleans up the controller
+        */
+        onDestroy()
+        {
+            $(window).unbind("load", this._resizeProxy);
+            $(window).unbind("resize", this._resizeProxy);
+            $(window).unbind("orientationchange", this._resizeProxy);
+
+            this._resizeProxy = null;
+            this._slider = null;
+        }
+
+        /**
+        * Resizes the slider if the window is resized
+        */
+        private scaleSlider()
+        {
+            var parentWidth = jQuery(".slider-monitor").width();
+            if (parentWidth)
+                this._slider.$ScaleWidth(parentWidth);
+            else
+                window.setTimeout(this._resizeProxy, 30);
+        }
 
 		/**
 		* Called after the home content is loaded
 		*/
 		loadSlider()
-		{
+        {
 			var _SlideshowTransitions = [
-				//Fade
 				{ $Duration: 1200, $Opacity: 2 }
             ];
 
@@ -80,25 +106,13 @@
                     $PlayOutMode: 3                                 //[Optional] 0 None (no play), 1 Chain (goes before main slide), 3 Chain Flatten (goes before main slide and flatten all caption animations), default value is 1
                 }
             };
-            var jssor_slider1 = new $JssorSlider$("slides", options);
 
-			
-
-            //responsive code begin
-            //you can remove responsive code if you don't want the slider scales while window resizes
-            function ScaleSlider()
-			{
-                var parentWidth = jQuery(".slider-monitor").width();
-                if (parentWidth)
-					jssor_slider1.$ScaleWidth(parentWidth);
-                else
-                    window.setTimeout(ScaleSlider, 30);
-            }
-            ScaleSlider();
-
-            $(window).bind("load", ScaleSlider);
-            $(window).bind("resize", ScaleSlider);
-            $(window).bind("orientationchange", ScaleSlider);
+            this._slider = new $JssorSlider$("slides", options);
+            
+            this.scaleSlider();
+            $(window).bind("load", this._resizeProxy);
+            $(window).bind("resize", this._resizeProxy);
+            $(window).bind("orientationchange", this._resizeProxy);
 		}
 	}
 }

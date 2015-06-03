@@ -1,16 +1,16 @@
-﻿module client
+﻿module blacktip
 {
 	'use strict';
 
-	/**
-	 * Controller for the blog page
-	 */
+    /**
+    * Controller for the blog page
+    */
     export class BlogCtrl
 	{
 		// An array of todo items
         private http: ng.IHttpService;
-        public posts: Array<Webinate.IPost>;
-        public categories: Array<Webinate.ICategory>;
+        public posts: Array<modepress.IPost>;
+        public categories: Array<modepress.ICategory>;
         public apiURL: string;
 
         public author: string;
@@ -26,7 +26,7 @@
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, categories: Array<Webinate.ICategory>)
+        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, categories: Array<modepress.ICategory>)
 		{
             this.http = http;
             this.posts = [];
@@ -63,7 +63,7 @@
             this.getPosts();
         }
 
-        getBlogImageURL(post: Webinate.IPost)
+        getBlogImageURL(post: modepress.IPost)
         {
             var url = "/media/images/camera.jpg";
             if (post.featuredImage && post.featuredImage != "")
@@ -77,7 +77,7 @@
         getPosts()
         {
             var that = this;
-            this.http.get<Webinate.IGetPosts>(`${this.apiURL}/posts/get-posts?tags=${that.tag}&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}&minimal=true`).then(function (posts)
+            this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?tags=${that.tag}&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}&minimal=true`).then(function (posts)
             {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
