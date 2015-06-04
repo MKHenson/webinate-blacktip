@@ -9,6 +9,20 @@ version() {
   echo "v0.0.1"
 }
 
+echo "cleaning up folder..."
+
+# Remove existing folders if they exist
+if [ -d "js-libs" ]; then
+	rm js-libs -R
+fi
+if [ -d "media" ]; then
+	rm media -R
+fi
+if [ -d "templates" ]; then
+	rm templates -R
+fi
+
+
 echo "Downloading latest version from github $(version)"
 
 #download latest
