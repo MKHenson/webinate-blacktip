@@ -6,7 +6,7 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.6"
+  echo "0.0.7"
 }
 
 echo "cleaning up folder..."
@@ -24,7 +24,7 @@ echo "Downloading latest version from github $(version)"
 
 #download latest
 wget https://github.com/MKHenson/webinate-blacktip/archive/v$(version).zip
-unzip -o "v$(version).zip" "webinate-blacktip-$(version)/bin/*"
+unzip -o "v$(version).zip"
 
 # Moves the server folder to the current directory
 mv webinate-blacktip-$(version)/resources ./resources
