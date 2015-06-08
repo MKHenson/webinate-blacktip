@@ -6,7 +6,7 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "v0.0.2"
+  echo "v0.0.3"
 }
 
 echo "cleaning up folder..."
@@ -27,18 +27,18 @@ echo "Downloading latest version from github $(version)"
 
 #download latest
 wget https://github.com/MKHenson/webinate-blacktip/archive/master.zip
-unzip -o "master.zip" "webinate-blacktip-master/bin/*"
+unzip -o "v$(version).zip" "webinate-blacktip-$(version)/bin/*"
 
 # Moves the server folder to the current directory
-mv webinate-blacktip-master/bin/* .
+mv webinate-blacktip-$(version)/bin/* .
 
 # Remove modepress-master
-if [ -d "webinate-blacktip-master" ]; then
-	rm webinate-blacktip-master -R
+if [ -d "webinate-blacktip-$(version)" ]; then
+	rm webinate-blacktip-$(version) -R
 fi
 
 # Remove the zip file
-rm master.zip
+rm "v$(version).zip"
 
 # All done
 echo "Blacktip successfully installed :)"
