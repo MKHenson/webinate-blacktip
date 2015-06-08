@@ -810,7 +810,7 @@ a .nav-item{
 }
 .footer-item, .footer-column a {
 	text-decoration: none;
-	color:#CCCCCC;
+	color:#aaa;
 	transition: all 1s ease;
 }
 .footer-item a, .footer-item {

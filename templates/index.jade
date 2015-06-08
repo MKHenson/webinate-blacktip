@@ -31,7 +31,7 @@ html(lang="en")
 		div(class="container", ng-app="modepress")
 			div(class="nav-outer", ng-include="'templates/nav.html'")
 			div(class="content-outer")
-				div(class="content", ui-view)
+				div(class="content", ui-view, autoscroll='true')
 					div
 						= Loading
 				div(class="fix")
