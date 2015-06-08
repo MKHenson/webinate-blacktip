@@ -25,6 +25,9 @@
     <Content Include="..\resources\animate.css">
       <Link>html\animate.css</Link>
     </Content>
+    <Content Include="..\resources\robots.txt">
+      <Link>html\robots.txt</Link>
+    </Content>
     <Content Include="..\resources\style-jssor.css">
       <Link>html\style-jssor.css</Link>
     </Content>
@@ -81,6 +84,11 @@
   <ItemGroup>
     <Content Include="..\install-script.sh">
       <Link>install-script.sh</Link>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\templates\index.jade">
+      <Link>jade-templates\index.jade</Link>
     </Content>
   </ItemGroup>
   <PropertyGroup>

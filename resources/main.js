@@ -272,6 +272,14 @@ var blacktip;
     'use strict';
     angular.module("modepress", ["ui.router", 'ngSanitize'])
         .config(blacktip.Config)
+        .run(["$rootScope", "$location", "$window", function ($rootScope, $location, $window) {
+            // This tells Google analytics to count a new page view on each state change
+            $rootScope.$on('$stateChangeSuccess', function (event) {
+                if (!$window.ga)
+                    return;
+                $window.ga('send', 'pageview', { page: $location.path() });
+            });
+        }])
         .constant("apiURL", "./api")
         .controller("homeCtrl", blacktip.HomeCtrl)
         .controller("blogCtrl", blacktip.BlogCtrl)
