@@ -6,17 +6,14 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.5"
+  echo "0.0.6"
 }
 
 echo "cleaning up folder..."
 
 # Remove existing folders if they exist
-if [ -d "js-libs" ]; then
-	rm js-libs -R
-fi
-if [ -d "media" ]; then
-	rm media -R
+if [ -d "resources" ]; then
+	rm resources -R
 fi
 if [ -d "templates" ]; then
 	rm templates -R
@@ -30,7 +27,8 @@ wget https://github.com/MKHenson/webinate-blacktip/archive/v$(version).zip
 unzip -o "v$(version).zip" "webinate-blacktip-$(version)/bin/*"
 
 # Moves the server folder to the current directory
-mv webinate-blacktip-$(version)/bin/* .
+mv webinate-blacktip-$(version)/resources ./resources
+mv webinate-blacktip-$(version)/templates ./templates
 
 # Remove modepress-master
 if [ -d "webinate-blacktip-$(version)" ]; then
