@@ -19,6 +19,7 @@ module blacktip
             });
         }])
         .constant("apiURL", "./api")
+        .controller("footerCtrl", FooterCtrl)
         .controller("homeCtrl", HomeCtrl)
         .controller("blogCtrl", BlogCtrl)
 		.controller("contactCtrl", ContactCtrl)

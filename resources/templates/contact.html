@@ -50,7 +50,7 @@
 			<input class="small-input" name="iPhone" type="number" ng-model="controller.mail.phone" placeholder="Your Phone Number" />
 			<input class="small-input" name="iSite" type="text" ng-model="controller.mail.website" placeholder="Your Website" />
 			<textarea class="big-input" name="iMessage" ng-class="{error: (mailForm.$submitted || mailForm.iMessage.$touched) && (mailForm.iMessage.$error.required || mailForm.iMessage.$error.minlength)}" cols="50" ng-model="controller.mail.message" required="" rows="6" ng-minlength="5" placeholder="Enter Message"></textarea>
-			<input type="submit" class="button submit" value="Send Message" ng-click="(mailForm.$valid && controller.sendMessage())" />
+			<input type="submit" class="button success blue" value="Send Message" ng-click="(mailForm.$valid && controller.sendMessage())" />
 			<div ng-show="mailForm.$submitted">
 				<div class="error" ng-show="mailForm.$invalid">Please check your details</div>
 			</div>

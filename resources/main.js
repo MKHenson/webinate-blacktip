@@ -54,6 +54,22 @@ var blacktip;
 })(blacktip || (blacktip = {}));
 var blacktip;
 (function (blacktip) {
+    var FooterCtrl = (function () {
+        function FooterCtrl(scope, http, apiURL) {
+            scope.posts = [];
+            var that = this;
+            http.get(apiURL + "/posts/get-posts?limit=5&minimal=true").then(function (posts) {
+                scope.posts = posts.data.data;
+            });
+        }
+        // The dependency injector
+        FooterCtrl.$inject = ["$scope", "$http", "apiURL"];
+        return FooterCtrl;
+    })();
+    blacktip.FooterCtrl = FooterCtrl;
+})(blacktip || (blacktip = {}));
+var blacktip;
+(function (blacktip) {
     'use strict';
     /**
     * Controller for the blog page
@@ -281,6 +297,7 @@ var blacktip;
             });
         }])
         .constant("apiURL", "./api")
+        .controller("footerCtrl", blacktip.FooterCtrl)
         .controller("homeCtrl", blacktip.HomeCtrl)
         .controller("blogCtrl", blacktip.BlogCtrl)
         .controller("contactCtrl", blacktip.ContactCtrl);
@@ -291,6 +308,7 @@ var blacktip;
 /// <reference path="lib/definitions/jssor.d.ts" />
 /// <reference path="lib/definitions/modepress.d.ts" />
 /// <reference path="lib/Config.ts" />
+/// <reference path="lib/controllers/FooterCtrl.ts" />
 /// <reference path="lib/controllers/BlogCtrl.ts" />
 /// <reference path="lib/controllers/HomeCtrl.ts" />
 /// <reference path="lib/controllers/ContactCtrl.ts" />

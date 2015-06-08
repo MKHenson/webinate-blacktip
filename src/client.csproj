@@ -65,6 +65,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="lib\controllers\ContactCtrl.ts" />
     <TypeScriptCompile Include="lib\controllers\BlogCtrl.ts" />
+    <TypeScriptCompile Include="lib\controllers\FooterCtrl.ts" />
     <TypeScriptCompile Include="lib\definitions\angular-ui-router.d.ts" />
     <TypeScriptCompile Include="lib\Config.ts" />
     <TypeScriptCompile Include="lib\controllers\HomeCtrl.ts" />
