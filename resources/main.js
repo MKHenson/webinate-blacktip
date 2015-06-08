@@ -43,7 +43,7 @@ var blacktip;
                 },
                 controller: ["$scope", "post", "$sce", function (scope, post, sce) {
                         scope.post = post;
-                        scope.post.content = sce.getTrustedHtml(scope.post.content);
+                        scope.post.content = sce.trustAsHtml(post.content);
                     }]
             });
         }

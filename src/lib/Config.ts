@@ -57,7 +57,7 @@
                 controller: ["$scope", "post", "$sce", function (scope: any, post: modepress.IPost, sce: ng.ISCEService)
                 {
                     scope.post = post;
-                    scope.post.content = sce.getTrustedHtml(scope.post.content);
+                    scope.post.content = sce.trustAsHtml(post.content);
                 }]
             });
 
