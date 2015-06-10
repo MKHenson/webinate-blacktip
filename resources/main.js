@@ -37,6 +37,8 @@ var blacktip;
                 resolve: {
                     post: ["$http", "apiURL", "$stateParams", function ($http, apiURL, stateParams) {
                             return $http.get(apiURL + "/posts/get-post/" + stateParams.slug).then(function (posts) {
+                                if (posts.data.error)
+                                    return posts.data;
                                 return posts.data.data;
                             });
                         }]

@@ -50,6 +50,9 @@
                     {
                         return $http.get<modepress.IGetPost>(`${apiURL}/posts/get-post/${stateParams.slug}`).then(function (posts)
                         {
+                            if (posts.data.error)
+                                return posts.data;
+
                             return posts.data.data;
                         });
                     }]
@@ -59,11 +62,7 @@
                     scope.post = post;
                     scope.post.content = sce.trustAsHtml(post.content);
                 }]
-            });
-
-            
-
-           
+            });           
         }
 	}
 }

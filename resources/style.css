@@ -737,6 +737,10 @@ input:focus {
 .blog-intro .categories{
     float:right;
 }
+.post-content.error .header {
+    text-align:center;
+    margin:200px 0;
+}
 /**
 ======================================================
 				CSS MODULE DEFINITIONS
