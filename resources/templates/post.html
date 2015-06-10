@@ -2,7 +2,7 @@
     <div ng-if="post.error" class="post-content error">
         <div class="header">{{post.message}}</div>
     </div>
-    <div ng-if="post.error == false" class="post-content">
+    <div ng-if="!post.error" class="post-content">
         <div class="header">{{post.title}}</div>
         <div class="date">{{post.createdOn | date:"dd MMMM yyyy"}}</div>
         <div class="post-body" ng-bind-html="post.content"></div>
