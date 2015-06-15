@@ -9,17 +9,6 @@ version() {
   echo "0.0.13"
 }
 
-echo "cleaning up folder..."
-
-# Remove existing folders if they exist
-if [ -d "resources" ]; then
-	rm resources -R
-fi
-if [ -d "templates" ]; then
-	rm templates -R
-fi
-
-
 echo "Downloading latest version from github $(version)"
 
 #download latest
