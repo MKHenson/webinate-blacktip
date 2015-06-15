@@ -16,8 +16,8 @@ wget https://github.com/MKHenson/webinate-blacktip/archive/v$(version).zip
 unzip -o "v$(version).zip"
 
 # Moves the server folder to the current directory
-mv webinate-blacktip-$(version)/resources ./resources
-mv webinate-blacktip-$(version)/templates ./templates
+cp -r webinate-blacktip-$(version)/resources/* ./resources
+cp -r webinate-blacktip-$(version)/templates/* ./templates
 
 # Remove modepress-master
 if [ -d "webinate-blacktip-$(version)" ]; then
