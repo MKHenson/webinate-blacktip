@@ -12,7 +12,7 @@
             scope.posts = [];
 
             var that = this;
-            http.get<modepress.IGetPosts>(`${apiURL}/posts/get-posts?limit=5&minimal=true&visibility=public`).then(function (posts)
+            http.get<modepress.IGetPosts>(`${apiURL}/posts/get-posts?limit=5&minimal=true&tags=webinate&visibility=public`).then(function (posts)
             {
                 scope.posts = posts.data.data;
             });

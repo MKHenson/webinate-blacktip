@@ -60,7 +60,7 @@ var blacktip;
         function FooterCtrl(scope, http, apiURL) {
             scope.posts = [];
             var that = this;
-            http.get(apiURL + "/posts/get-posts?limit=5&minimal=true&visibility=public").then(function (posts) {
+            http.get(apiURL + "/posts/get-posts?limit=5&minimal=true&tags=webinate&visibility=public").then(function (posts) {
                 scope.posts = posts.data.data;
             });
         }
@@ -119,7 +119,7 @@ var blacktip;
         };
         BlogCtrl.prototype.getPosts = function () {
             var that = this;
-            this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + "&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
+            this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",webinate&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
             });
