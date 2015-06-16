@@ -6,7 +6,7 @@ set -e
 
 # Functiom that prints the latest stable version
 version() {
-  echo "0.0.15"
+  echo "0.0.14"
 }
 
 echo "Downloading latest version from github $(version)"
@@ -14,6 +14,12 @@ echo "Downloading latest version from github $(version)"
 #download latest
 wget https://github.com/MKHenson/webinate-blacktip/archive/v$(version).zip
 unzip -o "v$(version).zip"
+
+# If directories are not present, then create them
+if [ ! -d "resources" ]; then
+	mkdir resources
+	mkdir templates
+fi
 
 # Moves the server folder to the current directory
 cp -r webinate-blacktip-$(version)/resources/* ./resources
