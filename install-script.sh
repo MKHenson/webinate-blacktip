@@ -19,7 +19,7 @@ unzip -o "v$(version).zip"
 cp -r webinate-blacktip-$(version)/resources/* ./resources
 cp -r webinate-blacktip-$(version)/templates/* ./templates
 
-# Remove modepress-master
+# Remove modepress temp folder
 if [ -d "webinate-blacktip-$(version)" ]; then
 	rm webinate-blacktip-$(version) -R
 fi
