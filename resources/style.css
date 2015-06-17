@@ -341,7 +341,7 @@ Please only put css rules in here for layout related requirements.
 	height: 100%;
     -moz-box-sizing: border-box;
     box-sizing:border-box;
-    border-top: solid 80px;
+    border-top: solid 80px #fff;
 }
 .content {
 	-moz-animation:fadeIn .6s ease-in-out;

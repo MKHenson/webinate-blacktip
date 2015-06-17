@@ -32,7 +32,6 @@ html(lang="en")
 			div(class="nav-outer", ng-include="'templates/nav.html'")
 			div(class="content-outer")
 				div(class="content", ui-view, autoscroll='true')
-					div
-						= Loading
+					img(src="/admin/media/images/loader.gif")
 				div(class="fix")
 				div(class="footer", ng-include="'templates/footer.html'", ng-controller="footerCtrl as controller")

@@ -22,5 +22,5 @@ module blacktip
         .controller("footerCtrl", FooterCtrl)
         .controller("homeCtrl", HomeCtrl)
         .controller("blogCtrl", BlogCtrl)
-		.controller("contactCtrl", ContactCtrl)
+        .controller("contactCtrl", ContactCtrl)
 }
