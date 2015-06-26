@@ -12,12 +12,12 @@
         private mail: modepress.IMessage;
 
 		// The dependency injector
-        public static $inject = ["$http", "signaller", "meta" ];
+        public static $inject = ["$http", "signaller", "meta", "scrollTop" ];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, signaller: Function, meta: Meta )
+        constructor(http: ng.IHttpService, signaller: Function, meta: Meta, scrollTop: Function )
 		{
 			this.http = http;
             this.mail = { email: "", name: "", message: "" };
@@ -46,6 +46,7 @@
             });
 
             signaller();
+            scrollTop();
 		}
 
 		/*

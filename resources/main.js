@@ -337,7 +337,7 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function ContactCtrl(http, signaller, meta) {
+        function ContactCtrl(http, signaller, meta, scrollTop) {
             this.http = http;
             this.mail = { email: "", name: "", message: "" };
             meta.defaults();
@@ -358,6 +358,7 @@ var blacktip;
                 }
             });
             signaller();
+            scrollTop();
         }
         /*
         * Sends an email to the modepress admin
@@ -383,7 +384,7 @@ var blacktip;
             });
         };
         // The dependency injector
-        ContactCtrl.$inject = ["$http", "signaller", "meta"];
+        ContactCtrl.$inject = ["$http", "signaller", "meta", "scrollTop"];
         return ContactCtrl;
     })();
     blacktip.ContactCtrl = ContactCtrl;
