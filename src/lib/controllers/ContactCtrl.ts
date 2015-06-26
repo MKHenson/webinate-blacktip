@@ -12,15 +12,22 @@
         private mail: modepress.IMessage;
 
 		// The dependency injector
-		public static $inject = ["$http" ];
+        public static $inject = ["$http", "signaller", "meta" ];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-		constructor( http: ng.IHttpService )
+        constructor(http: ng.IHttpService, signaller: Function, meta: Meta )
 		{
 			this.http = http;
-			this.mail = { email: "", name: "", message : "" };
+            this.mail = { email: "", name: "", message: "" };
+
+            meta.defaults();
+
+            // Create a few specific meta tags
+            meta.title = "Contact Webinate";
+            meta.description = "If you are looking for experienced web development or app development in and around Dublin please send us an email in the contact form below.";
+            meta.brief = meta.description;
 
 			// Create the map object and center it on the premise
 			var geocoder = new google.maps.Geocoder();
@@ -36,7 +43,9 @@
 					map.setCenter(results[0].geometry.location);
 					new google.maps.Marker({ map: map, position: results[0].geometry.location });
 				}
-			});
+            });
+
+            signaller();
 		}
 
 		/*

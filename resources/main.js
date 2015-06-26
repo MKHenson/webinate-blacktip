@@ -1,5 +1,36 @@
 var blacktip;
 (function (blacktip) {
+    /**
+    * A class bound to the meta tags of the site. You can call this object in controllers with the dependency "meta"
+    */
+    var Meta = (function () {
+        /**
+        * Creates an instance of the meta class
+        */
+        function Meta() {
+            this.defaults();
+        }
+        /**
+        * Sets the values to their default state
+        */
+        Meta.prototype.defaults = function () {
+            this.description = "Webinate is a development studio who offer web development, application development, developer hire and gamification. Please contact us at sales@webinate.net";
+            this.title = "Webinate";
+            this.brief = this.description;
+            this.smallImage = _url + "/media/images/logo-home-large.png";
+            this.bigImage = _url + "/media/images/logo-home-large.png";
+            this.author = "Webinate";
+            this.website = "Webinate.net";
+            this.url = this.url || "https://webinate.net";
+            this.twitterAuthor = "@MathewKHenson";
+            this.twitterSite = "@WebinateNet";
+        };
+        return Meta;
+    })();
+    blacktip.Meta = Meta;
+})(blacktip || (blacktip = {}));
+var blacktip;
+(function (blacktip) {
     'use strict';
     /**
     * Configures the application
@@ -11,14 +42,15 @@ var blacktip;
         function Config(routeProvider, stateProvider, $locationProvider) {
             // Creates nice URLs
             $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
             // if the path doesn't match any of the urls you configured
             // 'otherwise' will take care of routing back to the index
             routeProvider.otherwise("/");
             // Create the states
             stateProvider.state("home", { url: "/", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
-            stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html" });
+            stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html", controller: "simpleCtrl" });
             stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
-            stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html" });
+            stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html", controller: "simpleCtrl" });
             // Prior to the blog state loading, make sure the categories are downloaded
             stateProvider.state("blog", {
                 url: "/blog?author&category&tag&index", templateUrl: "templates/blog.html", controller: "blogCtrl", controllerAs: "controller",
@@ -43,16 +75,75 @@ var blacktip;
                             });
                         }]
                 },
-                controller: ["$scope", "post", "$sce", function (scope, post, sce) {
-                        scope.post = post;
-                        scope.post.content = sce.trustAsHtml(post.content);
-                    }]
+                controller: "postCtrl"
             });
         }
         Config.$inject = ["$urlRouterProvider", "$stateProvider", "$locationProvider"];
         return Config;
     })();
     blacktip.Config = Config;
+})(blacktip || (blacktip = {}));
+var blacktip;
+(function (blacktip) {
+    'use strict';
+    /**
+    * Controller for single post pages
+    */
+    var PostCtrl = (function () {
+        /**
+        * Creates an instance of the home controller
+        */
+        function PostCtrl(scope, post, sce, signaller, meta, scrollTop) {
+            meta.title = post.title;
+            meta.bigImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
+            meta.smallImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
+            meta.description = (post.brief && post.brief != "" ? post.brief : "");
+            meta.brief = (post.brief && post.brief != "" ? post.brief : "");
+            // If no brief, then get the text content of the post itself
+            if (meta.brief == "") {
+                var tmp = document.createElement("DIV");
+                tmp.innerHTML = post.content;
+                meta.description = tmp.textContent || tmp.innerText || "";
+                //Trim
+                meta.description = meta.description.replace(/^\s+|\s+$/g, '');
+                // Remove nbsp
+                meta.description = meta.description.replace(new RegExp(String.fromCharCode(160), "g"), " ");
+                // Limit length
+                meta.description = meta.description.substr(0, 155);
+                //This javascript replaces all 3 types of line breaks with a space
+                meta.description = meta.description.replace(/(\r\n|\n|\r)/gm, " ");
+                //Replace all double white spaces with single spaces
+                meta.description = meta.description.replace(/\s+/g, " ");
+                meta.brief = meta.description;
+            }
+            scope.post = post;
+            scope.post.content = sce.trustAsHtml(post.content);
+            scrollTop();
+            signaller();
+        }
+        PostCtrl.$inject = ["$scope", "post", "$sce", "signaller", "meta", "scrollTop"];
+        return PostCtrl;
+    })();
+    blacktip.PostCtrl = PostCtrl;
+})(blacktip || (blacktip = {}));
+var blacktip;
+(function (blacktip) {
+    'use strict';
+    /**
+    * Controller for managing the
+    */
+    var SimpleCtrl = (function () {
+        /**
+        * Creates an instance of the home controller
+        */
+        function SimpleCtrl(signaller, meta) {
+            meta.defaults();
+            signaller();
+        }
+        SimpleCtrl.$inject = ["signaller", "meta"];
+        return SimpleCtrl;
+    })();
+    blacktip.SimpleCtrl = SimpleCtrl;
 })(blacktip || (blacktip = {}));
 var blacktip;
 (function (blacktip) {
@@ -80,10 +171,11 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function BlogCtrl(http, apiURL, stateParams, categories) {
+        function BlogCtrl(http, apiURL, stateParams, categories, signaller, meta) {
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
+            this.signaller = signaller;
             this.limit = 5;
             this.index = parseInt(stateParams.index) || 0;
             this.last = Infinity;
@@ -91,6 +183,9 @@ var blacktip;
             this.category = stateParams.category || "";
             this.tag = stateParams.tag || "";
             this.categories = categories;
+            meta.defaults();
+            meta.description = "Welcome to our blog, where you will find up to date information on what's happening at the webinate studio";
+            meta.brief = meta.description;
             this.getPosts();
         }
         /**
@@ -122,10 +217,11 @@ var blacktip;
             this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",webinate&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
+                that.signaller();
             });
         };
         // The dependency injector
-        BlogCtrl.$inject = ["$http", "apiURL", "$stateParams", "categories"];
+        BlogCtrl.$inject = ["$http", "apiURL", "$stateParams", "categories", "signaller", "meta"];
         return BlogCtrl;
     })();
     blacktip.BlogCtrl = BlogCtrl;
@@ -140,10 +236,13 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function HomeCtrl(scope) {
+        function HomeCtrl(scope, signaller, meta) {
             var that = this;
             this._resizeProxy = this.scaleSlider.bind(this);
             this._slider = null;
+            this._signaller = signaller;
+            // Set the default meta tags
+            meta.defaults();
             scope.$on("$destroy", function () { that.onDestroy(); });
         }
         /**
@@ -220,9 +319,10 @@ var blacktip;
             $(window).bind("load", this._resizeProxy);
             $(window).bind("resize", this._resizeProxy);
             $(window).bind("orientationchange", this._resizeProxy);
+            this._signaller();
         };
         // The dependency injector
-        HomeCtrl.$inject = ["$scope"];
+        HomeCtrl.$inject = ["$scope", "signaller", "meta"];
         return HomeCtrl;
     })();
     blacktip.HomeCtrl = HomeCtrl;
@@ -237,9 +337,14 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function ContactCtrl(http) {
+        function ContactCtrl(http, signaller, meta) {
             this.http = http;
             this.mail = { email: "", name: "", message: "" };
+            meta.defaults();
+            // Create a few specific meta tags
+            meta.title = "Contact Webinate";
+            meta.description = "If you are looking for experienced web development or app development in and around Dublin please send us an email in the contact form below.";
+            meta.brief = meta.description;
             // Create the map object and center it on the premise
             var geocoder = new google.maps.Geocoder();
             var map = new google.maps.Map(jQuery(".map").get(0), {
@@ -252,6 +357,7 @@ var blacktip;
                     new google.maps.Marker({ map: map, position: results[0].geometry.location });
                 }
             });
+            signaller();
         }
         /*
         * Sends an email to the modepress admin
@@ -277,7 +383,7 @@ var blacktip;
             });
         };
         // The dependency injector
-        ContactCtrl.$inject = ["$http"];
+        ContactCtrl.$inject = ["$http", "signaller", "meta"];
         return ContactCtrl;
     })();
     blacktip.ContactCtrl = ContactCtrl;
@@ -288,17 +394,41 @@ var blacktip;
 var blacktip;
 (function (blacktip) {
     'use strict';
-    angular.module("modepress", ["ui.router", 'ngSanitize'])
+    angular.module("blacktip", ["ui.router", 'ngSanitize', 'angular-loading-bar'])
+        .factory("signaller", function () {
+        return function () {
+            setTimeout(function () {
+                window.prerenderReady = true;
+            }, 500);
+        };
+    })
+        .factory("scrollTop", function () {
+        return function () {
+            // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
+            setTimeout(function () {
+                $(".content-outer")[0].scrollTop = 0;
+            }, 50);
+        };
+    })
+        .factory("meta", ["$rootScope", function (rootScope) {
+            return rootScope.meta;
+        }])
         .config(blacktip.Config)
         .run(["$rootScope", "$location", "$window", function ($rootScope, $location, $window) {
+            // Create the meta object
+            $rootScope.meta = new blacktip.Meta();
             // This tells Google analytics to count a new page view on each state change
             $rootScope.$on('$stateChangeSuccess', function (event) {
                 if (!$window.ga)
                     return;
+                // Update meta URL
+                $rootScope.meta.url = $location.absUrl();
                 $window.ga('send', 'pageview', { page: $location.path() });
             });
         }])
         .constant("apiURL", "./api")
+        .controller("simpleCtrl", blacktip.SimpleCtrl)
+        .controller("postCtrl", blacktip.PostCtrl)
         .controller("footerCtrl", blacktip.FooterCtrl)
         .controller("homeCtrl", blacktip.HomeCtrl)
         .controller("blogCtrl", blacktip.BlogCtrl)
@@ -309,7 +439,10 @@ var blacktip;
 /// <reference path="lib/definitions/angular-ui-router.d.ts" />
 /// <reference path="lib/definitions/jssor.d.ts" />
 /// <reference path="lib/definitions/modepress.d.ts" />
+/// <reference path="lib/Meta.ts" />
 /// <reference path="lib/Config.ts" />
+/// <reference path="lib/controllers/PostCtrl.ts" />
+/// <reference path="lib/controllers/SimpleCtrl.ts" />
 /// <reference path="lib/controllers/FooterCtrl.ts" />
 /// <reference path="lib/controllers/BlogCtrl.ts" />
 /// <reference path="lib/controllers/HomeCtrl.ts" />

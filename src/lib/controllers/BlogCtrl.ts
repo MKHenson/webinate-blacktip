@@ -12,6 +12,7 @@
         public posts: Array<modepress.IPost>;
         public categories: Array<modepress.ICategory>;
         public apiURL: string;
+        private signaller: Function;
 
         public author: string;
         public category: string;
@@ -21,16 +22,17 @@
         public last: number;
 
 		// The dependency injector
-        public static $inject = ["$http", "apiURL", "$stateParams", "categories" ];
+        public static $inject = ["$http", "apiURL", "$stateParams", "categories", "signaller", "meta" ];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, categories: Array<modepress.ICategory>)
+        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, categories: Array<modepress.ICategory>, signaller: Function, meta: Meta)
 		{
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
+            this.signaller = signaller;
 
             this.limit = 5;
             this.index = parseInt(stateParams.index) || 0;
@@ -40,6 +42,11 @@
             this.category = stateParams.category || "";
             this.tag = stateParams.tag || "";
             this.categories = categories;
+
+            meta.defaults();
+            meta.description = "Welcome to our blog, where you will find up to date information on what's happening at the webinate studio";
+            meta.brief = meta.description;
+
             this.getPosts();
         }
 
@@ -81,6 +88,8 @@
             {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
+
+                that.signaller();
             });
         }
 	}

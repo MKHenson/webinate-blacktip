@@ -4,6 +4,7 @@
     {
         _id?: any;
         author?: string;
+        brief?: string;
         title?: string;
         slug?: string;
         content?: string;

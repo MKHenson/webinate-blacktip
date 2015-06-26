@@ -9,18 +9,23 @@
     {
         private _resizeProxy: any;
         private _slider: $JssorSlider$;
+        private _signaller: Function;
 
         // The dependency injector
-        public static $inject = ["$scope"];
+        public static $inject = ["$scope", "signaller", "meta"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(scope: ng.IScope)
+        constructor(scope: ng.IScope, signaller: Function, meta: Meta)
         {
             var that = this;
             this._resizeProxy = this.scaleSlider.bind(this);
             this._slider = null;
+            this._signaller = signaller;
+
+            // Set the default meta tags
+            meta.defaults();
 
             scope.$on("$destroy", function() { that.onDestroy(); });
         }
@@ -113,6 +118,8 @@
             $(window).bind("load", this._resizeProxy);
             $(window).bind("resize", this._resizeProxy);
             $(window).bind("orientationchange", this._resizeProxy);
+
+            this._signaller();
 		}
 	}
 }

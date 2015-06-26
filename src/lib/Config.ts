@@ -16,6 +16,7 @@
         {
             // Creates nice URLs
             $locationProvider.html5Mode(true);
+            $locationProvider.hashPrefix('!');
 
             // if the path doesn't match any of the urls you configured
             // 'otherwise' will take care of routing back to the index
@@ -23,9 +24,9 @@
 
             // Create the states
             stateProvider.state("home", { url: "/", templateUrl: "templates/home.html", controller: "homeCtrl", controllerAs: "controller" });
-            stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html" });
+            stateProvider.state("about", { url: "/about", templateUrl: "templates/about.html", controller: "simpleCtrl" });
             stateProvider.state("contact", { url: "/contact", templateUrl: "templates/contact.html", controller: "contactCtrl", controllerAs: "controller" });
-            stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html" });
+            stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html", controller: "simpleCtrl" });
 
             // Prior to the blog state loading, make sure the categories are downloaded
             stateProvider.state("blog", {
@@ -57,11 +58,7 @@
                         });
                     }]
                 },
-                controller: ["$scope", "post", "$sce", function (scope: any, post: modepress.IPost, sce: ng.ISCEService)
-                {
-                    scope.post = post;
-                    scope.post.content = sce.trustAsHtml(post.content);
-                }]
+                controller: "postCtrl"
             });           
         }
 	}

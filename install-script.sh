@@ -34,6 +34,6 @@ fi
 rm "v$(version).zip"
 
 # All done
-echo "Blacktip successfully installed :)"
+echo "Blacktip $(version) successfully installed :)"
 exit
 } # this ensures the entire script is downloaded #
