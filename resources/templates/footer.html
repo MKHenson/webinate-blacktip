@@ -12,8 +12,8 @@
 </div>
 <div class="footer-column">
     <div class="footer-header"><a ui-sref="blog" ui-sref-active="active">Blog</a></div>
-    <div class="footer-item" ng-repeat="post in posts">
-        <a ng-href="./post/{{post.slug}}">{{post.title}}</a>
+    <div class="footer-item" data-ng-repeat="post in posts">
+        <a data-ng-href="./post/{{post.slug}}">{{post.title}}</a>
     </div>
 </div>
 <div class="footer-column" style="width:200px;">

@@ -1,10 +1,10 @@
 doctype html
-html(lang="en", ng-app="blacktip")
+html(lang="en", data-ng-app="blacktip")
 	head
 		meta(charset="utf-8")
 		meta(name="viewport", content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, initial-scale=1.0")
 		meta(name="fragment", content="!")
-		title(ng-bind="meta.title")
+		title(data-ng-bind="meta.title")
 		meta(name="description", content="{{meta.description}}")
 		meta(name="twitter:card", content="{{meta.description}}")
 		meta(name="twitter:site", content="{{meta.twitterSite}}")
@@ -46,9 +46,9 @@ html(lang="en", ng-app="blacktip")
 
 	body
 		div(class="container")
-			div(class="nav-outer", ng-include="'templates/nav.html'")
+			div(class="nav-outer", data-ng-include="'templates/nav.html'")
 			div(class="content-outer")
 				div(class="content", ui-view, autoscroll='true')
 					img(src="/admin/media/images/loader.gif")
 				div(class="fix")
-				div(class="footer", ng-include="'templates/footer.html'", ng-controller="footerCtrl as controller")
+				div(class="footer", data-ng-include="'templates/footer.html'", data-ng-controller="footerCtrl as controller")

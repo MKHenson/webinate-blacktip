@@ -45,14 +45,14 @@
 	<div class="contact-form">
 		<h1>Drop Us A Message</h1>
 		<form name="mailForm" novalidate id="contact-form">
-			<input class="small-input" name="iName" ng-class="{error: (mailForm.$submitted || mailForm.iName.$touched) && mailForm.iName.$error.required}" type="text" ng-model="controller.mail.name" required="" placeholder="Your Name" />
-			<input class="small-input" name="iEmail" ng-class="{error: (mailForm.$submitted || mailForm.iEmail.$touched) && mailForm.iEmail.$error.required}" type="email" ng-model="controller.mail.email" required="" placeholder="Your Email" />
-			<input class="small-input" name="iPhone" type="number" ng-model="controller.mail.phone" placeholder="Your Phone Number" />
-			<input class="small-input" name="iSite" type="text" ng-model="controller.mail.website" placeholder="Your Website" />
-			<textarea class="big-input" name="iMessage" ng-class="{error: (mailForm.$submitted || mailForm.iMessage.$touched) && (mailForm.iMessage.$error.required || mailForm.iMessage.$error.minlength)}" cols="50" ng-model="controller.mail.message" required="" rows="6" ng-minlength="5" placeholder="Enter Message"></textarea>
-			<input type="submit" class="button success blue" value="Send Message" ng-click="(mailForm.$valid && controller.sendMessage())" />
-			<div ng-show="mailForm.$submitted">
-				<div class="error" ng-show="mailForm.$invalid">Please check your details</div>
+			<input class="small-input" name="iName" data-ng-class="{error: (mailForm.$submitted || mailForm.iName.$touched) && mailForm.iName.$error.required}" type="text" data-ng-model="controller.mail.name" required="" placeholder="Your Name" />
+			<input class="small-input" name="iEmail" data-ng-class="{error: (mailForm.$submitted || mailForm.iEmail.$touched) && mailForm.iEmail.$error.required}" type="email" data-ng-model="controller.mail.email" required="" placeholder="Your Email" />
+			<input class="small-input" name="iPhone" type="number" data-ng-model="controller.mail.phone" placeholder="Your Phone Number" />
+			<input class="small-input" name="iSite" type="text" data-ng-model="controller.mail.website" placeholder="Your Website" />
+			<textarea class="big-input" name="iMessage" data-ng-class="{error: (mailForm.$submitted || mailForm.iMessage.$touched) && (mailForm.iMessage.$error.required || mailForm.iMessage.$error.minlength)}" cols="50" data-ng-model="controller.mail.message" required="" rows="6" data-ng-minlength="5" placeholder="Enter Message"></textarea>
+			<input type="submit" class="button success blue" value="Send Message" data-ng-click="(mailForm.$valid && controller.sendMessage())" />
+			<div data-ng-show="mailForm.$submitted">
+				<div class="error" data-ng-show="mailForm.$invalid">Please check your details</div>
 			</div>
 			<div class="success" style="display:none;"></div>
 		</form>
