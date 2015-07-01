@@ -36,7 +36,7 @@
             this.signaller = signaller;
             this.scrollTop = scrollTop;
 
-            this.limit = 1;
+            this.limit = 12;
             this.index = parseInt(stateParams.index) || 0;
             this.last = 1;
 
@@ -48,8 +48,6 @@
             meta.defaults();
             meta.description = "Welcome to our blog, where you will find up to date information on what's happening at the webinate studio";
             meta.brief = meta.description;
-
-            //this.getPosts();
         }
 
         /**
