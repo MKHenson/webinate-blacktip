@@ -13,6 +13,7 @@
         public categories: Array<modepress.ICategory>;
         public apiURL: string;
         private signaller: Function;
+        private scrollTop: Function;
 
         public author: string;
         public category: string;
@@ -22,17 +23,18 @@
         public last: number;
 
 		// The dependency injector
-        public static $inject = ["$http", "apiURL", "$stateParams", "categories", "signaller", "meta" ];
+        public static $inject = ["$http", "apiURL", "$stateParams", "categories", "signaller", "meta", "scrollTop" ];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, categories: Array<modepress.ICategory>, signaller: Function, meta: Meta)
+        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, categories: Array<modepress.ICategory>, signaller: Function, meta: Meta, scrollTop: Function)
 		{
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
             this.signaller = signaller;
+            this.scrollTop = scrollTop;
 
             this.limit = 5;
             this.index = parseInt(stateParams.index) || 0;
@@ -89,7 +91,8 @@
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
 
-                that.signaller();
+                that.scrollTop();
+                that.signaller();               
             });
         }
 	}

@@ -136,11 +136,12 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function SimpleCtrl(signaller, meta) {
+        function SimpleCtrl(signaller, meta, scrollTop) {
             meta.defaults();
+            scrollTop();
             signaller();
         }
-        SimpleCtrl.$inject = ["signaller", "meta"];
+        SimpleCtrl.$inject = ["signaller", "meta", "scrollTop"];
         return SimpleCtrl;
     })();
     blacktip.SimpleCtrl = SimpleCtrl;
@@ -171,11 +172,12 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function BlogCtrl(http, apiURL, stateParams, categories, signaller, meta) {
+        function BlogCtrl(http, apiURL, stateParams, categories, signaller, meta, scrollTop) {
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
             this.signaller = signaller;
+            this.scrollTop = scrollTop;
             this.limit = 5;
             this.index = parseInt(stateParams.index) || 0;
             this.last = Infinity;
@@ -217,11 +219,12 @@ var blacktip;
             this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",webinate&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
+                that.scrollTop();
                 that.signaller();
             });
         };
         // The dependency injector
-        BlogCtrl.$inject = ["$http", "apiURL", "$stateParams", "categories", "signaller", "meta"];
+        BlogCtrl.$inject = ["$http", "apiURL", "$stateParams", "categories", "signaller", "meta", "scrollTop"];
         return BlogCtrl;
     })();
     blacktip.BlogCtrl = BlogCtrl;
@@ -236,13 +239,14 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function HomeCtrl(scope, signaller, meta) {
+        function HomeCtrl(scope, signaller, meta, scrollTop) {
             var that = this;
             this._resizeProxy = this.scaleSlider.bind(this);
             this._slider = null;
             this._signaller = signaller;
             // Set the default meta tags
             meta.defaults();
+            scrollTop();
             scope.$on("$destroy", function () { that.onDestroy(); });
         }
         /**
@@ -322,7 +326,7 @@ var blacktip;
             this._signaller();
         };
         // The dependency injector
-        HomeCtrl.$inject = ["$scope", "signaller", "meta"];
+        HomeCtrl.$inject = ["$scope", "signaller", "meta", "scrollTop"];
         return HomeCtrl;
     })();
     blacktip.HomeCtrl = HomeCtrl;
@@ -357,8 +361,8 @@ var blacktip;
                     new google.maps.Marker({ map: map, position: results[0].geometry.location });
                 }
             });
-            signaller();
             scrollTop();
+            signaller();
         }
         /*
         * Sends an email to the modepress admin
@@ -407,7 +411,7 @@ var blacktip;
         return function () {
             // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
             setTimeout(function () {
-                $(".content-outer")[0].scrollTop = 0;
+                window.scrollTo(0, 0);
             }, 50);
         };
     })
@@ -418,10 +422,15 @@ var blacktip;
         .run(["$rootScope", "$location", "$window", function ($rootScope, $location, $window) {
             // Create the meta object
             $rootScope.meta = new blacktip.Meta();
+            var state = "home";
+            $rootScope.getCurrentState = function () {
+                return ["state-" + state];
+            };
             // This tells Google analytics to count a new page view on each state change
-            $rootScope.$on('$stateChangeSuccess', function (event) {
+            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
                 if (!$window.ga)
                     return;
+                state = toState.name;
                 // Update meta URL
                 $rootScope.meta.url = $location.absUrl();
                 $window.ga('send', 'pageview', { page: $location.path() });

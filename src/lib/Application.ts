@@ -1,11 +1,16 @@
 ﻿declare var _url: string;
 
+
+
+
 /**
  * The main entry point of the application
  */
 module blacktip
 {
     'use strict';
+
+    
 
     angular.module("blacktip", ["ui.router", 'ngSanitize', 'angular-loading-bar'])
         .factory("signaller", function () 
@@ -24,7 +29,7 @@ module blacktip
                 // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
                 setTimeout(function ()
                 {
-                    $(".content-outer")[0].scrollTop = 0;
+                    window.scrollTo(0,0);
 
                 }, 50);
             }
@@ -39,11 +44,19 @@ module blacktip
             // Create the meta object
             $rootScope.meta = new Meta();
 
+            var state: string = "home";
+            $rootScope.getCurrentState = function ()
+            {
+                return  ["state-" + state];
+            }
+
             // This tells Google analytics to count a new page view on each state change
-            $rootScope.$on('$stateChangeSuccess', function (event) 
+            $rootScope.$on('$stateChangeSuccess', function (event, toState) 
             {
                 if (!(<any>$window).ga)
                     return;
+
+                state = toState.name;
 
                 // Update meta URL
                 (<Meta>$rootScope.meta).url = $location.absUrl();

@@ -12,12 +12,12 @@
         private _signaller: Function;
 
         // The dependency injector
-        public static $inject = ["$scope", "signaller", "meta"];
+        public static $inject = ["$scope", "signaller", "meta", "scrollTop"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(scope: ng.IScope, signaller: Function, meta: Meta)
+        constructor(scope: ng.IScope, signaller: Function, meta: Meta, scrollTop: Function)
         {
             var that = this;
             this._resizeProxy = this.scaleSlider.bind(this);
@@ -26,6 +26,7 @@
 
             // Set the default meta tags
             meta.defaults();
+            scrollTop();
 
             scope.$on("$destroy", function() { that.onDestroy(); });
         }
