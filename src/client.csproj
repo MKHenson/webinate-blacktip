@@ -37,6 +37,9 @@
     <Content Include="..\resources\templates\about.html">
       <Link>html\templates\about.html</Link>
     </Content>
+    <Content Include="..\resources\templates\blog-posts.html">
+      <Link>html\templates\blog-posts.html</Link>
+    </Content>
     <Content Include="..\resources\templates\blog.html">
       <Link>html\templates\blog.html</Link>
     </Content>
@@ -63,6 +66,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="lib\controllers\BlogSubCtrl.ts" />
     <TypeScriptCompile Include="lib\controllers\ContactCtrl.ts" />
     <TypeScriptCompile Include="lib\controllers\BlogCtrl.ts" />
     <TypeScriptCompile Include="lib\controllers\FooterCtrl.ts" />

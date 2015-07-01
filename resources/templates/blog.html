@@ -4,37 +4,18 @@
         <div class="blog-intro">
             <div class="categories">
                 <span data-ng-repeat="category in controller.categories">
-                    <a data-ng-href="./blog?category={{category.slug}}">{{category.title}}</a>{{$last != false ? "" : ", "}}
+                    <a data-ui-sref="blog.posts({category:category.slug})">{{category.title}}</a>{{$last != false ? "" : ", "}}
                 </span>
             </div>
             <div class="fix"></div>
         </div>
         
-
-		<div class="blog-item" data-ng-repeat="post in controller.posts">
-			<div class="featured-image" data-ng-style="controller.getBlogImageURL(post)">
-                <a data-ng-href="./post/{{post.slug}}"><div class="pic-filler"></div></a>
-                <div class="blackener">                    
-                    <div class="blog-header"><a data-ng-href="./post/{{post.slug}}">{{post.title}}</a></div>
-                    <div class="categories">
-                        In 
-                        <span data-ng-repeat="category in post.categories">
-                            <a data-ng-href="./blog?category={{category}}">{{category}}</a>{{$last == false ? "," : ""}}
-                        </span>
-                        
-                    </div>
-                    <div class="author">Posted by <a data-ng-href="./blog?author={{post.author}}">{{post.author}}</a></div>
-                    <div class="date">{{post.createdOn | date:"dd MMMM yyyy"}}</div>
-                    <div class="fix"></div>
-                </div>
-            </div>
-           
-		</div>
+		<div ui-view class="loading-blue"></div>
 		<div class="fix"></div>
 
-        <div class="navigation">
-            <a class="earlier" data-ng-show="controller.index" data-ng-href="./blog?index={{controller.index > controller.limit ? controller.index - controller.limit : 0 }}">< Earlier Posts</a>
-            <a class="older" data-ng-show="controller.index + controller.limit < controller.last" data-ng-href="./blog?index={{controller.index + controller.limit}}">Older Posts ></a>
+		<div class="navigation">
+            <a class="earlier" data-ng-if="controller.index" data-ui-sref="blog.posts({ index: controller.index > controller.limit ? controller.index - controller.limit : 0 })">< Earlier Posts</a>
+            <a class="older" data-ng-if="controller.index + controller.limit < controller.last" data-ui-sref="blog.posts({ index:controller.index + controller.limit})">Older Posts ></a>
             <div class="fix"></div>
         </div>
 	</div>

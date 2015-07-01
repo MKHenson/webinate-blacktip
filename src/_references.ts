@@ -10,6 +10,7 @@
 /// <reference path="lib/controllers/SimpleCtrl.ts" />
 /// <reference path="lib/controllers/FooterCtrl.ts" />
 /// <reference path="lib/controllers/BlogCtrl.ts" />
+/// <reference path="lib/controllers/BlogSubCtrl.ts" />
 /// <reference path="lib/controllers/HomeCtrl.ts" />
 /// <reference path="lib/controllers/ContactCtrl.ts" />
 

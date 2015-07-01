@@ -69,6 +69,7 @@ module blacktip
         .controller("postCtrl", PostCtrl)
         .controller("footerCtrl", FooterCtrl)
         .controller("homeCtrl", HomeCtrl)
+        .controller("blogSubCtrl", BlogSubCtrl)
         .controller("blogCtrl", BlogCtrl)
         .controller("contactCtrl", ContactCtrl)
 }

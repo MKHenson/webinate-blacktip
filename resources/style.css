@@ -746,6 +746,12 @@ input:focus {
     max-width: 100%;
     height: auto;
 }
+.loading-blue, .loading-white {
+    min-height:400px;
+    background-position:center;
+    background-repeat:no-repeat;
+    
+}
 /**
 ======================================================
 				CSS MODULE DEFINITIONS
@@ -754,6 +760,12 @@ Please only put css rules in here for generalized modules.
 
 	eg: classes for highlighting text on certain pages
 **/
+.loading-white:empty {
+    background-image: url("media/images/loading-white.gif");
+}
+.loading-blue:empty {
+    background-image: url("media/images/loading-blue.gif");
+}
 a {
     color: #325D98;
     text-decoration: none;

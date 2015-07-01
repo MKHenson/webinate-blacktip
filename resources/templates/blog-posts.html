@@ -1,0 +1,18 @@
+<div class="blog-item" data-ng-repeat="post in controller.posts">
+	<div class="featured-image" data-ng-style="controller.getBlogImageURL(post)">
+        <a data-ng-href="./post/{{post.slug}}"><div class="pic-filler"></div></a>
+        <div class="blackener">                    
+            <div class="blog-header"><a data-ng-href="./post/{{post.slug}}">{{post.title}}</a></div>
+            <div class="categories">
+                In 
+                <span data-ng-repeat="category in post.categories">
+                    <a data-ui-sref="blog.posts({category:category})">{{category}}</a>{{$last == false ? "," : ""}}
+                </span>
+                        
+            </div>
+            <div class="author">Posted by <a data-ui-sref="blog.posts({author:post.author})">{{post.author}}</a></div>
+            <div class="date">{{post.createdOn | date:"dd MMMM yyyy"}}</div>
+            <div class="fix"></div>
+        </div>
+    </div>
+</div>

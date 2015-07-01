@@ -30,7 +30,7 @@
 
             // Prior to the blog state loading, make sure the categories are downloaded
             stateProvider.state("blog", {
-                url: "/blog?author&category&tag&index", templateUrl: "templates/blog.html", controller: "blogCtrl", controllerAs: "controller",
+                url: "/blog", templateUrl: "templates/blog.html", controller: "blogCtrl", controllerAs: "controller", abstract: true,
                 resolve: {
                     categories: ["$http", "apiURL", function ($http: ng.IHttpService, apiURL: string)
                     {
@@ -41,6 +41,8 @@
                     }]
                 }
             });
+
+            stateProvider.state("blog.posts", { url: "?author&category&tag&index", templateUrl: "templates/blog-posts.html", controller: "blogSubCtrl", controllerAs: "subController" });
 
             // Download the post prior to loading this state
             // then assign the post to the scope

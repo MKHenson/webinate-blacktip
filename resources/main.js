@@ -53,7 +53,7 @@ var blacktip;
             stateProvider.state("projects", { url: "/projects", templateUrl: "templates/projects.html", controller: "simpleCtrl" });
             // Prior to the blog state loading, make sure the categories are downloaded
             stateProvider.state("blog", {
-                url: "/blog?author&category&tag&index", templateUrl: "templates/blog.html", controller: "blogCtrl", controllerAs: "controller",
+                url: "/blog", templateUrl: "templates/blog.html", controller: "blogCtrl", controllerAs: "controller", abstract: true,
                 resolve: {
                     categories: ["$http", "apiURL", function ($http, apiURL) {
                             return $http.get(apiURL + "/posts/get-categories").then(function (categories) {
@@ -62,6 +62,7 @@ var blacktip;
                         }]
                 }
             });
+            stateProvider.state("blog.posts", { url: "?author&category&tag&index", templateUrl: "templates/blog-posts.html", controller: "blogSubCtrl", controllerAs: "subController" });
             // Download the post prior to loading this state
             // then assign the post to the scope
             stateProvider.state("post", {
@@ -178,9 +179,9 @@ var blacktip;
             this.apiURL = apiURL;
             this.signaller = signaller;
             this.scrollTop = scrollTop;
-            this.limit = 5;
+            this.limit = 1;
             this.index = parseInt(stateParams.index) || 0;
-            this.last = Infinity;
+            this.last = 1;
             this.author = stateParams.author || "";
             this.category = stateParams.category || "";
             this.tag = stateParams.tag || "";
@@ -188,7 +189,7 @@ var blacktip;
             meta.defaults();
             meta.description = "Welcome to our blog, where you will find up to date information on what's happening at the webinate studio";
             meta.brief = meta.description;
-            this.getPosts();
+            //this.getPosts();
         }
         /**
         * Sets the page search back to index = 0
@@ -216,7 +217,8 @@ var blacktip;
         };
         BlogCtrl.prototype.getPosts = function () {
             var that = this;
-            this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + ",webinate&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
+            that.posts = [];
+            this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + "&rtags=webinate&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
                 that.scrollTop();
@@ -228,6 +230,29 @@ var blacktip;
         return BlogCtrl;
     })();
     blacktip.BlogCtrl = BlogCtrl;
+})(blacktip || (blacktip = {}));
+var blacktip;
+(function (blacktip) {
+    'use strict';
+    /**
+    * Controller for managing the
+    */
+    var BlogSubCtrl = (function () {
+        /**
+        * Creates an instance of the home controller
+        */
+        function BlogSubCtrl(scope, stateParams) {
+            scope.controller.index = parseInt(stateParams.index) || 0;
+            scope.controller.author = stateParams.author || "";
+            scope.controller.category = stateParams.category || "";
+            scope.controller.tag = stateParams.tag || "";
+            scope.controller.selectedTag = scope.controller.tag;
+            scope.controller.getPosts();
+        }
+        BlogSubCtrl.$inject = ["$scope", "$stateParams"];
+        return BlogSubCtrl;
+    })();
+    blacktip.BlogSubCtrl = BlogSubCtrl;
 })(blacktip || (blacktip = {}));
 var blacktip;
 (function (blacktip) {
@@ -441,6 +466,7 @@ var blacktip;
         .controller("postCtrl", blacktip.PostCtrl)
         .controller("footerCtrl", blacktip.FooterCtrl)
         .controller("homeCtrl", blacktip.HomeCtrl)
+        .controller("blogSubCtrl", blacktip.BlogSubCtrl)
         .controller("blogCtrl", blacktip.BlogCtrl)
         .controller("contactCtrl", blacktip.ContactCtrl);
 })(blacktip || (blacktip = {}));
@@ -455,6 +481,7 @@ var blacktip;
 /// <reference path="lib/controllers/SimpleCtrl.ts" />
 /// <reference path="lib/controllers/FooterCtrl.ts" />
 /// <reference path="lib/controllers/BlogCtrl.ts" />
+/// <reference path="lib/controllers/BlogSubCtrl.ts" />
 /// <reference path="lib/controllers/HomeCtrl.ts" />
 /// <reference path="lib/controllers/ContactCtrl.ts" />
 /// <reference path="lib/Application.ts" /> 

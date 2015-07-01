@@ -36,9 +36,9 @@
             this.signaller = signaller;
             this.scrollTop = scrollTop;
 
-            this.limit = 5;
+            this.limit = 1;
             this.index = parseInt(stateParams.index) || 0;
-            this.last = Infinity;
+            this.last = 1;
 
             this.author = stateParams.author || "";
             this.category = stateParams.category || "";
@@ -49,7 +49,7 @@
             meta.description = "Welcome to our blog, where you will find up to date information on what's happening at the webinate studio";
             meta.brief = meta.description;
 
-            this.getPosts();
+            //this.getPosts();
         }
 
         /**
@@ -69,6 +69,7 @@
             this.index -= this.limit;
             if (this.index < 0)
                 this.index = 0;
+
             this.getPosts();
         }
 
@@ -86,7 +87,8 @@
         getPosts()
         {
             var that = this;
-            this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=public&tags=${that.tag},webinate&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}&minimal=true`).then(function (posts)
+            that.posts = [];
+            this.http.get<modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=public&tags=${that.tag}&rtags=webinate&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}&minimal=true`).then(function (posts)
             {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
