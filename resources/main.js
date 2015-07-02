@@ -436,7 +436,7 @@ var blacktip;
             // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
             setTimeout(function () {
                 window.scrollTo(0, 0);
-            }, 50);
+            }, 150);
         };
     })
         .factory("meta", ["$rootScope", function (rootScope) {

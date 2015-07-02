@@ -31,7 +31,7 @@ module blacktip
                 {
                     window.scrollTo(0,0);
 
-                }, 50);
+                }, 150);
             }
         })
         .factory("meta", ["$rootScope", function (rootScope) 

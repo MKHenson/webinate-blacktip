@@ -25,8 +25,8 @@
     <Content Include="..\resources\animate.css">
       <Link>html\animate.css</Link>
     </Content>
-    <Content Include="..\resources\robots.txt">
-      <Link>html\robots.txt</Link>
+    <Content Include="..\resources\sitemap.xml">
+      <Link>html\sitemap.xml</Link>
     </Content>
     <Content Include="..\resources\style-jssor.css">
       <Link>html\style-jssor.css</Link>
