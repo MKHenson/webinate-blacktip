@@ -22,18 +22,6 @@ module blacktip
                 }, 500);
             }
         })
-        .factory("scrollTop", function () 
-        {
-            return function ()
-            {
-                // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
-                setTimeout(function ()
-                {
-                    window.scrollTo(0,0);
-
-                }, 150);
-            }
-        })
         .factory("meta", ["$rootScope", function (rootScope) 
         {
             return rootScope.meta;
@@ -62,6 +50,8 @@ module blacktip
                 (<Meta>$rootScope.meta).url = $location.absUrl();
 
                 (<any>$window).ga('send', 'pageview', { page: $location.path() });
+
+                window.scrollTo(0, 0);
             });
         }])
         .constant("apiURL", "./api")

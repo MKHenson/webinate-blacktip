@@ -7,15 +7,14 @@
     */
     export class SimpleCtrl
     {
-        public static $inject = ["signaller", "meta", "scrollTop"];
+        public static $inject = ["signaller", "meta"];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(signaller: any, meta: Meta, scrollTop: Function)
+        constructor(signaller: any, meta: Meta)
         {
             meta.defaults();
-            scrollTop();
             signaller();
         }
     }

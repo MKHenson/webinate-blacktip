@@ -12,12 +12,12 @@
         private mail: modepress.IMessage;
 
 		// The dependency injector
-        public static $inject = ["$http", "signaller", "meta", "scrollTop" ];
+        public static $inject = ["$http", "signaller", "meta" ];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, signaller: Function, meta: Meta, scrollTop: Function )
+        constructor(http: ng.IHttpService, signaller: Function, meta: Meta )
 		{
 			this.http = http;
             this.mail = { email: "", name: "", message: "" };
@@ -44,8 +44,7 @@
 					new google.maps.Marker({ map: map, position: results[0].geometry.location });
 				}
             });
-
-            scrollTop();
+            
             signaller();           
 		}
 

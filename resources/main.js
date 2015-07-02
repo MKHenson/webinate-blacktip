@@ -94,7 +94,7 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function PostCtrl(scope, post, sce, signaller, meta, scrollTop) {
+        function PostCtrl(scope, post, sce, signaller, meta) {
             meta.title = post.title;
             meta.bigImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
             meta.smallImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
@@ -119,10 +119,9 @@ var blacktip;
             }
             scope.post = post;
             scope.post.content = sce.trustAsHtml(post.content);
-            scrollTop();
             signaller();
         }
-        PostCtrl.$inject = ["$scope", "post", "$sce", "signaller", "meta", "scrollTop"];
+        PostCtrl.$inject = ["$scope", "post", "$sce", "signaller", "meta"];
         return PostCtrl;
     })();
     blacktip.PostCtrl = PostCtrl;
@@ -137,12 +136,11 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function SimpleCtrl(signaller, meta, scrollTop) {
+        function SimpleCtrl(signaller, meta) {
             meta.defaults();
-            scrollTop();
             signaller();
         }
-        SimpleCtrl.$inject = ["signaller", "meta", "scrollTop"];
+        SimpleCtrl.$inject = ["signaller", "meta"];
         return SimpleCtrl;
     })();
     blacktip.SimpleCtrl = SimpleCtrl;
@@ -173,12 +171,11 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function BlogCtrl(http, apiURL, stateParams, categories, signaller, meta, scrollTop) {
+        function BlogCtrl(http, apiURL, stateParams, categories, signaller, meta) {
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
             this.signaller = signaller;
-            this.scrollTop = scrollTop;
             this.limit = 12;
             this.index = parseInt(stateParams.index) || 0;
             this.last = 1;
@@ -220,12 +217,11 @@ var blacktip;
             this.http.get(this.apiURL + "/posts/get-posts?visibility=public&tags=" + that.tag + "&rtags=webinate&index=" + that.index + "&limit=" + that.limit + "&author=" + that.author + "&categories=" + that.category + "&minimal=true").then(function (posts) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
-                that.scrollTop();
                 that.signaller();
             });
         };
         // The dependency injector
-        BlogCtrl.$inject = ["$http", "apiURL", "$stateParams", "categories", "signaller", "meta", "scrollTop"];
+        BlogCtrl.$inject = ["$http", "apiURL", "$stateParams", "categories", "signaller", "meta"];
         return BlogCtrl;
     })();
     blacktip.BlogCtrl = BlogCtrl;
@@ -263,14 +259,13 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function HomeCtrl(scope, signaller, meta, scrollTop) {
+        function HomeCtrl(scope, signaller, meta) {
             var that = this;
             this._resizeProxy = this.scaleSlider.bind(this);
             this._slider = null;
             this._signaller = signaller;
             // Set the default meta tags
             meta.defaults();
-            scrollTop();
             scope.$on("$destroy", function () { that.onDestroy(); });
         }
         /**
@@ -350,7 +345,7 @@ var blacktip;
             this._signaller();
         };
         // The dependency injector
-        HomeCtrl.$inject = ["$scope", "signaller", "meta", "scrollTop"];
+        HomeCtrl.$inject = ["$scope", "signaller", "meta"];
         return HomeCtrl;
     })();
     blacktip.HomeCtrl = HomeCtrl;
@@ -365,7 +360,7 @@ var blacktip;
         /**
         * Creates an instance of the home controller
         */
-        function ContactCtrl(http, signaller, meta, scrollTop) {
+        function ContactCtrl(http, signaller, meta) {
             this.http = http;
             this.mail = { email: "", name: "", message: "" };
             meta.defaults();
@@ -385,7 +380,6 @@ var blacktip;
                     new google.maps.Marker({ map: map, position: results[0].geometry.location });
                 }
             });
-            scrollTop();
             signaller();
         }
         /*
@@ -412,7 +406,7 @@ var blacktip;
             });
         };
         // The dependency injector
-        ContactCtrl.$inject = ["$http", "signaller", "meta", "scrollTop"];
+        ContactCtrl.$inject = ["$http", "signaller", "meta"];
         return ContactCtrl;
     })();
     blacktip.ContactCtrl = ContactCtrl;
@@ -429,14 +423,6 @@ var blacktip;
             setTimeout(function () {
                 window.prerenderReady = true;
             }, 500);
-        };
-    })
-        .factory("scrollTop", function () {
-        return function () {
-            // Scroll div to top after page is rendered - not even sure why it keeps scrolling down :/
-            setTimeout(function () {
-                window.scrollTo(0, 0);
-            }, 150);
         };
     })
         .factory("meta", ["$rootScope", function (rootScope) {
@@ -458,6 +444,7 @@ var blacktip;
                 // Update meta URL
                 $rootScope.meta.url = $location.absUrl();
                 $window.ga('send', 'pageview', { page: $location.path() });
+                window.scrollTo(0, 0);
             });
         }])
         .constant("apiURL", "./api")
