@@ -59,7 +59,8 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
-            geocoder.geocode({ 'address': "57 The Headlands, Bray, Ireland" }, function (results, status)
+            geocoder.geocode({
+                'address': "Suite 203, I.a.d.t. Media Cube, Kill Ave, Dublin" }, function (results, status)
             {
                 if (status == google.maps.GeocoderStatus.OK)
                 {
