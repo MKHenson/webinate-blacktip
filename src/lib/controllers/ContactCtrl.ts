@@ -44,7 +44,7 @@
         lazyLoadGoogleMap()
         {
             var that = this;
-            var script = $.getScript("http://maps.google.com/maps/api/js?sensor=true&callback=blacktip.ContactCtrl.initMap");
+            var script = $.getScript("https://maps.google.com/maps/api/js?sensor=true&callback=blacktip.ContactCtrl.initMap");
         }
 
         /**
