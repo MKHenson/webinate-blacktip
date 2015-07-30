@@ -363,11 +363,29 @@ var blacktip;
         function ContactCtrl(http, signaller, meta) {
             this.http = http;
             this.mail = { email: "", name: "", message: "" };
+            ContactCtrl.signaller = signaller;
             meta.defaults();
             // Create a few specific meta tags
             meta.title = "Contact Webinate";
             meta.description = "If you are looking for experienced web development or app development in and around Dublin please send us an email in the contact form below.";
             meta.brief = meta.description;
+            // Check if maps was already loaded
+            if (window.google && google.maps)
+                ContactCtrl.initMap();
+            else
+                this.lazyLoadGoogleMap();
+        }
+        /**
+        * Dynamically loads google maps instead of it being added in the header
+        */
+        ContactCtrl.prototype.lazyLoadGoogleMap = function () {
+            var that = this;
+            var script = $.getScript("http://maps.google.com/maps/api/js?sensor=true&callback=blacktip.ContactCtrl.initMap");
+        };
+        /**
+        * Initializes the map once its ready
+        */
+        ContactCtrl.initMap = function () {
             // Create the map object and center it on the premise
             var geocoder = new google.maps.Geocoder();
             var map = new google.maps.Map(jQuery(".map").get(0), {
@@ -380,8 +398,9 @@ var blacktip;
                     new google.maps.Marker({ map: map, position: results[0].geometry.location });
                 }
             });
-            signaller();
-        }
+            ContactCtrl.signaller();
+            ContactCtrl.signaller = null;
+        };
         /*
         * Sends an email to the modepress admin
         */
