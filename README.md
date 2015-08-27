@@ -4,7 +4,7 @@ Blacktip is built in Angular and relies on [ModePress](https://github.com/MKHens
 to provide some its backend content. 
 
 ## Current stable version
-* Version v0.0.19
+* Version v0.0.20
 
 ## Requirements
 * MongoDB v3

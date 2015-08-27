@@ -10,8 +10,9 @@
 		// An array of todo items
 		private http: ng.IHttpService;
         private mail: modepress.IMessage;
-
-		// The dependency injector
+        private static signaller: Function;
+        
+        // The dependency injector
         public static $inject = ["$http", "signaller", "meta" ];
 
 		/**
@@ -21,6 +22,7 @@
 		{
 			this.http = http;
             this.mail = { email: "", name: "", message: "" };
+            ContactCtrl.signaller = signaller;
 
             meta.defaults();
 
@@ -29,24 +31,47 @@
             meta.description = "If you are looking for experienced web development or app development in and around Dublin please send us an email in the contact form below.";
             meta.brief = meta.description;
 
-			// Create the map object and center it on the premise
-			var geocoder = new google.maps.Geocoder();
-			var map = new google.maps.Map( jQuery(".map").get(0), {
-				zoom: 10,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
-			});
+            // Check if maps was already loaded
+            if ((<any>window).google && google.maps)
+                ContactCtrl.initMap();
+            else
+                this.lazyLoadGoogleMap();
+        }
 
-			geocoder.geocode({ 'address': "57 The Headlands, Bray, Ireland" }, function (results, status)
-			{
-				if (status == google.maps.GeocoderStatus.OK)
-				{
-					map.setCenter(results[0].geometry.location);
-					new google.maps.Marker({ map: map, position: results[0].geometry.location });
-				}
+        /**
+        * Dynamically loads google maps instead of it being added in the header
+        */
+        lazyLoadGoogleMap()
+        {
+            var that = this;
+            var script = $.getScript("https://maps.google.com/maps/api/js?sensor=true&callback=blacktip.ContactCtrl.initMap");
+        }
+
+        /**
+        * Initializes the map once its ready
+        */
+        static initMap()
+        {
+            // Create the map object and center it on the premise
+            var geocoder = new google.maps.Geocoder();
+            var map = new google.maps.Map(jQuery(".map").get(0), {
+                zoom: 10,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-            
-            signaller();           
-		}
+
+            geocoder.geocode({
+                'address': "Suite 203, I.a.d.t. Media Cube, Kill Ave, Dublin" }, function (results, status)
+            {
+                if (status == google.maps.GeocoderStatus.OK)
+                {
+                    map.setCenter(results[0].geometry.location);
+                    new google.maps.Marker({ map: map, position: results[0].geometry.location });
+                }
+            });
+
+            ContactCtrl.signaller();
+            ContactCtrl.signaller = null;
+        }
 
 		/*
 		* Sends an email to the modepress admin
