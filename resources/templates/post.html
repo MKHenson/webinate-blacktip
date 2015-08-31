@@ -1,25 +1,25 @@
-<div class="post">
+<div class="post" itemscope itemtype="http://schema.org/Blog">
     <div data-ng-if="post.error" class="post-content error">
         <div class="header">{{post.message}}</div>
     </div>
     <div data-ng-if="!post.error" class="post-content">
-        <div class="header">{{post.title}}</div>
-        <div class="date">{{post.createdOn | date:"dd MMMM yyyy"}}</div>
+        <div class="header" itemprop="name">{{post.title}}</div>
+        <div class="date" itemprop="dateCreated">{{post.createdOn | date:"dd MMMM yyyy"}}</div>
         <div class="post-body" data-ng-bind-html="post.content"></div>
         
-        <div class="categories">
+        <div class="categories" itemprop="keywords">
             {{ post.categories.length > 0 ? "Posted in" : "" }}
             <span data-ng-repeat="category in post.categories">
                 <a data-ng-href="./blog?category={{category}}">{{category}}</a>{{$last == false ? "," : ""}}
             </span>
         </div>
-        <div class="tags">
+        <div class="tags" itemprop="keywords">
             {{ post.tags.length > 0 ? "Tagged in " : "" }}
             <span data-ng-repeat="tag in post.tags">
                 <a data-ng-href="./blog?tag={{tag}}">{{tag}}</a> {{$last == false ? ", " : ""}}
             </span>
         </div>
-        <div class="author">Posted by <a data-ng-href="./blog?author={{post.author}}">{{post.author}}</a></div>
+        <div class="author" itemprop="creator" itemscope itemtype="http://schema.org/Person">Posted by <a data-ng-href="./blog?author={{post.author}}">{{post.author}}</a></div>
     </div>
 	<div class="fix"></div>
 </div>
