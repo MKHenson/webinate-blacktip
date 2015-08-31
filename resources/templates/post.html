@@ -19,7 +19,7 @@
                 <a data-ng-href="./blog?tag={{tag}}">{{tag}}</a> {{$last == false ? ", " : ""}}
             </span>
         </div>
-        <div class="author" itemprop="creator" itemscope itemtype="http://schema.org/Person">Posted by <a data-ng-href="./blog?author={{post.author}}">{{post.author}}</a></div>
+        <div class="author" itemprop="creator" itemscope itemtype="http://schema.org/Person">Posted by <a data-ng-href="./blog?author={{post.author}}"><span itemprop="name">{{post.author}}</span></a></div>
     </div>
 	<div class="fix"></div>
 </div>
