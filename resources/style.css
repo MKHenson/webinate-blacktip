@@ -522,6 +522,10 @@ a .nav-item {
 	width: 400px;
 	display:inline-block;
 }
+.team .more {
+    margin: 50px 120px;
+    line-height: 50px;
+}
 .team .desc {
 	line-height: 40px;
 	padding: 0 30px;
@@ -917,7 +921,7 @@ a .nav-item{
 .about {
 	background: url('/media/images/about-city.jpg');
 	background-size: cover;
-	padding: 120px 80px;
+	padding: 1.9in 80px;
 	color: #fff;
 	font-size: 35px;
 	line-height: 55px;
@@ -941,6 +945,7 @@ a .nav-item{
 }
 .about-philo-img img{
   width: 100%;
+  max-width: 600px;
 }
 .our-philosophy-content {
 	padding: 0 100px 180px 100px;
@@ -1188,7 +1193,7 @@ input.ng-touched.ng-invalid {
 .caption-1 {
 	left:100px;
 	top:80px;
-	width:410px;
+	width:430px;
 	background:rgba(0,0,0,0.5);
 	padding:10px;
 }
@@ -1255,10 +1260,10 @@ input.ng-touched.ng-invalid {
 	height: 400px;
 }
 #slides .caption-4-img-2{
-	left: 650px;
-	top: -30px;
-	width: 344px;
-	height: 400px;
+	left: 560px;
+	top: 15px;
+	width: 350px;
+	height: 350px;
 }
 
 
