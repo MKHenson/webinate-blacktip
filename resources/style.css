@@ -457,7 +457,7 @@ Please only put css rules in here for layout related requirements.
 }
 .statement img {
     position:absolute;
-    left:calc(100% - 400px);
+    left:calc(100% - 350px);
     top:0px;
     z-index:1;
 }
