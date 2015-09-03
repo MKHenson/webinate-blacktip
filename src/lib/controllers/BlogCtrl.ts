@@ -44,7 +44,7 @@
             this.categories = categories;
 
             meta.defaults();
-            meta.description = "Welcome to our blog, where you will find up to date information on what's happening at the webinate studio";
+            meta.description = "Webinate app and mobile apps development blog - here you will find up to date information on what's happening at the webinate studio";
             meta.brief = meta.description;
         }
 

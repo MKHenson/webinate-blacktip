@@ -1,4 +1,6 @@
-﻿/**
+﻿@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+/**
 ======================================================
 			CSS BASE DEFINITIONS
 ======================================================
@@ -21,7 +23,6 @@ html {
   -ms-text-size-adjust: 100%; /* 2 */
   -webkit-text-size-adjust: 100%; /* 2 */
 }
-
 body {
   margin: 0;
 }
@@ -375,7 +376,7 @@ Please only put css rules in here for layout related requirements.
   position: relative;
   overflow:hidden;
   min-height: 100px;
-  padding: 40px 0 80px 0;
+  padding: 80px 0;
 }
 .carousel-info {
   position: absolute;
@@ -440,6 +441,18 @@ Please only put css rules in here for layout related requirements.
 .who-we-are img {
 	height:100%;
 }
+.statement {
+    text-align: center;
+    font-size: 55px;
+    padding: 20px 0;
+    position:relative;
+}
+.statement img {
+    position:absolute;
+    left:calc(100% - 400px);
+    top:0px;
+    z-index:1;
+}
 .slider-monitor, .contact-us .map {
 	margin: 0 auto;
 	width: 80%;
@@ -456,11 +469,11 @@ Please only put css rules in here for layout related requirements.
 }
 .what-people-say {
 	padding: 90px 10%;
-	text-align: right;
+	text-align: center;
 	margin: 90px 0 0 0;
 }
 .person-profile, .they-say { 
-	float:left;
+	display:inline-block;
 
 }
 .person-profile { 
@@ -469,7 +482,7 @@ Please only put css rules in here for layout related requirements.
 	margin: 0 50px;
 }
 .they-say { 
-	width: 65%;
+	width: 50%;
 	padding-right: 20px;
 	box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -477,6 +490,7 @@ Please only put css rules in here for layout related requirements.
 }
 .who-said-it {
 	margin: 30px 0 0 0;
+    text-align:right;
 }
 .container {
 	overflow: hidden;
@@ -792,6 +806,11 @@ a:hover {
 .what-we-do, .service-title {
 	color:#666;
 }
+.statement {
+    font-family: 'Indie Flower', cursive;
+    border-top: 9px solid #C8DFF5;
+    border-bottom: 9px solid #C8DFF5;
+}
 .footer-column a:hover, .carousel-info {
 	color:#fff;
 }
@@ -1003,6 +1022,9 @@ input.ng-touched.ng-invalid {
 	.they-say { 
 		width: 60%;
 	}
+    .statement {
+        font-size: 30px;
+    }
 }
 @media screen and (max-width:961px) {  
 	.slide-1-text { font-size:35px; }
@@ -1059,6 +1081,7 @@ input.ng-touched.ng-invalid {
         float: left;
         display:block;
     }
+    
 }
 @media screen and (max-width:655px) {
     .post {

@@ -28,7 +28,7 @@
 
             // Create a few specific meta tags
             meta.title = "Contact Webinate";
-            meta.description = "If you are looking for experienced web development or app development in and around Dublin please send us an email in the contact form below.";
+            meta.description = "Experienced web developers for web and mobile app development based in Dublin. Contact us through at sales@webinate.net for more information";
             meta.brief = meta.description;
 
             // Check if maps was already loaded

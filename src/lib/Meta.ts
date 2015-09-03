@@ -29,7 +29,7 @@
         */
         defaults()
         {
-            this.description = "Webinate is a development studio who offer web development, application development, developer hire and gamification. Please contact us at sales@webinate.net";
+            this.description = "Offering web and mobile app design and development, with an experienced team located in Dublin. Full cycle development and developers for hire. Contact us at sales@webinate.net";
             this.title = "Webinate"
             this.brief = this.description;
             this.smallImage = _url + "/media/images/logo-home-large.png";
