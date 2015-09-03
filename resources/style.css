@@ -276,6 +276,13 @@ button[disabled], html input[disabled] {
     -moz-box-sizing: border-box;
 	box-sizing: content-box;
 }
+.animated {
+	 -webkit-transition: all 0.65s ease;                  
+    -moz-transition: all 0.65s ease;                 
+    -o-transition: all 0.65s ease;   
+    -ms-transition: all 0.65s ease;          
+    transition: all 0.65s ease;
+}
 
 /**
 ======================================================
@@ -304,6 +311,7 @@ Please only put css rules in here for layout related requirements.
     -moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
 .nav-items a {
 	display: inline-block;
 	 -webkit-transition: all 0.65s ease;                  
@@ -1017,6 +1025,10 @@ input.ng-touched.ng-invalid {
 **/
 @media screen and (max-width:1200px) {
 	.slide-1-text { font-size:45px; }
+    .statement img {
+        left: calc(100% - 220px);
+        width: 300px;
+    }
 }
 @media screen and (max-width:1100px) { 
 	.they-say { 
@@ -1025,6 +1037,7 @@ input.ng-touched.ng-invalid {
     .statement {
         font-size: 30px;
     }
+    
 }
 @media screen and (max-width:961px) {  
 	.slide-1-text { font-size:35px; }
@@ -1081,7 +1094,10 @@ input.ng-touched.ng-invalid {
         float: left;
         display:block;
     }
-    
+    .statement img {
+        left: calc(100% - 220px);
+        width: 250px;
+    }
 }
 @media screen and (max-width:655px) {
     .post {
@@ -1143,6 +1159,11 @@ input.ng-touched.ng-invalid {
     .blackener .date {
         float:none;
     }
+     .statement img {
+        left: calc(100% - 150px);
+        top:20px;
+        width: 200px;
+    }
 }
  /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
 @media screen and (max-width:540px) { 
@@ -1173,6 +1194,11 @@ input.ng-touched.ng-invalid {
 		margin: 0 0 30px 0;
 		padding: 0;
 	}
+     .statement img {
+        left: calc(100% - 150px);
+        top:30px;
+        width: 200px;
+    }
 }
 @media screen and (max-width:410px) {
     .nav-outer {
