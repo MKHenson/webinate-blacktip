@@ -725,6 +725,9 @@ input:focus {
     width: 30%;
 	margin: 0 1.5% 10% 1.5%;
 }
+.blog-header {
+	min-height: 60px;
+}
 .blog-item {
     width: 33.333%;
     padding: 20px;
