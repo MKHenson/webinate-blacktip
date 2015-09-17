@@ -245,6 +245,7 @@ th {
 	padding:10px;
 	border-radius:5px;
     border:none;
+    display:inline-block;
 }
 input {
 	outline:none;
@@ -470,36 +471,56 @@ Please only put css rules in here for layout related requirements.
 }
 .service-desc {
 	padding: 0 10%;
+    min-height: 70px;
 }
 .company-service {
 	float:left;
-	width:33.33333333%;
+	width:33.3333333%;
+    box-sizing: border-box;
 	text-align:center;
 	padding: 40px 0 0 0;
 }
+.company-service .button {
+    margin-bottom:30px;
+}
+.company-service:nth-child(3) {
+    border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
+}
 .what-people-say {
-	padding: 90px 10%;
-	text-align: center;
+	padding: 90px 20% 20px 20%;
 	margin: 90px 0 0 0;
 }
+.what-people-say .section {
+    margin:0 0 70px 0;
+}
 .person-profile, .they-say { 
-	display:inline-block;
-
+	float:left;
+}
+.alternate .person-profile {
+    float: right;
+}
+.alternate .they-say {
+    text-align: left;
+}
+.alternate .who-said-it {
+    text-align: left;
 }
 .person-profile { 
 }
 .person-profile img{
-	margin: 0 50px;
+	margin: 0 50px 0 0;
+}
+.alternate .person-profile img{
+	margin: 0 0 0 50px;
 }
 .they-say { 
-	width: 50%;
-	padding-right: 20px;
-	box-sizing: border-box;
-    -moz-box-sizing: border-box;
 	line-height:40px;
+    float:none;
+    text-align:right;
 }
 .who-said-it {
-	margin: 30px 0 0 0;
+	margin: 10px 0 0 0;
     text-align:right;
 }
 .container {
@@ -547,7 +568,7 @@ a .nav-item {
 	display:inline-block;
 }
 .team .more {
-    margin: 50px 120px;
+    margin: 50px 186px;
     line-height: 50px;
 }
 .team .desc {
@@ -977,11 +998,11 @@ a .nav-item{
 }
 .about-philo-img img{
   width: 100%;
-  max-width: 600px;
+  max-width: 485px;
 }
 .our-philosophy-content {
-	padding: 0 100px 180px 100px;
-	line-height: 40px;
+	padding: 0 10% 140px 15%;
+	line-height: 50px;
 	text-align: left;
 }
 
@@ -1028,16 +1049,23 @@ input.ng-touched.ng-invalid {
 				MEDIA QUERIES
 ======================================================
 **/
+@media screen and (max-width:1670px) {
+    .service-desc {
+        min-height:90px;
+    }
+}
 @media screen and (max-width:1200px) {
 	.slide-1-text { font-size:45px; }
     .statement img {
         left: calc(100% - 220px);
         width: 300px;
     }
+    .service-desc {
+        min-height:120px;
+    }
 }
 @media screen and (max-width:1100px) { 
 	.they-say { 
-		width: 60%;
 	}
     .statement {
         font-size: 30px;
@@ -1050,28 +1078,27 @@ input.ng-touched.ng-invalid {
 		width: 100%;
 		padding: 50px 0 0 0;
 	}
-	.they-say {
-		width: inherit;
-		padding: 20px 20px;
-		text-align: center;
-	}
+    .company-service:nth-child(3) {
+         border:none;
+    }
+    .service-desc {
+        min-height: initial;
+        margin-bottom:20px;
+    }
 	.what-people-say {
 		margin: 50px 0 0 0;
-		padding: 50px 0;
-	}
-	.person-profile {
-		float: none;
-		margin: 0 auto;
-		width: 150px;
+		padding: 50px 50px;
 	}
 	.person-profile img {
-		width: 100%;
-		margin: 0;
+        margin: 0 20px 0 0;
+	}
+    .alternate .person-profile img {
+        margin: 0 0 0 20px ;
 	}
 	.company {
 		width: 80%;
 		max-width:415px;
-		padding-top: 70px;
+		padding-top: 40px;
 	}
 	.team h1, .our-philosophy h1 {
 		padding: 60px 0;
@@ -1103,16 +1130,32 @@ input.ng-touched.ng-invalid {
         left: calc(100% - 220px);
         width: 250px;
     }
+    .team .more {
+        margin: 50px 80px;
+    }
 }
 @media screen and (max-width:655px) {
+   .person-profile, .they-say, .alternate .person-profile {
+		float:none;
+        text-align: center;
+	}
+    .person-profile img, .alternate .person-profile img {
+        margin: 0 0 20px 0;
+    }
+    .they-say, .who-said-it, .alternate .they-say, .alternate .who-said-it {
+        text-align:center;
+    }
     .post {
         text-align:center;
     }
     .nav-outer {
         height: 100px;
     }
+    .what-we-do-cloud-1 {
+        top:30px;
+    }
     .content-outer {
-        border-top:solid 100px #fff;
+        border-top:solid 0px #fff;
     }
     .post-content {
         padding:15px;
@@ -1131,6 +1174,9 @@ input.ng-touched.ng-invalid {
 	.team {
 		padding: 40px 0;
 	}
+    .team .more {
+        margin: 50px 20px;
+    }
 	.nav-items .active img {
 		display:none;
 	}
@@ -1205,7 +1251,7 @@ input.ng-touched.ng-invalid {
         width: 200px;
     }
 }
-@media screen and (max-width:410px) {
+@media screen and (max-width:435px) {
     .nav-outer {
         height: 170px;
     }
@@ -1213,10 +1259,13 @@ input.ng-touched.ng-invalid {
         height: 120px;
     }
     .content-outer {
-        border-top: solid 170px #fff;
+        border-top: solid 90px #fff;
     }
     .state-home .content-outer {
-        border-top: solid 120px #fff;
+        border-top: solid 20px #fff;
+    }
+    .contact-form {
+        padding: 40px 30px 60px 30px;
     }
 }
 /* smartphones, iPhone, portrait 480x320 phones */ 
