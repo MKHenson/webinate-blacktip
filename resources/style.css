@@ -606,9 +606,10 @@ a .nav-item {
 .contact-clouds a:hover {
     border:none;
 }
-.contact-form h1 {
+.contact-form h2 {
 	text-align:center;
 	margin: 40px 0 80px 0;
+    font-size:40px;
 }
 .contact-form {
   padding: 40px 80px 60px 80px;
@@ -837,6 +838,16 @@ a:hover {
     color: rgb(7, 111, 194);
     text-decoration:none;
 }
+.blog-header h3 {
+    display: inline-block;
+    margin:0;
+    font-size: inherit;
+}
+.blogs h1 {
+    font-weight:lighter;
+    margin:50px 0;
+    text-align:center;
+}
 .what-we-do, .service-title {
 	color:#666;
 }
@@ -980,16 +991,20 @@ a .nav-item{
 	line-height: 55px;
 	text-align:center;
 }
+.about h1 {
+    color:inherit;
+    margin: 0 0 100px 0;
+    font-weight: lighter;
+}
+.our-philosophy h2, .team h2 {
+    text-align: center;
+    padding: 80px 0 80px 0;
+    margin: 0;
+    font-size: 50px;
+    font-weight: lighter;
+}
 .team, .gallery {
 	background:#eee;
-}
-.our-philosophy {
-	
-}
-.team h1, .our-philosophy h1 {
-	text-align:center;
-	padding: 80px 0 80px 0;
-	margin: 0;
 }
 .about-philo-img {
 	float: right;
