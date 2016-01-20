@@ -1,9 +1,9 @@
-<div class="post" itemscope itemtype="http://schema.org/Blog">
+<article class="post" itemscope itemtype="http://schema.org/Blog">
     <div data-ng-if="post.error" class="post-content error">
         <div class="header">{{post.message}}</div>
     </div>
     <div data-ng-if="!post.error" class="post-content">
-        <div class="header" itemprop="name">{{post.title}}</div>
+        <h1 class="header" itemprop="name">{{post.title}}</h1>
         <div class="date" itemprop="dateCreated">{{post.createdOn | date:"dd MMMM yyyy"}}</div>
         <div class="post-body" data-ng-bind-html="post.content"></div>
         
@@ -22,4 +22,4 @@
         <div class="author" itemprop="creator" itemscope itemtype="http://schema.org/Person">Posted by <a data-ng-href="./blog?author={{post.author}}"><span itemprop="name">{{post.author}}</span></a></div>
     </div>
 	<div class="fix"></div>
-</div>
+</article>
