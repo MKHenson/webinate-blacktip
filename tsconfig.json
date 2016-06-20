@@ -1,0 +1,28 @@
+{
+  "compilerOptions": {
+    "module": "amd",
+    "removeComments": false,
+    "noEmitOnError": true,
+    "declaration": false,
+    "sourceMap": false,
+    "preserveConstEnums": true,
+    "target": "es5",
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "outFile": "./dist/main.js",
+    "noImplicitAny" : false
+  },
+  "files": [
+        "src/_references.d.ts",
+        "src/Meta.ts",
+        "src/Config.ts",
+        "src/controllers/PostCtrl.ts",
+        "src/controllers/SimpleCtrl.ts",
+        "src/controllers/FooterCtrl.ts",
+        "src/controllers/BlogCtrl.ts",
+        "src/controllers/BlogSubCtrl.ts",
+        "src/controllers/HomeCtrl.ts",
+        "src/controllers/ContactCtrl.ts",
+        "src/Application.ts"
+  ]
+}
