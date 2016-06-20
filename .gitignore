@@ -24,6 +24,8 @@ bld/
 third-party/
 src/temp-css
 
+changes.md
+
 # Visual Studo 2015 cache/options directory
 .vs/
 
