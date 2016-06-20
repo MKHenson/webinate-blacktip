@@ -14,15 +14,15 @@
   },
   "files": [
         "src/_references.d.ts",
-        "src/Meta.ts",
-        "src/Config.ts",
-        "src/controllers/PostCtrl.ts",
-        "src/controllers/SimpleCtrl.ts",
-        "src/controllers/FooterCtrl.ts",
-        "src/controllers/BlogCtrl.ts",
-        "src/controllers/BlogSubCtrl.ts",
-        "src/controllers/HomeCtrl.ts",
-        "src/controllers/ContactCtrl.ts",
-        "src/Application.ts"
+        "src/meta.ts",
+        "src/config.ts",
+        "src/controllers/post-ctrl.ts",
+        "src/controllers/simple-ctrl.ts",
+        "src/controllers/footer-ctrl.ts",
+        "src/controllers/blog-ctrl.ts",
+        "src/controllers/blog-sub-ctrl.ts",
+        "src/controllers/home-ctrl.ts",
+        "src/controllers/contact-ctrl.ts",
+        "src/application.ts"
   ]
 }
