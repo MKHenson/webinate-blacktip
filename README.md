@@ -1,16 +1,16 @@
 # Webinate Blacktip
-Webinate 'Blacktip' is a codename of the theme designed for the webinate 2015 site. 
-Blacktip is built in Angular and relies on [ModePress](https://github.com/MKHenson/modepress) 
-to provide some its backend content. 
+Webinate 'Blacktip' is a codename of the theme designed for the webinate 2015 site.
+Blacktip is built in Angular and relies on [ModePress](https://github.com/MKHenson/modepress)
+to provide some its backend content.
 
 ## Current stable version
-* Version v0.0.26
+* Version v0.1.0
 
 ## Requirements
 * MongoDB v3
 * Node 0.0.12
-* [Webinate-Users](https://github.com/MKHenson/webinate-users) 
-* [ModePress](https://github.com/MKHenson/modepress) 
+* [Webinate-Users](https://github.com/MKHenson/webinate-users)
+* [ModePress](https://github.com/MKHenson/modepress)
 * **Tested Ubuntu v14**
 
 ## Installation
@@ -50,7 +50,7 @@ curl -o- https://raw.githubusercontent.com/MKHenson/webinate-blacktip/dev/instal
 E.g.
 "staticFilesFolder": ["/blacktip/resources"]
 ```
-* Also change the "templatePath" and “index”
+* Also change the "templatePath" and ï¿½indexï¿½
 ```
 "templatePath": "/blacktip/templates"
 "index": "index"
