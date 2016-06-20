@@ -415,12 +415,12 @@ Please only put css rules in here for layout related requirements.
 	left: -180px;
 }
 .what-we-do-cloud-1, .what-we-do-cloud-2 {
-	background-image:url("media/images/cloud-1.png");
+	background-image:url('../media/images/cloud-1.png');
 	width:143px;
 	height:46px;
 }
 .what-we-do-cloud-4 {
-	background-image: url("media/images/cloud-2.png");
+	background-image: url('../media/images/cloud-2.png');
 	width: 149px;
 	height: 41px;
 }
@@ -815,10 +815,10 @@ Please only put css rules in here for generalized modules.
 	eg: classes for highlighting text on certain pages
 **/
 .loading-white:empty {
-    background-image: url("media/images/loading-white.gif");
+    background-image: url('../media/images/loading-white.gif');
 }
 .loading-blue:empty {
-    background-image: url("media/images/loading-blue.gif");
+    background-image: url('../media/images/loading-blue.gif');
 }
 a {
     color: #325D98;
@@ -925,7 +925,7 @@ a .nav-item{
 	background: #DEECFA;
 }
 .contact-us .header, .what-we-do {
-	background-image: url("media/images/dublin-vector.png");
+	background-image: url('../media/images/dublin-vector.png');
 }
 .service-desc, .service-title {
 	font-size:22px;
@@ -986,7 +986,7 @@ a .nav-item{
 	animation:fadeInUp 3.5s linear 0s;
 }
 .about {
-	background: url('/media/images/about-city.jpg');
+	background: url('../media/images/about-city.jpg');
 	background-size: cover;
 	padding: 1.9in 80px;
 	color: #fff;
