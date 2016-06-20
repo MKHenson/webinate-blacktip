@@ -10,15 +10,9 @@ echo "Downloading latest version from github dev"
 wget https://github.com/MKHenson/webinate-blacktip/archive/dev.zip
 unzip -o "dev.zip"
 
-# If directories are not present, then create them
-if [ ! -d "resources" ]; then
-	mkdir resources
-	mkdir templates
-fi
 
 # Moves the server folder to the current directory
-cp -r webinate-blacktip-dev/resources/* ./resources
-cp -r webinate-blacktip-dev/templates/* ./templates
+cp -r webinate-blacktip-dev/* ./
 
 # Remove modepress temp folder
 if [ -d "webinate-blacktip-dev" ]; then
@@ -29,6 +23,7 @@ fi
 rm "dev.zip"
 
 # All done
-echo "Blacktip successfully installed :)"
+echo "Blacktip $(version) successfully downloaded"
+echo "Please run 'npm install' to complete installation"
 exit
 } # this ensures the entire script is downloaded #
