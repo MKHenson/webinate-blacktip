@@ -8,7 +8,7 @@ to provide some its backend content.
 
 ## Requirements
 * MongoDB v3
-* Node 0.0.12
+* Node 6.2
 * [Webinate-Users](https://github.com/MKHenson/webinate-users)
 * [ModePress](https://github.com/MKHenson/modepress)
 * **Tested Ubuntu v14**
@@ -42,19 +42,46 @@ OR if you want the dev build
 curl -o- https://raw.githubusercontent.com/MKHenson/webinate-blacktip/dev/install-script-dev.sh | bash
 ```
 
-5) Add the "resources" folder as a static folder to the modepress config.json - "staticFilesFolder"
+5) Install the build dependencies
+
+    npm install
+
+6) Build the project
+
+```
+gulp install
+gulp build-all
+```
+
+Once this is complete, the built project will reside in the dist folder
+
+7) (Optional) Add the "dist" folder as a new target for Modepress
 
 * Open the config file for modepress /modepress/config.json
-* In the "staticFilesFolder" section, add a new array item which is the path of the new site
+* Create a new server block in the servers property
 ```
-E.g.
-"staticFilesFolder": ["/blacktip/resources"]
+{
+    "host": "webinate.net",
+    "portHTTP": 8001,
+    "ssl": false,
+    "staticFilesFolder": ["YOUR DIST FOLDER PATH (MUST BE ABSOLUTE VALUE)"],
+    "approvedDomains": ["webinate-test\\.net"],
+    "controllers": [
+        { "path" : "./controllers/page-renderer.js" },
+        { "path" : "./controllers/emails-controller.js" },
+        { "path" : "./controllers/posts-controller.js" },
+        { "path" : "./controllers/comments-controller.js" }
+    ],
+    "paths": [
+    {
+        "name": "default",
+        "path": "*",
+        "index": "YOUR DIST FOLDER PATH (MUST BE ABSOLUTE VALUE)/index.jade",
+        "plugins": []
+    }]
+}
 ```
-* Also change the "templatePath" and �index�
-```
-"templatePath": "/blacktip/templates"
-"index": "index"
-```
+
 
 ## Third Party Credits
 Blacktip makes use of the following third party libraries
