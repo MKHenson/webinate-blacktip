@@ -34,7 +34,7 @@
                 resolve: {
                     categories: ["$http", "apiURL", function ($http: ng.IHttpService, apiURL: string)
                     {
-                        return $http.get<Modepress.IGetCategories>(`${apiURL}/posts/get-categories`).then(function (categories)
+                        return $http.get<Modepress.IGetCategories>(`${apiURL}/categories`).then(function (categories)
                         {
                             return categories.data.data;
                         });
@@ -51,7 +51,7 @@
                 resolve: {
                     post: ["$http", "apiURL", "$stateParams", function ($http: ng.IHttpService, apiURL: string, stateParams)
                     {
-                        return $http.get<Modepress.IGetPost>(`${apiURL}/posts/get-post/${stateParams.slug}`).then(function (posts)
+                        return $http.get<Modepress.IGetPost>(`${apiURL}/posts/slug/${stateParams.slug}`).then(function (posts)
                         {
                             if (posts.data.error)
                                 return posts.data;

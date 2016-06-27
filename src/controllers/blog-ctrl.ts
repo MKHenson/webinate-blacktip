@@ -84,7 +84,7 @@
         {
             var that = this;
             that.posts = [];
-            this.http.get<Modepress.IGetPosts>(`${this.apiURL}/posts/get-posts?visibility=public&tags=${that.tag}&rtags=webinate&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}&minimal=true`).then(function (posts)
+            this.http.get<Modepress.IGetPosts>(`${this.apiURL}/posts?visibility=public&tags=${that.tag}&rtags=webinate&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}&minimal=true`).then(function (posts)
             {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
