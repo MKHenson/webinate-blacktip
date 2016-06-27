@@ -415,14 +415,10 @@ Please only put css rules in here for layout related requirements.
 	left: -180px;
 }
 .what-we-do-cloud-1, .what-we-do-cloud-2 {
-	background-image:url('../media/images/cloud-1.png');
-	width:143px;
-	height:46px;
+	@include sprite($cloud-1);
 }
 .what-we-do-cloud-4 {
-	background-image: url('../media/images/cloud-2.png');
-	width: 149px;
-	height: 41px;
+	@include sprite($cloud-2);
 }
 .what-we-do-cloud-1 {
 	top:0px;
@@ -461,7 +457,7 @@ Please only put css rules in here for layout related requirements.
     padding: 20px 0;
     position:relative;
 }
-.statement img {
+.statement .sp-pointer {
     position:absolute;
     left:calc(100% - 350px);
     top:0px;
@@ -814,6 +810,69 @@ Please only put css rules in here for generalized modules.
 
 	eg: classes for highlighting text on certain pages
 **/
+
+.sp-contact-us-fb{
+	@include sprite($contact-us-fb, inline-block);
+	&:hover {
+		@include sprite($contact-us-fb-over, inline-block);
+	}
+}
+.sp-contact-us-twitter{
+	@include sprite($contact-us-twitter, inline-block);
+	&:hover {
+		@include sprite($contact-us-twitter-over, inline-block);
+	}
+}
+.sp-contact-us-gplus{
+	@include sprite($contact-us-gplus, inline-block);
+	&:hover {
+		@include sprite($contact-us-gplus-over, inline-block);
+	}
+}
+.sp-contact-us-youtube{
+	@include sprite($contact-us-youtube, inline-block);
+	&:hover {
+		@include sprite($contact-us-youtube-over, inline-block);
+	}
+}
+.sp-location{
+	@include sprite($location, inline-block);
+}
+.sp-phone-2{
+	@include sprite($phone-2, inline-block);
+}
+.sp-email-2{
+	@include sprite($email-2, inline-block);
+}
+.sp-footer-twitter{
+	@include sprite($footer-twitter, inline-block);
+}
+.sp-footer-fb{
+	@include sprite($footer-fb, inline-block);
+}
+.sp-footer-gplus{
+	@include sprite($footer-gplus, inline-block);
+}
+.sp-footer-youtube{
+	@include sprite($footer-youtube, inline-block);
+}
+.sp-logo-home-small{
+	@include sprite($logo-home-small, inline-block);
+}
+
+.sp-service-html{
+	@include sprite($service-html, inline-block);
+}
+.sp-service-application-development{
+	@include sprite($service-application-development, inline-block);
+}
+.sp-service-gamification{
+	@include sprite($service-gamification, inline-block);
+}
+.sp-pointer{
+	@include sprite($pointer, inline-block);
+}
+
 .loading-white:empty {
     background-image: url('../media/images/loading-white.gif');
 }
@@ -1074,7 +1133,7 @@ input.ng-touched.ng-invalid {
 }
 @media screen and (max-width:1200px) {
 	.slide-1-text { font-size:45px; }
-    .statement img {
+    .statement .sp-pointer {
         left: calc(100% - 220px);
         width: 300px;
     }
@@ -1144,7 +1203,7 @@ input.ng-touched.ng-invalid {
         float: left;
         display:block;
     }
-    .statement img {
+    .statement .sp-pointer {
         left: calc(100% - 220px);
         width: 250px;
     }
@@ -1228,7 +1287,7 @@ input.ng-touched.ng-invalid {
     .blackener .date {
         float:none;
     }
-     .statement img {
+     .statement .sp-pointer {
         left: calc(100% - 150px);
         top:20px;
         width: 200px;
@@ -1263,7 +1322,7 @@ input.ng-touched.ng-invalid {
 		margin: 0 0 30px 0;
 		padding: 0;
 	}
-     .statement img {
+     .statement .sp-pointer {
         left: calc(100% - 150px);
         top:30px;
         width: 200px;
