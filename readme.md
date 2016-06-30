@@ -53,6 +53,14 @@ gulp install
 gulp build-all
 ```
 
+Note: To build a release version, replace the build-all with build-all-release
+
+```
+gulp install
+gulp build-all-release
+```
+The release version is a lot smaller.
+
 Once this is complete, the built project will reside in the dist folder
 
 7) (Optional) Add the "dist" folder as a new target for Modepress

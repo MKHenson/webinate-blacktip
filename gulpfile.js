@@ -25,6 +25,29 @@ var rename = require('gulp-rename');
 var outDir = "./dist";
 var tsConfig = JSON.parse(fs.readFileSync('tsconfig.json'));
 var tsFiles = tsConfig.files;
+var tsConfigGulp = {
+    "module": tsConfig.compilerOptions.module,
+    "removeComments": tsConfig.compilerOptions.removeComments,
+    "noEmitOnError": tsConfig.compilerOptions.noEmitOnError,
+    "declaration": tsConfig.compilerOptions.declaration,
+    "sourceMap": tsConfig.compilerOptions.sourceMap,
+    "preserveConstEnums": tsConfig.compilerOptions.preserveConstEnums,
+    "target": tsConfig.compilerOptions.target,
+    "noImplicitAny": tsConfig.compilerOptions.noImplicitAny,
+    "allowUnreachableCode": tsConfig.compilerOptions.allowUnreachableCode,
+    "allowUnusedLabels": tsConfig.compilerOptions.allowUnusedLabels,
+    "out":"main.js"
+};
+var thirdPartyFiles = [
+    './third-party/jquery/dist/jquery.js',
+    './third-party/angular/angular.js',
+    './third-party/angular-ui-router/release/angular-ui-router.js',
+    './third-party/angular-sanitize/angular-sanitize.js',
+    './third-party/angular-animate/angular-animate.js',
+    './third-party/angular-loading-bar/build/loading-bar.js',
+    './third-party/angular-loading-bar/build/loading-bar.css',
+    './third-party/jssor-slider/js/jssor.slider.mini.js'
+];
 
 /**
  * Checks to see that all TS files listed exist
@@ -72,19 +95,18 @@ gulp.task('sprites', function () {
 gulp.task('ts-code', ['check-files'], function() {
 
     return gulp.src(tsFiles, { base: "." })
-        .pipe(ts({
-            "module": tsConfig.compilerOptions.module,
-            "removeComments": tsConfig.compilerOptions.removeComments,
-            "noEmitOnError": tsConfig.compilerOptions.noEmitOnError,
-            "declaration": tsConfig.compilerOptions.declaration,
-            "sourceMap": tsConfig.compilerOptions.sourceMap,
-            "preserveConstEnums": tsConfig.compilerOptions.preserveConstEnums,
-            "target": tsConfig.compilerOptions.target,
-            "noImplicitAny": tsConfig.compilerOptions.noImplicitAny,
-            "allowUnreachableCode": tsConfig.compilerOptions.allowUnreachableCode,
-            "allowUnusedLabels": tsConfig.compilerOptions.allowUnusedLabels,
-            "out":"main.js",
-            }))
+        .pipe(ts( tsConfigGulp ))
+        .pipe(gulp.dest(outDir));
+});
+
+/**
+ * Builds each of the ts files into JS files in the output folder. Also performs an uglify on the code to make it compact.
+ */
+gulp.task('ts-code-release', ['check-files'], function() {
+
+    return gulp.src(tsFiles, { base: "." })
+        .pipe(ts( tsConfigGulp ))
+        .pipe(uglify())
         .pipe(gulp.dest(outDir));
 });
 
@@ -101,6 +123,28 @@ gulp.task('copy-index', function() {
         .pipe(gulp.dest(outDir));
 
 });
+
+/**
+ * Copies the html source to its output directory
+ */
+gulp.task('copy-index-release', function() {
+
+    return Promise.all([
+
+        gulp.src( "src/index-prod.jade", { base: "src" })
+            .pipe(rename("index.jade"))
+            .pipe(gulp.dest(outDir)),
+
+        gulp.src([
+            "src/sitemap.xml",
+            "src/favicon.png",
+            "src/media/images/**/*.*"
+            ], { base: "src" })
+        .pipe(gulp.dest(outDir))
+    ]);
+});
+
+
 
 
 /**
@@ -202,16 +246,26 @@ gulp.task('install-definitions', function () {
  */
 gulp.task('deploy-third-party', function() {
 
-    var sources = gulp.src([
-        './third-party/jquery/dist/jquery.js',
-        './third-party/angular/angular.js',
-        './third-party/angular-ui-router/release/angular-ui-router.js',
-        './third-party/angular-sanitize/angular-sanitize.js',
-        './third-party/angular-animate/angular-animate.js',
-        './third-party/jssor-slider/js/jssor.slider.mini.js',
-        './third-party/angular-loading-bar/build/loading-bar.js',
-        './third-party/angular-loading-bar/build/loading-bar.css'
-    ], { base: "third-party" } )
+    var sources = gulp.src( thirdPartyFiles, { base: "third-party" } )
+        .pipe(gulp.dest(outDir + "/third-party"));
+});
+
+/**
+ * Copies the required third party files to the index file. Also concatenates the files into 1, compressed, JS file
+ */
+gulp.task('deploy-third-party-release', function() {
+
+    const jsFilter = filter('**/*.js', {restore: true});
+    const cssFilter = filter('**/*.css', {restore: true});
+
+    var sources = gulp.src( thirdPartyFiles, { base: "third-party" } )
+        .pipe(jsFilter)
+        .pipe(concat("third-party.min.js"))
+        .pipe(uglify())
+        .pipe(jsFilter.restore)
+        .pipe(cssFilter)
+        .pipe(concat("third-party.min.css"))
+        .pipe(cssFilter.restore)
         .pipe(gulp.dest(outDir + "/third-party"));
 });
 
@@ -234,7 +288,6 @@ gulp.task('html-to-ng', function() {
         .pipe(gulp.dest(outDir + "/templates"));
 });
 
-
-//gulp.task('build-all', [ 'sass', 'copy-index', 'deploy-third-party', 'html-to-ng', 'ts-code']);
 gulp.task('install', [ 'install-definitions', 'install-third-parties']);
 gulp.task('build-all', [ 'deploy-third-party', 'html-to-ng', 'copy-index', 'sass', 'ts-code']);
+gulp.task('build-all-release', [ 'deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass', 'ts-code-release']);
