@@ -1,11 +1,25 @@
-var util = require('util')
+/**
+ * ===============================
+ * This file is a heper file for
+ * generating change logs. Simply run
+ *
+ *     node gitlogs.js
+ *
+ * This will create a a file called "changes.md" with a list of all changes
+ * from prevTag to nextTag. These tags *must* exist in your origin project (i.e. not just locally)
+ */
+
+// NB - UPDATE THESE TO THE TAGS
+// ====================
+var prevTag = "v0.0.26";
+var nextTag = "v0.1.1";
+// ====================
+
+
+var util = require('util');
 var fs = require('fs')
 var exec = require('child_process').exec;
 var child;
-
-var prevTag = "v0.0.26";
-var nextTag = "v0.1.1";
-
 
 // Executes the git log command
 child = exec('git log '+ prevTag +'...'+ nextTag +' --pretty=format:"{ \\"author\\" : \\"%an\\", \\"commit\\" : \\"%h\\", \\"date\\" : \\"%ar\\", \\"title\\" : \\"%s\\" },"', function (error, stdout, stderr) {
