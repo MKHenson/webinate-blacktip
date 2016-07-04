@@ -7,11 +7,12 @@ to provide some its backend content.
 * Version v0.1.0
 
 ## Requirements
-* MongoDB v3
-* Node 0.0.12
+* MongoDB v3.*
+* Node ^6.2.0
 * [Webinate-Users](https://github.com/MKHenson/webinate-users)
 * [ModePress](https://github.com/MKHenson/modepress)
-* **Tested Ubuntu v14**
+* **Tested Ubuntu v14.04**
+* [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
 ## Installation
 
@@ -42,17 +43,24 @@ OR if you want the dev build
 curl -o- https://raw.githubusercontent.com/MKHenson/webinate-blacktip/dev/install-script-dev.sh | bash
 ```
 
-5) Add the "resources" folder as a static folder to the modepress config.json - "staticFilesFolder"
+5) Install dependencies
+
+```
+    npm install
+    gulp install
+```
+
+6) Add the "./dist" folder as a static folder to the modepress config.json - "staticFilesFolder"
 
 * Open the config file for modepress /modepress/config.json
 * In the "staticFilesFolder" section, add a new array item which is the path of the new site
 ```
 E.g.
-"staticFilesFolder": ["/blacktip/resources"]
+"staticFilesFolder": ["/blacktip/dist"]
 ```
 * Also change the "templatePath" and �index�
 ```
-"templatePath": "/blacktip/templates"
+"templatePath": "/blacktip/dist/templates"
 "index": "index"
 ```
 
