@@ -21,20 +21,14 @@ html(lang="en", data-ng-app="blacktip")
 
 		link(rel="icon",type="image/png",href=url + "/favicon.png")
 		link(rel="stylesheet",type="text/css",href=url + "/css/style.css")
-		link(rel="stylesheet",type="text/css",href=url + "/third-party/angular-loading-bar/build/loading-bar.css")
+		link(rel="stylesheet",type="text/css",href=url + "/third-party/third-party.min.css")
 		link(href="https://fonts.googleapis.com/css?family=Lily+Script+One", rel="stylesheet", type="text/css")
 		link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,300", rel="stylesheet", type="text/css")
 		script(type="text/javascript").
 			var _users = "#{usersURL}"
 			var _url = "#{url}"
 			window.prerenderReady = false;
-		script(type="text/javascript", src=url + "/third-party/jquery/dist/jquery.js")
-		script(type="text/javascript", src=url + "/third-party/jssor-slider/js/jssor.slider.mini.js")
-		script(type="text/javascript", src=url + "/third-party/angular/angular.js")
-		script(type="text/javascript", src=url + "/third-party/angular-animate/angular-animate.js")
-		script(type="text/javascript", src=url + "/third-party/angular-loading-bar/build/loading-bar.js")
-		script(type="text/javascript", src=url + "/third-party/angular-sanitize/angular-sanitize.js")
-		script(type="text/javascript", src=url + "/third-party/angular-ui-router/release/angular-ui-router.js")
+		script(type="text/javascript", src=url + "/third-party/third-party.min.js")
 		script(type="text/javascript", src="https://www.google.com/recaptcha/api/js/recaptcha_ajax.js")
 		script(type="text/javascript", src=url + "/templates/partials.min.js")
 		script(type="text/javascript", src=url + "/main.js")

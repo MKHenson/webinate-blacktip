@@ -1,10 +1,13 @@
-declare module UsersInterface
+﻿declare module UsersInterface
 {
     export class User
     {
         dbEntry: IUserEntry;
     }
 
+    /*
+    * Describes the different types of event interfaces we can use to interact with the system via web sockets
+    */
     export module SocketEvents
     {
         /*
@@ -13,6 +16,33 @@ declare module UsersInterface
         export interface IEvent
         {
             eventType: number;
+
+            /*
+            * Will be null if no error, or a string if there is
+            */
+            error: string;
+        }
+
+        /*
+        * A very simple echo event. This simply pings the server with a message, which then returns with the same message
+        * either to the client or, if broadcast is true, to all clients.
+        */
+        export interface IEchoEvent extends IEvent
+        {
+            message: string;
+            broadcast?: boolean;
+        }
+
+        /*
+        * Describes a get/set Meta request, which can fetch or set meta data for a given user
+        * if you provide a property value, then only that specific meta property is edited.
+        * If not provided, then the entire meta data is set.
+        */
+        export interface IMetaEvent extends IEvent
+        {
+            username?: string;
+            property: string;
+            val: any;
         }
 
         /*
@@ -20,25 +50,24 @@ declare module UsersInterface
         */
         export interface IUserEvent extends IEvent
         {
-            eventType: number;
             username: string;
         }
 
         /*
         * Interface for file added events
         */
-        export interface IFilesAddedEvent extends IEvent
+        export interface IFileAddedEvent extends IEvent
         {
             username: string;
-            files: Array<IFileEntry>;
+            file: IFileEntry;
         }
 
         /*
         * Interface for file removed events
         */
-        export interface IFilesRemovedEvent extends IEvent
+        export interface IFileRemovedEvent extends IEvent
         {
-            files: Array<IFileEntry>;
+            file: IFileEntry;
         }
 
         /*
@@ -147,16 +176,6 @@ declare module UsersInterface
         expiration: number;
     }
 
-
-    /*
-    * Describes the type of client listening communicating to the web sockets
-    */
-    export interface IWebsocketClient
-    {
-        /*Where is the client origin expected from*/
-        origin: string;
-    }
-
     /*
     * Users stores data on an external cloud bucket with Google
     */
@@ -171,12 +190,13 @@ declare module UsersInterface
 
 
         /**
-        * An array of expected clients
+        * An array of safe origins for socket communication
         * [
-        *   { origin: "webinate.net", eventListeners: [1,4,5,6] }
+        *   "webinate.net",
+        *   "localhost"
         * ]
         */
-        clients: Array<IWebsocketClient>;
+        approvedSocketDomains: Array<string>;
     }
 
     /*
@@ -257,7 +277,7 @@ declare module UsersInterface
     export interface IAuthenticationResponse extends IResponse
     {
         authenticated: boolean;
-        user: IUserEntry;
+        user?: IUserEntry;
     }
 
     /*
@@ -354,27 +374,29 @@ declare module UsersInterface
     export interface IConfig
     {
         /**
-        * The domain or host of the site.
-        * eg: "127.0.0.1" or "webinate.net"
+        * If true, then the server runs in debug mode. When running tests you should have the application
+        * run in debug mode. You can set this via the config or else use the --debug=true command in the console.
+        * eg: true / false. The default is true.
+        */
+        debugMode: boolean;
+
+        /**
+        * The host to use when listening
+        * eg: "localhost" or "192.168.0.1" or "0.0.0.0"
         */
         host: string;
 
         /**
+        * The domain or host name of the site. This is the external URL to use for connecting to users.
+        * eg: "webinate.net"
+        */
+        hostName: string;
+
+        /**
         * The RESTful path of this service.
-        * eg: If "/api", then the API url would be 127.0.0.1:80/api (or rather host:port/restURL)
+        * eg: If "/api", then the API url would be 127.0.0.1:80/api (or rather host:port/api)
         */
-        restURL: string;
-
-        /**
-        * The RESTful path of the media API
-        * eg: If "/media", then the API url would be 127.0.0.1:80/media (or rather host:port/restURL)
-        */
-        mediaURL: string;
-
-        /**
-        * A secret string to identify authenticated servers
-        */
-        secret: string;
+        apiPrefix: string;
 
         /**
         * The URL to redirect to after the user attempts to activate their account.
