@@ -12,7 +12,7 @@
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(scope: any, post: Modepress.IPost, sce: ng.ISCEService, signaller: Function, meta: Meta)
+        constructor(scope: any, post: Modepress.IPost, sce: ng.ISCEService, signaller: Function, meta: Meta )
         {
             meta.title = post.title;
             meta.bigImage = (post.featuredImage && post.featuredImage != "" ? post.featuredImage : "");
