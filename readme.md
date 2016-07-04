@@ -7,13 +7,8 @@ to provide some its backend content.
 * Version v0.1.1
 
 ## Requirements
-<<<<<<< HEAD
 * MongoDB v3.*
 * Node ^6.2.0
-=======
-* MongoDB v3
-* Node 6.2
->>>>>>> e9ec3eeaa64900a3462066ee2765533754025b43
 * [Webinate-Users](https://github.com/MKHenson/webinate-users)
 * [ModePress](https://github.com/MKHenson/modepress)
 * **Tested Ubuntu v14.04**
@@ -48,16 +43,6 @@ OR if you want the dev build
 curl -o- https://raw.githubusercontent.com/MKHenson/webinate-blacktip/dev/install-script-dev.sh | bash
 ```
 
-<<<<<<< HEAD
-5) Install dependencies
-
-```
-    npm install
-    gulp install
-```
-
-6) Add the "./dist" folder as a static folder to the modepress config.json - "staticFilesFolder"
-=======
 5) Install the build dependencies
 
     npm install
@@ -70,16 +55,10 @@ gulp build-all
 ```
 
 Note: To build a release version, replace the build-all with build-all-release
->>>>>>> e9ec3eeaa64900a3462066ee2765533754025b43
 
 ```
-<<<<<<< HEAD
-E.g.
-"staticFilesFolder": ["/blacktip/dist"]
-=======
 gulp install
 gulp build-all-release
->>>>>>> e9ec3eeaa64900a3462066ee2765533754025b43
 ```
 The release version is a lot smaller.
 
@@ -90,10 +69,6 @@ Once this is complete, the built project will reside in the dist folder
 * Open the config file for modepress /modepress/config.json
 * Create a new server block in the servers property
 ```
-<<<<<<< HEAD
-"templatePath": "/blacktip/dist/templates"
-"index": "index"
-=======
 {
     "host": "webinate.net",
     "portHTTP": 8001,
@@ -114,7 +89,6 @@ Once this is complete, the built project will reside in the dist folder
         "plugins": []
     }]
 }
->>>>>>> e9ec3eeaa64900a3462066ee2765533754025b43
 ```
 
 
