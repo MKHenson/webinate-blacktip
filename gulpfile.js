@@ -19,6 +19,7 @@ var spritySass = require('sprity-sass');
 var rimraf = require('rimraf');
 var download = require('gulp-download');
 var rename = require('gulp-rename');
+var cleanCss = require('gulp-clean-css');
 
 // CONFIG
 // ==============================
@@ -69,6 +70,15 @@ gulp.task('sass', ['sprites'], function() {
     // Compile all sass files into temp/css
     var sassFiles = gulp.src('./src/style.scss', { base: "./src" })
         .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest(outDir + '/css'))
+})
+
+gulp.task('sass-release', ['sprites'], function() {
+
+    // Compile all sass files into temp/css
+    var sassFiles = gulp.src('./src/style.scss', { base: "./src" })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
         .pipe(gulp.dest(outDir + '/css'))
 })
 
@@ -267,6 +277,7 @@ gulp.task('deploy-third-party-release', function() {
         .pipe(uglify())
         .pipe(jsFilter.restore)
         .pipe(cssFilter)
+        .pipe(cleanCss())
         .pipe(concat("third-party.min.css"))
         .pipe(cssFilter.restore)
         .pipe(gulp.dest(outDir + "/third-party"));
@@ -293,4 +304,4 @@ gulp.task('html-to-ng', function() {
 
 gulp.task('install', [ 'install-definitions', 'install-third-parties']);
 gulp.task('build-all', [ 'deploy-third-party', 'html-to-ng', 'copy-index', 'sass', 'ts-code']);
-gulp.task('build-all-release', [ 'deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass', 'ts-code-release']);
+gulp.task('build-all-release', [ 'deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass-release', 'ts-code-release']);
