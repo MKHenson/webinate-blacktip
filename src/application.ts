@@ -11,7 +11,7 @@ module blacktip
     'use strict';
 
     angular.module("blacktip", ["ui.router", 'ngSanitize', 'angular-loading-bar', "admin-templates", "modepress-client"])
-        .value('apiUrl', './')
+        .value('apiUrl', '.')
         .factory("signaller", function ()
         {
             return function ()
