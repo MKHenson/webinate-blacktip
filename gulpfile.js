@@ -68,7 +68,7 @@ gulp.task('check-files', function(){
 gulp.task('sass', ['sprites'], function() {
 
     // Compile all sass files into temp/css
-    var sassFiles = gulp.src('./src/style.scss', { base: "./src" })
+    return gulp.src('./src/style.scss', { base: "./src" })
         .pipe(sass().on('error', sass.logError))
         .pipe(gulp.dest(outDir + '/css'))
 })
@@ -76,7 +76,7 @@ gulp.task('sass', ['sprites'], function() {
 gulp.task('sass-release', ['sprites'], function() {
 
     // Compile all sass files into temp/css
-    var sassFiles = gulp.src('./src/style.scss', { base: "./src" })
+    return gulp.src('./src/style.scss', { base: "./src" })
         .pipe(sass().on('error', sass.logError))
         .pipe(cleanCss())
         .pipe(gulp.dest(outDir + '/css'))
@@ -259,7 +259,7 @@ gulp.task('install-definitions', function () {
  */
 gulp.task('deploy-third-party', function() {
 
-    var sources = gulp.src( thirdPartyFiles, { base: "third-party" } )
+    return gulp.src( thirdPartyFiles, { base: "third-party" } )
         .pipe(gulp.dest(outDir + "/third-party"));
 });
 
@@ -271,7 +271,7 @@ gulp.task('deploy-third-party-release', function() {
     const jsFilter = filter('**/*.js', {restore: true});
     const cssFilter = filter('**/*.css', {restore: true});
 
-    var sources = gulp.src( thirdPartyFiles, { base: "third-party" } )
+    return gulp.src( thirdPartyFiles, { base: "third-party" } )
         .pipe(jsFilter)
         .pipe(concat("third-party.min.js"))
         .pipe(uglify())
@@ -287,7 +287,7 @@ gulp.task('deploy-third-party-release', function() {
  * Builds the definition
  */
 gulp.task('html-to-ng', function() {
-    gulp.src("./src/**/*.html")
+    return gulp.src("./src/**/*.html")
         .pipe(minifyHtml({
             empty: true,
             spare: true,
