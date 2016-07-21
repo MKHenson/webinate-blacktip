@@ -12,15 +12,15 @@ version() {
 echo "Downloading latest version from github $(version)"
 
 #download latest
-wget https://github.com/MKHenson/webinate-blacktip/archive/v$(version).zip
+wget https://github.com/Webinate/blacktip/archive/v$(version).zip
 unzip -o "v$(version).zip"
 
 # Moves the server folder to the current directory
-cp -r webinate-blacktip-$(version)/* ./
+cp -r blacktip-$(version)/* ./
 
 # Remove temp folder
-if [ -d "webinate-blacktip-$(version)" ]; then
-	rm webinate-blacktip-$(version) -R
+if [ -d "blacktip-$(version)" ]; then
+	rm blacktip-$(version) -R
 fi
 
 # Remove the zip file
