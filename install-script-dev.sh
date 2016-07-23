@@ -7,16 +7,16 @@ set -e
 echo "Downloading latest version from github dev"
 
 #download latest
-wget https://github.com/MKHenson/webinate-blacktip/archive/dev.zip
+wget https://github.com/Webinate/blacktip/archive/dev.zip
 unzip -o "dev.zip"
 
 
 # Moves the server folder to the current directory
-cp -r webinate-blacktip-dev/* ./
+cp -r blacktip-dev/* ./
 
 # Remove modepress temp folder
-if [ -d "webinate-blacktip-dev" ]; then
-	rm webinate-blacktip-dev -R
+if [ -d "blacktip-dev" ]; then
+	rm blacktip-dev -R
 fi
 
 # Remove the zip file

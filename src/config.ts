@@ -30,34 +30,31 @@
 
             // Prior to the blog state loading, make sure the categories are downloaded
             stateProvider.state("blog", {
-                url: "/blog", templateUrl: "templates/blog.html", controller: "blogCtrl", controllerAs: "controller", abstract: true,
+                url: "/blog",
+                templateUrl: "templates/blog.html",
+                controller: "blogCtrl",
+                controllerAs: "controller",
+                abstract: true,
                 resolve: {
-                    categories: ["$http", "apiURL", function ($http: ng.IHttpService, apiURL: string)
-                    {
-                        return $http.get<Modepress.IGetCategories>(`${apiURL}/categories`).then(function (categories)
-                        {
-                            return categories.data.data;
-                        });
+                    categories: ["categories", function (categories: ModepressClientPlugin.CategoryService) {
+                        return categories.all();
                     }]
                 }
             });
 
-            stateProvider.state("blog.posts", { url: "?author&category&tag&index", templateUrl: "templates/blog-posts.html", controller: "blogSubCtrl", controllerAs: "subController" });
+            stateProvider.state("blog.posts", {
+                url: "?author&category&tag&index",
+                templateUrl: "templates/blog-posts.html",
+                controller: "blogSubCtrl",
+                controllerAs: "subController"
+            });
 
-            // Download the post prior to loading this state
-            // then assign the post to the scope
             stateProvider.state("post", {
-                url: "/post/:slug", templateUrl: "templates/post.html",
+                url: "/post/:slug",
+                templateUrl: "templates/post.html",
                 resolve: {
-                    post: ["$http", "apiURL", "$stateParams", function ($http: ng.IHttpService, apiURL: string, stateParams)
-                    {
-                        return $http.get<Modepress.IGetPost>(`${apiURL}/posts/slug/${stateParams.slug}`).then(function (posts)
-                        {
-                            if (posts.data.error)
-                                return posts.data;
-
-                            return posts.data.data;
-                        });
+                    post: ["$stateParams", "posts", function ( stateParams, posts : ModepressClientPlugin.PostService ) {
+                        return posts.bySlug(stateParams.slug);
                     }]
                 },
                 controller: "postCtrl"

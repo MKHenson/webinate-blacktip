@@ -7,4 +7,5 @@
 /// <reference path="./definitions/required/users.d.ts" />
 /// <reference path="./definitions/required/modepress-api.d.ts" />
 /// <reference path="./definitions/required/google.maps.d.ts" />
+/// <reference path="./definitions/required/modepress-client.d.ts" />
 /// <reference path="./definitions/custom/jssor.d.ts" />

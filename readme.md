@@ -1,10 +1,10 @@
-# Webinate Blacktip
-Webinate 'Blacktip' is a codename of the theme designed for the webinate 2015 site.
-Blacktip is built in Angular and relies on [ModePress](https://github.com/MKHenson/modepress)
+# Blacktip
+'Blacktip' is a codename of the theme designed for the webinate 2015 site.
+Blacktip is built in Angular and relies on Webinate's [ModePress](https://github.com/Webinate/modepress)
 to provide some its backend content.
 
 ## Current stable version
-* Version v0.1.1
+* Version v0.1.3
 
 ## Requirements
 * MongoDB v3.*
@@ -34,13 +34,13 @@ sudo su
 If you want the latest stable version:
 
 ```
-curl -o- https://raw.githubusercontent.com/MKHenson/webinate-blacktip/master/install-script.sh | bash
+curl -o- https://raw.githubusercontent.com/Webinate/blacktip/master/install-script.sh | bash
 ```
 
 OR if you want the dev build
 
 ```
-curl -o- https://raw.githubusercontent.com/MKHenson/webinate-blacktip/dev/install-script-dev.sh | bash
+curl -o- https://raw.githubusercontent.com/Webinate/blacktip/dev/install-script-dev.sh | bash
 ```
 
 5) Install the build dependencies
@@ -54,6 +54,7 @@ gulp install
 gulp build-all
 ```
 
+<<<<<<< HEAD
 Note: To build a release version, replace the build-all with build-all-release
 
 ```
@@ -62,6 +63,8 @@ gulp build-all-release
 ```
 The release version is a lot smaller.
 
+=======
+>>>>>>> 0ad432979e7438995d9f706d61b067ba833a8c7e
 Once this is complete, the built project will reside in the dist folder
 
 7) (Optional) Add the "dist" folder as a new target for Modepress

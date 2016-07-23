@@ -19,6 +19,7 @@ var spritySass = require('sprity-sass');
 var rimraf = require('rimraf');
 var download = require('gulp-download');
 var rename = require('gulp-rename');
+var cleanCss = require('gulp-clean-css');
 
 // CONFIG
 // ==============================
@@ -46,6 +47,7 @@ var thirdPartyFiles = [
     './third-party/angular-animate/angular-animate.js',
     './third-party/angular-loading-bar/build/loading-bar.js',
     './third-party/angular-loading-bar/build/loading-bar.css',
+    './third-party/modepress-client/dist/plugin.js',
     './third-party/jssor-slider/js/jssor.slider.mini.js'
 ];
 
@@ -66,8 +68,17 @@ gulp.task('check-files', function(){
 gulp.task('sass', ['sprites'], function() {
 
     // Compile all sass files into temp/css
-    var sassFiles = gulp.src('./src/style.scss', { base: "./src" })
+    return gulp.src('./src/style.scss', { base: "./src" })
         .pipe(sass().on('error', sass.logError))
+        .pipe(gulp.dest(outDir + '/css'))
+})
+
+gulp.task('sass-release', ['sprites'], function() {
+
+    // Compile all sass files into temp/css
+    return gulp.src('./src/style.scss', { base: "./src" })
+        .pipe(sass().on('error', sass.logError))
+        .pipe(cleanCss())
         .pipe(gulp.dest(outDir + '/css'))
 })
 
@@ -208,6 +219,7 @@ gulp.task('install-third-parties', function () {
         downloadTarball("https://github.com/angular-ui/ui-router/tarball/0.2.18", './third-party/angular-ui-router'),
         downloadTarball("https://github.com/jquery/jquery/tarball/2.2.2", './third-party/jquery'),
         downloadTarball("https://github.com/chieffancypants/angular-loading-bar/tarball/0.9.0", './third-party/angular-loading-bar'),
+        downloadTarball("https://github.com/Webinate/modepress-client-angular/tarball/master", './third-party/modepress-client'),
         downloadTarball("https://github.com/jssor/slider/tarball/20.0.0", './third-party/jssor-slider'),
     ]);
 });
@@ -236,8 +248,9 @@ function getDefinition(url, dest, name) {
  */
 gulp.task('install-definitions', function () {
      return Promise.all([
-            getDefinition("https://raw.githubusercontent.com/MKHenson/users/dev/src/definitions/custom/definitions.d.ts", "src/definitions/required/", "users.d.ts"),
-            getDefinition("https://raw.githubusercontent.com/MKHenson/modepress/dev/server/src/definitions/custom/modepress-api.d.ts", "src/definitions/required/", "modepress-api.d.ts")
+            getDefinition("https://raw.githubusercontent.com/Webinate/users/dev/src/definitions/custom/definitions.d.ts", "src/definitions/required/", "users.d.ts"),
+            getDefinition("https://raw.githubusercontent.com/Webinate/modepress/dev/server/src/definitions/custom/modepress-api.d.ts", "src/definitions/required/", "modepress-api.d.ts"),
+            getDefinition("https://raw.githubusercontent.com/Webinate/modepress-client-angular/master/src/definitions/generated/plugin.d.ts", "src/definitions/required/", "modepress-client.d.ts")
          ]);
 });
 
@@ -246,7 +259,7 @@ gulp.task('install-definitions', function () {
  */
 gulp.task('deploy-third-party', function() {
 
-    var sources = gulp.src( thirdPartyFiles, { base: "third-party" } )
+    return gulp.src( thirdPartyFiles, { base: "third-party" } )
         .pipe(gulp.dest(outDir + "/third-party"));
 });
 
@@ -258,12 +271,13 @@ gulp.task('deploy-third-party-release', function() {
     const jsFilter = filter('**/*.js', {restore: true});
     const cssFilter = filter('**/*.css', {restore: true});
 
-    var sources = gulp.src( thirdPartyFiles, { base: "third-party" } )
+    return gulp.src( thirdPartyFiles, { base: "third-party" } )
         .pipe(jsFilter)
         .pipe(concat("third-party.min.js"))
         .pipe(uglify())
         .pipe(jsFilter.restore)
         .pipe(cssFilter)
+        .pipe(cleanCss())
         .pipe(concat("third-party.min.css"))
         .pipe(cssFilter.restore)
         .pipe(gulp.dest(outDir + "/third-party"));
@@ -273,7 +287,7 @@ gulp.task('deploy-third-party-release', function() {
  * Builds the definition
  */
 gulp.task('html-to-ng', function() {
-    gulp.src("./src/**/*.html")
+    return gulp.src("./src/**/*.html")
         .pipe(minifyHtml({
             empty: true,
             spare: true,
@@ -290,4 +304,4 @@ gulp.task('html-to-ng', function() {
 
 gulp.task('install', [ 'install-definitions', 'install-third-parties']);
 gulp.task('build-all', [ 'deploy-third-party', 'html-to-ng', 'copy-index', 'sass', 'ts-code']);
-gulp.task('build-all-release', [ 'deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass', 'ts-code-release']);
+gulp.task('build-all-release', [ 'deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass-release', 'ts-code-release']);
