@@ -329,6 +329,13 @@
         * eg: 'webinate.net'
         */
         usersSocketOrigin: string;
+
+        /**
+         * Specifies the User's socket API key. This is used for receiving events & instructions from the Users socket API.
+         * This key must be the same as the one that's stored in the User's' config JSON.
+         * eg: 'this-is-my-key'
+         */
+        usersSocketApiKey : string;
     }
 
     /**
@@ -487,12 +494,11 @@
 
         /**
         * Serializes the schema items into the JSON format for mongodb
-        * @param {boolean} verbose If true all items will be serialized, if false, only the items that are non-sensitive
         * @param {ObjectID} id The models dont store the _id property directly, and so this has to be passed for serialization
         * @param {ISchemaOptions} options [Optional] A set of options that can be passed to control how the data must be returned
         * @returns {Promise<T>}
         */
-        public getAsJson<T>( verbose: boolean, id: any, options? : ISchemaOptions ): Promise<T>;
+        public getAsJson<T>( id: any, options? : ISchemaOptions ): Promise<T>;
 
         /**
         * Checks the values stored in the items to see if they are correct
@@ -694,6 +700,13 @@
         * @returns {Promise<UsersInterface.IAuthenticationResponse>}
         */
         authenticated(req: any, res: any): Promise<UsersInterface.IAuthenticationResponse>;
+
+        /**
+        * Checks a user has admin rights
+        * @param {UsersInterface.IUserEntry} user The user we are checking
+        * @returns {boolean}
+        */
+        isAdmin(user: UsersInterface.IUserEntry): boolean;
 
         /**
         * Checks a user has the desired permission
@@ -948,28 +961,6 @@
         export var id: typeof SchemaId;
         export var html: typeof SchemaHtml;
         export var foreignKey: typeof SchemaForeignKey;
-    }
-
-    /**
-    * The type of user event
-    */
-    export enum UserEventType
-    {
-        Login,
-        Logout,
-        Activated,
-        Removed,
-        FilesUploaded,
-        FilesRemoved
-    }
-
-    /**
-    * Describes the user event sent to plugins
-    */
-    export interface UserEvent
-    {
-        username: string;
-        eventType: UserEventType;
     }
 
     /**

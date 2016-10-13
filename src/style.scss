@@ -326,7 +326,7 @@ Please only put css rules in here for layout related requirements.
     -ms-transition: all 0.65s ease;
     transition: all 0.65s ease;
 }
-.nav-items img {
+.nav-items .home .sprite {
 	width:137px;
 	opacity:1;
 	 -webkit-transition: all 0.65s ease;
@@ -340,7 +340,7 @@ Please only put css rules in here for layout related requirements.
 .nav-items a:first-child .nav-item {
 	padding: 10px 10px 0 0;
 }
-.nav-items .active img {
+.nav-items .active .home .sprite {
 	width:0px;
 	opacity:0;
 }
@@ -490,8 +490,14 @@ Please only put css rules in here for layout related requirements.
 	padding: 90px 20% 20px 20%;
 	margin: 90px 0 0 0;
 }
-.what-people-say .section {
-    margin:0 0 70px 0;
+.what-people-say .section .fix {
+    width: 75%;
+    height: 1px;
+    background: #ddd;
+    margin: 40px auto;
+}
+.what-people-say .section:last-child .fix {
+	background: none;
 }
 .person-profile, .they-say {
 	float:left;
@@ -517,10 +523,12 @@ Please only put css rules in here for layout related requirements.
 	line-height:40px;
     float:none;
     text-align:right;
+	min-height: 165px;
 }
 .who-said-it {
 	margin: 10px 0 0 0;
     text-align:right;
+	font-weight: bold;
 }
 .container {
 	overflow: hidden;
@@ -1121,6 +1129,46 @@ input.ng-touched.ng-invalid {
 .tags, .categories, .categories a, .tags a {
     font-size:20px;
 }
+
+.clients {
+	background: #fff;
+    padding: 0px 25% 60px 25%;
+    text-align: center;
+
+	.logo {
+		display: inline-block;
+		margin: 20px;
+		h3 {
+			color: #aaa;
+		}
+	}
+}
+.client-tagline {
+	margin: 60px 30px;
+	font-size: 30px;
+	text-align: center;
+	font-weight: bold;
+}
+
+.sp-logo-deloitte {
+	@include sprite($deloitte, inline-block);
+}
+.sp-trike-3d {
+	@include sprite($trike-3d, inline-block);
+}
+.sp-pixel-swarm {
+	@include sprite($pixel-swarm, inline-block);
+}
+.sp-social-welfare {
+	@include sprite($social-welfare, inline-block);
+}
+.sp-smartvote {
+	@include sprite($smartvote, inline-block);
+}
+.sp-enterprise-ireland {
+	@include sprite($enterprise-ireland, inline-block);
+}
+
 /**
 ======================================================
 				MEDIA QUERIES
@@ -1151,6 +1199,9 @@ input.ng-touched.ng-invalid {
 }
 @media screen and (max-width:961px) {
 	.slide-1-text { font-size:35px; }
+	.clients {
+		padding: 0px 10% 60px 10%;
+	}
 	.company-service {
 		width: 100%;
 		padding: 50px 0 0 0;
@@ -1254,7 +1305,7 @@ input.ng-touched.ng-invalid {
     .team .more {
         margin: 50px 20px;
     }
-	.nav-items .active img {
+	.active .home .sprite {
 		display:none;
 	}
 	.nav-items .active:first-child .nav-item {
