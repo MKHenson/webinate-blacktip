@@ -11,8 +11,8 @@
 
 // NB - UPDATE THESE TO THE TAGS
 // ====================
-var prevTag = "v0.1.1";
-var nextTag = "v0.1.3";
+var prevTag = "v0.1.3";
+var nextTag = "v0.1.4";
 // ====================
 
 

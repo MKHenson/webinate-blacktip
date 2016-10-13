@@ -1,6 +1,6 @@
 {
   "name": "webinate-blacktip",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "description": "A tempate for the Webinate 2015 website",
   "main": "gulpfile.js",
   "author": "Mathew Henson",
