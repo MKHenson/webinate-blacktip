@@ -53,8 +53,6 @@ curl -o- https://raw.githubusercontent.com/Webinate/blacktip/dev/install-script-
 gulp install
 gulp build-all
 ```
-
-<<<<<<< HEAD
 Note: To build a release version, replace the build-all with build-all-release
 
 ```
@@ -62,9 +60,6 @@ gulp install
 gulp build-all-release
 ```
 The release version is a lot smaller.
-
-=======
->>>>>>> 0ad432979e7438995d9f706d61b067ba833a8c7e
 Once this is complete, the built project will reside in the dist folder
 
 7) (Optional) Add the "dist" folder as a new target for Modepress
