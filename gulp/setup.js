@@ -7,7 +7,6 @@ var gunzip = require( 'gulp-gunzip' );
 var request = require( 'request' );
 var untar = require( 'gulp-untar' );
 var source = require( 'vinyl-source-stream' );
-var download = require( 'gulp-download' );
 
 /**
  * Goes through each of the main config files and increments
