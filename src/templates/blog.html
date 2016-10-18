@@ -4,7 +4,7 @@
 		<div class="blog-intro">
 			<div class="categories">
 				<span data-ng-repeat="category in controller.categories">
-                    <a data-ui-sref="blog.posts({category:category.slug})">{{category.title}}</a>{{$last != false ? "" : ", "}}
+                    <a data-ui-sref="blog.posts({category:category.slug})">{{category.title}}</a>{{$last !== false ? "" : ", "}}
                 </span>
 			</div>
 			<div class="fix"></div>

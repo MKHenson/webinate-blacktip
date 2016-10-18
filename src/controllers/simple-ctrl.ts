@@ -1,11 +1,11 @@
-﻿module blacktip {
+﻿namespace blacktip {
     'use strict';
 
     /**
      * Controller for managing the
      */
     export class SimpleCtrl {
-        public static $inject = [ "signaller", "meta" ];
+        public static $inject = [ 'signaller', 'meta' ];
 
 		/**
 		 * Creates an instance of the home controller

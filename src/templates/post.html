@@ -10,13 +10,13 @@
 		<div class="categories" itemprop="keywords">
 			{{ post.categories.length > 0 ? "Posted in" : "" }}
 			<span data-ng-repeat="category in post.categories">
-                <a data-ng-href="./blog?category={{category}}">{{category}}</a>{{$last == false ? "," : ""}}
+                <a data-ng-href="./blog?category={{category}}">{{category}}</a>{{$last === false ? "," : ""}}
             </span>
 		</div>
 		<div class="tags" itemprop="keywords">
 			{{ post.tags.length > 0 ? "Tagged in " : "" }}
 			<span data-ng-repeat="tag in post.tags">
-                <a data-ng-href="./blog?tag={{tag}}">{{tag}}</a> {{$last == false ? ", " : ""}}
+                <a data-ng-href="./blog?tag={{tag}}">{{tag}}</a> {{$last === false ? ", " : ""}}
             </span>
 		</div>
 		<div class="author" itemprop="creator" itemscope itemtype="http://schema.org/Person">Posted by <a data-ng-href="./blog?author={{post.author}}"><span itemprop="name">{{post.author}}</span></a></div>
