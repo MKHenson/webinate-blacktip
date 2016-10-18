@@ -2,14 +2,14 @@
     'use strict';
 
     /**
-    * Controller for single post pages
-    */
+     * Controller for single post pages
+     */
     export class PostCtrl {
         public static $inject = [ "$scope", "post", "$sce", "signaller", "meta" ];
 
 		/**
-		* Creates an instance of the home controller
-		*/
+		 * Creates an instance of the home controller
+		 */
         constructor( scope: any, post: Modepress.IPost, sce: ng.ISCEService, signaller: Function, meta: Meta ) {
             meta.title = post.title;
             meta.bigImage = ( post.featuredImage && post.featuredImage != "" ? post.featuredImage : "" );

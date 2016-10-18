@@ -2,8 +2,8 @@
     'use strict';
 
     /**
-    * Controller for managing the
-    */
+     * Controller for managing the
+     */
     export class HomeCtrl {
         private _resizeProxy: any;
         private _slider: $JssorSlider$;
@@ -13,8 +13,8 @@
         public static $inject = [ "$scope", "signaller", "meta" ];
 
 		/**
-		* Creates an instance of the home controller
-		*/
+		 * Creates an instance of the home controller
+		 */
         constructor( scope: ng.IScope, signaller: Function, meta: Meta ) {
             var that = this;
             this._resizeProxy = this.scaleSlider.bind( this );
@@ -28,8 +28,8 @@
         }
 
         /**
-        * Cleans up the controller
-        */
+         * Cleans up the controller
+         */
         onDestroy() {
             $( window ).unbind( "load", this._resizeProxy );
             $( window ).unbind( "resize", this._resizeProxy );
@@ -40,8 +40,8 @@
         }
 
         /**
-        * Resizes the slider if the window is resized
-        */
+         * Resizes the slider if the window is resized
+         */
         private scaleSlider() {
             var parentWidth = jQuery( ".slider-monitor" ).width();
             if ( parentWidth )
@@ -51,8 +51,8 @@
         }
 
 		/**
-		* Called after the home content is loaded
-		*/
+		 * Called after the home content is loaded
+		 */
         loadSlider() {
             var _SlideshowTransitions = [
                 { $Duration: 1200, $Opacity: 2 }

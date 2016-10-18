@@ -2,8 +2,8 @@
     'use strict';
 
     /**
-    * Controller for the blog page
-    */
+     * Controller for the blog page
+     */
     export class BlogCtrl {
         // An array of todo items
         private http: ng.IHttpService;
@@ -23,8 +23,8 @@
         public static $inject = [ "$http", "apiURL", "$stateParams", "categories", "signaller", "meta" ];
 
 		/**
-		* Creates an instance of the home controller
-		*/
+		 * Creates an instance of the home controller
+		 */
         constructor( http: ng.IHttpService, apiURL: string, stateParams: any, categories: Modepress.IGetCategories, signaller: Function, meta: Meta ) {
             this.http = http;
             this.posts = [];
@@ -46,16 +46,16 @@
         }
 
         /**
-        * Sets the page search back to index = 0
-        */
+         * Sets the page search back to index = 0
+         */
         goNext() {
             this.index += this.limit;
             this.getPosts();
         }
 
         /**
-        * Sets the page search back to index = 0
-        */
+         * Sets the page search back to index = 0
+         */
         goPrev() {
             this.index -= this.limit;
             if ( this.index < 0 )

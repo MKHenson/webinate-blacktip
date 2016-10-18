@@ -2,14 +2,14 @@
     'use strict';
 
 	/**
-	* Configures the application
-	*/
+	 * Configures the application
+	 */
     export class Config {
         public static $inject = [ "$urlRouterProvider", "$stateProvider", "$locationProvider" ];
 
         /**
-		* Creates an instance of the config
-		*/
+		 * Creates an instance of the config
+		 */
         constructor( routeProvider: angular.ui.IUrlRouterProvider, stateProvider: angular.ui.IStateProvider, $locationProvider: angular.ILocationProvider ) {
             // Creates nice URLs
             $locationProvider.html5Mode( true );

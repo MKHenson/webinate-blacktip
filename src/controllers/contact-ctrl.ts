@@ -14,8 +14,8 @@
         public static $inject = [ "$http", "signaller", "meta" ];
 
 		/**
-		* Creates an instance of the home controller
-		*/
+		 * Creates an instance of the home controller
+		 */
         constructor( http: ng.IHttpService, signaller: Function, meta: Meta ) {
             this.http = http;
             this.mail = { email: "", name: "", message: "" };
@@ -36,16 +36,16 @@
         }
 
         /**
-        * Dynamically loads google maps instead of it being added in the header
-        */
+         * Dynamically loads google maps instead of it being added in the header
+         */
         lazyLoadGoogleMap() {
             var that = this;
             var script = $.getScript( "https://maps.google.com/maps/api/js?sensor=true&callback=blacktip.ContactCtrl.initMap" );
         }
 
         /**
-        * Initializes the map once its ready
-        */
+         * Initializes the map once its ready
+         */
         static initMap() {
             // Create the map object and center it on the premise
             var geocoder = new google.maps.Geocoder();
@@ -57,19 +57,19 @@
             geocoder.geocode( {
                 'address': "Suite 203, I.a.d.t. Media Cube, Kill Ave, Dublin"
             }, function( results, status ) {
-                    if ( status == google.maps.GeocoderStatus.OK ) {
-                        map.setCenter( results[ 0 ].geometry.location );
-                        new google.maps.Marker( { map: map, position: results[ 0 ].geometry.location });
-                    }
-                });
+                if ( status == google.maps.GeocoderStatus.OK ) {
+                    map.setCenter( results[ 0 ].geometry.location );
+                    new google.maps.Marker( { map: map, position: results[ 0 ].geometry.location });
+                }
+            });
 
             ContactCtrl.signaller();
             ContactCtrl.signaller = null;
         }
 
 		/*
-		* Sends an email to the modepress admin
-		*/
+		 * Sends an email to the modepress admin
+		 */
         sendMessage() {
             var details = this.mail;
             jQuery( ".success" ).hide();
