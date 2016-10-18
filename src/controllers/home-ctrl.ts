@@ -17,7 +17,6 @@
 		 */
         constructor( scope: ng.IScope, signaller: Function, meta: Meta ) {
             this._resizeProxy = this.scaleSlider.bind( this );
-            this._slider = null;
             this._signaller = signaller;
 
             // Set the default meta tags
@@ -35,7 +34,6 @@
             $( window ).unbind( 'orientationchange', this._resizeProxy );
 
             this._resizeProxy = null;
-            this._slider = null;
         }
 
         /**

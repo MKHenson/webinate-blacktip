@@ -8,7 +8,7 @@
         // An array of todo items
         private http: ng.IHttpService;
         private mail: Modepress.IMessage;
-        private static signaller: Function;
+        private static signaller: Function | null;
 
         // The dependency injector
         public static $inject = [ '$http', 'signaller', 'meta' ];
@@ -39,7 +39,7 @@
          * Dynamically loads google maps instead of it being added in the header
          */
         lazyLoadGoogleMap() {
-            const script = $.getScript( 'https://maps.google.com/maps/api/js?sensor=true&callback=blacktip.ContactCtrl.initMap' );
+            $.getScript( 'https://maps.google.com/maps/api/js?sensor=true&callback=blacktip.ContactCtrl.initMap' );
         }
 
         /**
@@ -62,7 +62,7 @@
                 }
             });
 
-            ContactCtrl.signaller();
+            ContactCtrl.signaller!();
             ContactCtrl.signaller = null;
         }
 
@@ -84,7 +84,7 @@
                 else {
                     jQuery( '.success' ).show().text( response.data.message );
                 }
-            }).catch( function( error: Error ) {
+            }).catch( function() {
                 jQuery( '.error' ).show().text( `Oh dear, there seems to be an error with our server.
                     Please try again or send us an email and we'll try get back to you as soon as possible`);
 

@@ -30,6 +30,7 @@ namespace blacktip {
 
             // This tells Google analytics to count a new page view on each state change
             $rootScope.$on( '$stateChangeSuccess', function( event, toState ) {
+                event; // Suppresses unused parameter error
                 if ( !( <any>$window ).ga )
                     return;
 

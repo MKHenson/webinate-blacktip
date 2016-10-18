@@ -10,7 +10,10 @@
         "allowUnreachableCode": false,
         "allowUnusedLabels": false,
         "outFile": "main.js",
-        "noImplicitAny": false
+        "noImplicitAny": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictNullChecks": true
     },
     "files": [
         "src/_references.d.ts",

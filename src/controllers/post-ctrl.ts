@@ -11,7 +11,7 @@
 		 * Creates an instance of the home controller
 		 */
         constructor( scope: any, post: Modepress.IPost, sce: ng.ISCEService, signaller: Function, meta: Meta ) {
-            meta.title = post.title;
+            meta.title = post.title!;
             meta.bigImage = ( post.featuredImage && post.featuredImage !== '' ? post.featuredImage : '' );
             meta.smallImage = ( post.featuredImage && post.featuredImage !== '' ? post.featuredImage : '' );
             meta.description = ( post.brief && post.brief !== '' ? post.brief : '' );
@@ -20,7 +20,7 @@
             // If no brief, then get the text content of the post itself
             if ( meta.brief === '' ) {
                 const tmp = document.createElement( 'DIV' );
-                tmp.innerHTML = post.content;
+                tmp.innerHTML = post.content!;
                 meta.description = tmp.textContent || tmp.innerText || '';
 
                 // Trim

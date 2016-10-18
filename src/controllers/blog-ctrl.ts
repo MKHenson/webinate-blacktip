@@ -77,8 +77,8 @@
         getPosts() {
             this.posts = [];
             this.http.get<Modepress.IGetPosts>( `${this.apiURL}/posts?visibility=public&tags=${this.tag}&rtags=webinate&index=${this.index}&limit=${this.limit}&author=${this.author}&categories=${this.category}&minimal=true` ).then(( posts ) => {
-                this.posts = posts.data.data;
-                this.last = posts.data.count;
+                this.posts = posts.data!.data;
+                this.last = posts.data!.count;
 
                 this.signaller();
             });
