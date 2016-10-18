@@ -13,17 +13,7 @@
         "noImplicitAny": false
     },
     "files": [
-        "src/definitions/required/es6-promise.d.ts",
-        "src/definitions/required/node.d.ts",
-        "src/definitions/required/express.d.ts",
-        "src/definitions/required/jquery.d.ts",
-        "src/definitions/required/angular.d.ts",
-        "src/definitions/required/angular-ui-router.d.ts",
-        "src/definitions/required/users.d.ts",
-        "src/definitions/required/modepress-api.d.ts",
-        "src/definitions/required/google.maps.d.ts",
-        "src/definitions/required/modepress-client.d.ts",
-        "src/definitions/custom/jssor.d.ts",
+        "src/_references.d.ts",
         "src/meta.ts",
         "src/config.ts",
         "src/controllers/post-ctrl.ts",
