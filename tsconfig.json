@@ -1,19 +1,29 @@
 {
-  "compilerOptions": {
-    "module": "amd",
-    "removeComments": false,
-    "noEmitOnError": true,
-    "declaration": false,
-    "sourceMap": false,
-    "preserveConstEnums": true,
-    "target": "es5",
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "outFile": "./dist/main.js",
-    "noImplicitAny" : false
-  },
-  "files": [
-        "src/_references.d.ts",
+    "compilerOptions": {
+        "module": "amd",
+        "removeComments": false,
+        "noEmitOnError": true,
+        "declaration": false,
+        "sourceMap": false,
+        "preserveConstEnums": true,
+        "target": "es5",
+        "allowUnreachableCode": false,
+        "allowUnusedLabels": false,
+        "outFile": "main.js",
+        "noImplicitAny": false
+    },
+    "files": [
+        "src/definitions/required/es6-promise.d.ts",
+        "src/definitions/required/node.d.ts",
+        "src/definitions/required/express.d.ts",
+        "src/definitions/required/jquery.d.ts",
+        "src/definitions/required/angular.d.ts",
+        "src/definitions/required/angular-ui-router.d.ts",
+        "src/definitions/required/users.d.ts",
+        "src/definitions/required/modepress-api.d.ts",
+        "src/definitions/required/google.maps.d.ts",
+        "src/definitions/required/modepress-client.d.ts",
+        "src/definitions/custom/jssor.d.ts",
         "src/meta.ts",
         "src/config.ts",
         "src/controllers/post-ctrl.ts",
@@ -24,5 +34,5 @@
         "src/controllers/home-ctrl.ts",
         "src/controllers/contact-ctrl.ts",
         "src/application.ts"
-  ]
+    ]
 }

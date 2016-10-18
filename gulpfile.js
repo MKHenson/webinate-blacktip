@@ -18,21 +18,7 @@ var setup = require( './gulp/setup.js' );
 // CONFIG
 // ==============================
 var outDir = "./dist";
-var tsConfig = JSON.parse( fs.readFileSync( 'tsconfig.json' ) );
-var tsFiles = tsConfig.files;
-var tsConfigGulp = {
-    "module": tsConfig.compilerOptions.module,
-    "removeComments": tsConfig.compilerOptions.removeComments,
-    "noEmitOnError": tsConfig.compilerOptions.noEmitOnError,
-    "declaration": tsConfig.compilerOptions.declaration,
-    "sourceMap": tsConfig.compilerOptions.sourceMap,
-    "preserveConstEnums": tsConfig.compilerOptions.preserveConstEnums,
-    "target": tsConfig.compilerOptions.target,
-    "noImplicitAny": tsConfig.compilerOptions.noImplicitAny,
-    "allowUnreachableCode": tsConfig.compilerOptions.allowUnreachableCode,
-    "allowUnusedLabels": tsConfig.compilerOptions.allowUnusedLabels,
-    "out": "main.js"
-};
+const tsProject = ts.createProject( 'tsconfig.json' );
 var thirdPartyFiles = [
     './third-party/jquery/dist/jquery.js',
     './third-party/angular/angular.js',
@@ -44,19 +30,6 @@ var thirdPartyFiles = [
     './third-party/modepress-client/dist/plugin.js',
     './third-party/jssor-slider/js/jssor.slider.mini.js'
 ];
-
-/**
- * Checks to see that all TS files listed exist
- */
-gulp.task( 'check-files', function() {
-
-    // Make sure the files exist
-    for ( var i = 0, l = tsFiles.length; i < l; i++ )
-        if ( !fs.existsSync( tsFiles[ i ] ) ) {
-            console.log( "File does not exist:" + tsFiles[ i ] );
-            process.exit();
-        }
-});
 
 gulp.task( 'sass', [ 'sprites' ], function() {
 
@@ -96,21 +69,23 @@ gulp.task( 'sprites', function() {
 /**
  * Builds each of the ts files into JS files in the output folder
  */
-gulp.task( 'ts-code', [ 'check-files' ], function() {
+gulp.task( 'ts-code', function() {
 
-    return gulp.src( tsFiles, { base: "." })
-        .pipe( ts( tsConfigGulp ) )
-        .pipe( gulp.dest( outDir ) );
+    var tsResult = tsProject.src()
+        .pipe( tsProject() );
+
+    return tsResult.js.pipe( gulp.dest( outDir ) );
 });
 
 /**
  * Builds each of the ts files into JS files in the output folder. Also performs an uglify on the code to make it compact.
  */
-gulp.task( 'ts-code-release', [ 'check-files' ], function() {
+gulp.task( 'ts-code-release', function() {
 
-    return gulp.src( tsFiles, { base: "." })
-        .pipe( ts( tsConfigGulp ) )
-        .pipe( uglify() )
+    var tsResult = tsProject.src()
+        .pipe( tsProject() );
+
+    return tsResult.js.pipe( uglify() )
         .pipe( gulp.dest( outDir ) );
 });
 
