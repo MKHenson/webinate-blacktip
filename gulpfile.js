@@ -20,6 +20,11 @@ var tslint = require( 'gulp-tslint' );
 // ==============================
 var outDir = './dist';
 const tsProject = ts.createProject( 'tsconfig.json' );
+const configFiles = [
+    './readme.md',
+    './install-script.sh',
+    './package.json'
+];
 var thirdPartyFiles = [
     './third-party/jquery/dist/jquery.js',
     './third-party/angular/angular.js',
@@ -217,6 +222,9 @@ gulp.task( 'html-to-ng', function() {
         .pipe( gulp.dest( outDir + '/templates' ) );
 });
 
+gulp.task( 'bump-patch', function() { return setup.bumpVersion( setup.bumpPatchNum, configFiles ) });
+gulp.task( 'bump-minor', function() { return setup.bumpVersion( setup.bumpMidNum, configFiles ) });
+gulp.task( 'bump-major', function() { return setup.bumpVersion( setup.bumpMajorNum, configFiles ) });
 gulp.task( 'install', [ 'install-definitions', 'install-third-parties' ] );
 gulp.task( 'build-all', [ 'deploy-third-party', 'html-to-ng', 'copy-index', 'sass', 'tslint' ] );
 gulp.task( 'build-all-release', [ 'deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass-release', 'ts-code-release' ] );
