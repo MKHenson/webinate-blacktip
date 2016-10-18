@@ -1,10 +1,8 @@
-﻿module blacktip
-{
+﻿module blacktip {
     /**
     * A class bound to the meta tags of the site. You can call this object in controllers with the dependency "meta"
     */
-    export class Meta
-    {
+    export class Meta {
         public description: string;
         public title: string;
         public brief: string;
@@ -19,16 +17,14 @@
         /**
         * Creates an instance of the meta class
         */
-        constructor()
-        {
+        constructor() {
             this.defaults();
         }
 
         /**
         * Sets the values to their default state
         */
-        defaults()
-        {
+        defaults() {
             this.description = "Offering web and mobile app design and development, with an experienced team located in Dublin. Full cycle development and developers for hire. Contact us at sales@webinate.net";
             this.title = "Webinate"
             this.brief = this.description;

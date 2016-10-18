@@ -1,22 +1,23 @@
 <div class="blog">
 	<div class="blogs">
 		<h1>Blog</h1>
-        <div class="blog-intro">
-            <div class="categories">
-                <span data-ng-repeat="category in controller.categories">
+		<div class="blog-intro">
+			<div class="categories">
+				<span data-ng-repeat="category in controller.categories">
                     <a data-ui-sref="blog.posts({category:category.slug})">{{category.title}}</a>{{$last != false ? "" : ", "}}
                 </span>
-            </div>
-            <div class="fix"></div>
-        </div>
+			</div>
+			<div class="fix"></div>
+		</div>
 
 		<div ui-view class="loading-blue"></div>
 		<div class="fix"></div>
 
 		<div class="navigation">
-            <a class="earlier" data-ng-if="controller.index" data-ui-sref="blog.posts({ index: controller.index > controller.limit ? controller.index - controller.limit : 0 })">< Earlier Posts</a>
-            <a class="older" data-ng-if="controller.index + controller.limit < controller.last" data-ui-sref="blog.posts({ index:controller.index + controller.limit})">Older Posts ></a>
-            <div class="fix"></div>
-        </div>
+			<a class="earlier" data-ng-if="controller.index" data-ui-sref="blog.posts({ index: controller.index > controller.limit ? controller.index - controller.limit : 0 })">
+				< Earlier Posts</a>
+					<a class="older" data-ng-if="controller.index + controller.limit < controller.last" data-ui-sref="blog.posts({ index:controller.index + controller.limit})">Older Posts ></a>
+					<div class="fix"></div>
+		</div>
 	</div>
 </div>

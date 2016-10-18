@@ -1,124 +1,121 @@
-﻿interface JssorEasings
-{
-	$EaseLinear(t): number;
-	$EaseGoBack(t): number;
-	$EaseSwing(t): number;
-	$EaseInQuad(t): number;
-	$EaseOutQuad(t): number;
-	$EaseInOutQuad(t): number;
-	$EaseInCubic(t): number;
-	$EaseOutCubic(t): number;
-	$EaseInOutCubic(t): number;
-	$EaseInQuart(t): number;
-	$EaseOutQuart(t): number;
-	$EaseInOutQuart(t): number;
-	$EaseInQuint(t): number;
-	$EaseOutQuint(t): number;
-	$EaseInOutQuint(t): number;
-	$EaseInSine(t): number;
-	$EaseOutSine(t): number;
-	$EaseInOutSine(t): number;
-	$EaseInExpo(t): number;
-	$EaseOutExpo(t): number;
-	$EaseInOutExpo(t): number;
-	$EaseInCirc(t): number;
-	$EaseOutCirc(t): number;
-	$EaseInOutCirc(t): number;
-	$EaseInElastic(t): number;
-	$EaseOutElastic(t): number;
-	$EaseInOutElastic(t): number;
-	$EaseInBack(t): number;
-	$EaseOutBack(t): number;
-	$EaseInOutBack(t): number;
-	$EaseInBounce(t): number;
-	$EaseOutBounce(t): number;
-	$EaseInOutBounce(t): number;
-	$EaseInWave(t): number;
-	$EaseOutWave(t): number;
-	$EaseOutJump(t): number;
-	$EaseInJump(t): number;
+﻿interface JssorEasings {
+    $EaseLinear( t ): number;
+    $EaseGoBack( t ): number;
+    $EaseSwing( t ): number;
+    $EaseInQuad( t ): number;
+    $EaseOutQuad( t ): number;
+    $EaseInOutQuad( t ): number;
+    $EaseInCubic( t ): number;
+    $EaseOutCubic( t ): number;
+    $EaseInOutCubic( t ): number;
+    $EaseInQuart( t ): number;
+    $EaseOutQuart( t ): number;
+    $EaseInOutQuart( t ): number;
+    $EaseInQuint( t ): number;
+    $EaseOutQuint( t ): number;
+    $EaseInOutQuint( t ): number;
+    $EaseInSine( t ): number;
+    $EaseOutSine( t ): number;
+    $EaseInOutSine( t ): number;
+    $EaseInExpo( t ): number;
+    $EaseOutExpo( t ): number;
+    $EaseInOutExpo( t ): number;
+    $EaseInCirc( t ): number;
+    $EaseOutCirc( t ): number;
+    $EaseInOutCirc( t ): number;
+    $EaseInElastic( t ): number;
+    $EaseOutElastic( t ): number;
+    $EaseInOutElastic( t ): number;
+    $EaseInBack( t ): number;
+    $EaseOutBack( t ): number;
+    $EaseInOutBack( t ): number;
+    $EaseInBounce( t ): number;
+    $EaseOutBounce( t ): number;
+    $EaseInOutBounce( t ): number;
+    $EaseInWave( t ): number;
+    $EaseOutWave( t ): number;
+    $EaseOutJump( t ): number;
+    $EaseInJump( t ): number;
 }
 
-declare class $JssorSlider$
-{
-	constructor(container: string, options: any);
+declare class $JssorSlider$ {
+    constructor( container: string, options: any );
 
-	public $Elmt: HTMLElement;
+    public $Elmt: HTMLElement;
 
 	/**
 	* Go to the specifed slide immediately with no play.
 	*/
-	$GoTo(slideIndex: number);
+    $GoTo( slideIndex: number );
 	/**
 	* Play the slider to next slide.
 	*/
-	$Next();
+    $Next();
 	/**
 	* Play the slider to previous slide.
 	*/
-	$Prev();
+    $Prev();
 	/**
 	* Pause the slider, prevent it from auto playing.
 	*/
-	$Pause();
+    $Pause();
 	/**
 	* Start auto play if the slider is currently paused.
 	*/
-	$Play();
+    $Play();
 	/**
 	* Reset slideshow transitions for the slider.
 	*/
-	$SetSlideshowTransitions(transitions);
+    $SetSlideshowTransitions( transitions );
 	/**
 	* Reset caption transitions for the slider.
 	*/
-	$SetCaptionTransitions(transitions);
+    $SetCaptionTransitions( transitions );
 	/**
 	* Retrieve slides count of the slider.
 	*/
-	$SlidesCount(): number;
+    $SlidesCount(): number;
 	/**
 	* Retrieve current slide index of the slider.
 	*/
-	$CurrentIndex(): number;
+    $CurrentIndex(): number;
 	/**
 	* Retrieve auto play status of the slider.
 	*/
-	$IsAutoPlaying(): boolean;
+    $IsAutoPlaying(): boolean;
 	/**
 	* Retrieve drag status of the slider.
 	*/
-	$IsDragging(): boolean;
+    $IsDragging(): boolean;
 	/**
 	* Retrieve right<-->left sliding status of the slider.
 	*/
-	$IsSliding(): boolean;
+    $IsSliding(): boolean;
 	/**
 	* Retrieve mouse over status of the slider.
 	*/
-	$IsMouseOver(): boolean;
+    $IsMouseOver(): boolean;
 	/**
 	* Retrieve last drag succeded status, returns 0 if failed, returns drag offset if succeded
 	*/
-	$LastDragSucceded(): number;
+    $LastDragSucceded(): number;
 
-	$OriginalWidth(): number;
-	$OriginalHeight(): number;
+    $OriginalWidth(): number;
+    $OriginalHeight(): number;
 
 	/**
 	* Scale the slider to new height and keep aspect ratio.
 	*/
-	$ScaleHeight(height?: number): number;
+    $ScaleHeight( height?: number ): number;
 
 	/**
 	* Scale the slider to new width and keep aspect ratio.
 	*/
-	$ScaleWidth(width?: number): number;
+    $ScaleWidth( width?: number ): number;
 }
 
-declare class $JssorCaptionSlideo$
-{
-	constructor(container, captionSlideOptions: any, playIn);
+declare class $JssorCaptionSlideo$ {
+    constructor( container, captionSlideOptions: any, playIn );
 }
 
 declare var $JssorBulletNavigator$: any;

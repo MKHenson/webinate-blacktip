@@ -1,43 +1,39 @@
-﻿module blacktip
-{
-	'use strict';
+﻿module blacktip {
+    'use strict';
 
     /**
     * Controller for managing the
     */
-	export class HomeCtrl
-    {
+    export class HomeCtrl {
         private _resizeProxy: any;
         private _slider: $JssorSlider$;
         private _signaller: Function;
 
         // The dependency injector
-        public static $inject = ["$scope", "signaller", "meta"];
+        public static $inject = [ "$scope", "signaller", "meta" ];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(scope: ng.IScope, signaller: Function, meta: Meta)
-        {
+        constructor( scope: ng.IScope, signaller: Function, meta: Meta ) {
             var that = this;
-            this._resizeProxy = this.scaleSlider.bind(this);
+            this._resizeProxy = this.scaleSlider.bind( this );
             this._slider = null;
             this._signaller = signaller;
 
             // Set the default meta tags
             meta.defaults();
 
-            scope.$on("$destroy", function() { that.onDestroy(); });
+            scope.$on( "$destroy", function() { that.onDestroy(); });
         }
 
         /**
         * Cleans up the controller
         */
-        onDestroy()
-        {
-            $(window).unbind("load", this._resizeProxy);
-            $(window).unbind("resize", this._resizeProxy);
-            $(window).unbind("orientationchange", this._resizeProxy);
+        onDestroy() {
+            $( window ).unbind( "load", this._resizeProxy );
+            $( window ).unbind( "resize", this._resizeProxy );
+            $( window ).unbind( "orientationchange", this._resizeProxy );
 
             this._resizeProxy = null;
             this._slider = null;
@@ -46,31 +42,29 @@
         /**
         * Resizes the slider if the window is resized
         */
-        private scaleSlider()
-        {
-            var parentWidth = jQuery(".slider-monitor").width();
-            if (parentWidth)
-                this._slider.$ScaleWidth(parentWidth);
+        private scaleSlider() {
+            var parentWidth = jQuery( ".slider-monitor" ).width();
+            if ( parentWidth )
+                this._slider.$ScaleWidth( parentWidth );
             else
-                window.setTimeout(this._resizeProxy, 30);
+                window.setTimeout( this._resizeProxy, 30 );
         }
 
 		/**
 		* Called after the home content is loaded
 		*/
-		loadSlider()
-        {
-			var _SlideshowTransitions = [
-				{ $Duration: 1200, $Opacity: 2 }
+        loadSlider() {
+            var _SlideshowTransitions = [
+                { $Duration: 1200, $Opacity: 2 }
             ];
 
-			var _CaptionTransitions: Array<any> = [];
-            _CaptionTransitions["FADE_IN"] = { $Duration: 1200, $Clip: 15, $Opacity: 1.7, $During: { $Clip: [0.5, 0.5], $Opacity: [0, 0.5] } };
-			_CaptionTransitions["LEFT_MARCH"] = { $Duration: 400, x: 0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
-			_CaptionTransitions["ATTACK_RIGHT"] = { $Duration: 1500, x: -0.5, y: 0.1, $Zoom: 1, $Easing: { $Left: $JssorEasing$.$EaseInExpo, $Top: $JssorEasing$.$EaseOutWave }, $Opacity: 2, $During: { $Left: [0, 0.7], $Top: [0.3, 0.7] }, $Round: { $Top: 1.3 } };
+            var _CaptionTransitions: Array<any> = [];
+            _CaptionTransitions[ "FADE_IN" ] = { $Duration: 1200, $Clip: 15, $Opacity: 1.7, $During: { $Clip: [ 0.5, 0.5 ], $Opacity: [ 0, 0.5 ] } };
+            _CaptionTransitions[ "LEFT_MARCH" ] = { $Duration: 400, x: 0.6, $Easing: { $Left: $JssorEasing$.$EaseInOutSine }, $Opacity: 2 };
+            _CaptionTransitions[ "ATTACK_RIGHT" ] = { $Duration: 1500, x: -0.5, y: 0.1, $Zoom: 1, $Easing: { $Left: $JssorEasing$.$EaseInExpo, $Top: $JssorEasing$.$EaseOutWave }, $Opacity: 2, $During: { $Left: [ 0, 0.7 ], $Top: [ 0.3, 0.7 ] }, $Round: { $Top: 1.3 } };
 
             var options = {
-				$FillMode: 2,                                       //[Optional] The way to fill image in slide, 0 stretch, 1 contain (keep aspect ratio and put all inside slide), 2 cover (keep aspect ratio and cover whole slide), 4 actual size, 5 contain for large image, actual size for small image, default value is 0
+                $FillMode: 2,                                       //[Optional] The way to fill image in slide, 0 stretch, 1 contain (keep aspect ratio and put all inside slide), 2 cover (keep aspect ratio and cover whole slide), 4 actual size, 5 contain for large image, actual size for small image, default value is 0
                 $AutoPlay: true,                                    //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
                 $AutoPlaySteps: 1,                                  //[Optional] Steps to go for each navigation request (this options applys only when slideshow disabled), the default value is 1
                 $AutoPlayInterval: 5000,                            //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
@@ -104,7 +98,7 @@
                     $Orientation: 1                                 //[Optional] The orientation of the navigator, 1 horizontal, 2 vertical, default value is 1
                 },
 
-				$CaptionSliderOptions: {                            //[Optional] Options which specifies how to animate caption
+                $CaptionSliderOptions: {                            //[Optional] Options which specifies how to animate caption
                     $Class: $JssorCaptionSlideo$,                   //[Required] Class to create instance to animate caption
                     $Transitions: _CaptionTransitions,              //[Required] An array of caption transitions to play caption, see caption transition section at jssor slideshow transition builder
                     $PlayInMode: 1,                                 //[Optional] 0 None (no play), 1 Chain (goes after main slide), 3 Chain Flatten (goes after main slide and flatten all caption animations), default value is 1
@@ -112,14 +106,14 @@
                 }
             };
 
-            this._slider = new $JssorSlider$("slides", options);
+            this._slider = new $JssorSlider$( "slides", options );
 
             this.scaleSlider();
-            $(window).bind("load", this._resizeProxy);
-            $(window).bind("resize", this._resizeProxy);
-            $(window).bind("orientationchange", this._resizeProxy);
+            $( window ).bind( "load", this._resizeProxy );
+            $( window ).bind( "resize", this._resizeProxy );
+            $( window ).bind( "orientationchange", this._resizeProxy );
 
             this._signaller();
-		}
-	}
+        }
+    }
 }

@@ -1,8 +1,14 @@
 <article class="blog-item" data-ng-repeat="post in controller.posts" itemscope itemtype="http://schema.org/Blog">
 	<div class="featured-image" data-ng-style="controller.getBlogImageURL(post)">
-		<a data-ng-href="./post/{{post.slug}}"><div class="pic-filler"></div></a>
+		<a data-ng-href="./post/{{post.slug}}">
+			<div class="pic-filler"></div>
+		</a>
 		<div class="blackener">
-			<div class="blog-header"><a data-ng-href="./post/{{post.slug}}"><h3 itemprop="name">{{post.title}}</h3></a></div>
+			<div class="blog-header">
+				<a data-ng-href="./post/{{post.slug}}">
+					<h3 itemprop="name">{{post.title}}</h3>
+				</a>
+			</div>
 			<div class="categories">
 				In
 				<span data-ng-repeat="category in post.categories" itemprop="keywords">

@@ -1,13 +1,11 @@
-﻿module blacktip
-{
-	'use strict';
+﻿module blacktip {
+    'use strict';
 
     /**
     * Controller for the blog page
     */
-    export class BlogCtrl
-	{
-		// An array of todo items
+    export class BlogCtrl {
+        // An array of todo items
         private http: ng.IHttpService;
         public posts: Array<Modepress.IPost>;
         public categories: Array<Modepress.ICategory>;
@@ -21,21 +19,20 @@
         public limit: number;
         public last: number;
 
-		// The dependency injector
-        public static $inject = ["$http", "apiURL", "$stateParams", "categories", "signaller", "meta" ];
+        // The dependency injector
+        public static $inject = [ "$http", "apiURL", "$stateParams", "categories", "signaller", "meta" ];
 
 		/**
 		* Creates an instance of the home controller
 		*/
-        constructor(http: ng.IHttpService, apiURL: string, stateParams: any, categories: Modepress.IGetCategories, signaller: Function, meta: Meta)
-		{
+        constructor( http: ng.IHttpService, apiURL: string, stateParams: any, categories: Modepress.IGetCategories, signaller: Function, meta: Meta ) {
             this.http = http;
             this.posts = [];
             this.apiURL = apiURL;
             this.signaller = signaller;
 
             this.limit = 12;
-            this.index = parseInt(stateParams.index) || 0;
+            this.index = parseInt( stateParams.index ) || 0;
             this.last = 1;
 
             this.author = stateParams.author || "";
@@ -51,8 +48,7 @@
         /**
         * Sets the page search back to index = 0
         */
-        goNext()
-        {
+        goNext() {
             this.index += this.limit;
             this.getPosts();
         }
@@ -60,19 +56,17 @@
         /**
         * Sets the page search back to index = 0
         */
-        goPrev()
-        {
+        goPrev() {
             this.index -= this.limit;
-            if (this.index < 0)
+            if ( this.index < 0 )
                 this.index = 0;
 
             this.getPosts();
         }
 
-        getBlogImageURL(post: Modepress.IPost)
-        {
+        getBlogImageURL( post: Modepress.IPost ) {
             var url = "/media/images/camera.jpg";
-            if (post.featuredImage && post.featuredImage != "")
+            if ( post.featuredImage && post.featuredImage != "" )
                 url = post.featuredImage;
 
             return {
@@ -80,17 +74,15 @@
             }
         }
 
-        getPosts()
-        {
+        getPosts() {
             var that = this;
             that.posts = [];
-            this.http.get<Modepress.IGetPosts>(`${this.apiURL}/posts?visibility=public&tags=${that.tag}&rtags=webinate&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}&minimal=true`).then(function (posts)
-            {
+            this.http.get<Modepress.IGetPosts>( `${this.apiURL}/posts?visibility=public&tags=${that.tag}&rtags=webinate&index=${that.index}&limit=${that.limit}&author=${that.author}&categories=${that.category}&minimal=true` ).then( function( posts ) {
                 that.posts = posts.data.data;
                 that.last = posts.data.count;
 
                 that.signaller();
             });
         }
-	}
+    }
 }

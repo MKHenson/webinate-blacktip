@@ -1,9 +1,17 @@
 <div class="contact-us" itemscope itemtype="http://schema.org/LocalBusiness">
 	<div class="contact-clouds">
-		<a href="https://www.facebook.com/Webinate" target="_blank"><div class="sprite sp-contact-us-fb"></div></a>
-		<a href="https://twitter.com/WebinateNet" target="_blank"><div class="sprite sp-contact-us-twitter"></div></a>
-		<a href="https://plus.google.com/+WebinateNet/posts" target="_blank"><div class="sprite sp-contact-us-gplus"></div></a>
-		<a href="https://www.youtube.com/channel/UCtcfpxQJOV-yHbJRuIlBgpA" target="_blank"><div class="sprite sp-contact-us-youtube"></div></a>
+		<a href="https://www.facebook.com/Webinate" target="_blank">
+			<div class="sprite sp-contact-us-fb"></div>
+		</a>
+		<a href="https://twitter.com/WebinateNet" target="_blank">
+			<div class="sprite sp-contact-us-twitter"></div>
+		</a>
+		<a href="https://plus.google.com/+WebinateNet/posts" target="_blank">
+			<div class="sprite sp-contact-us-gplus"></div>
+		</a>
+		<a href="https://www.youtube.com/channel/UCtcfpxQJOV-yHbJRuIlBgpA" target="_blank">
+			<div class="sprite sp-contact-us-youtube"></div>
+		</a>
 	</div>
 	<div class="header">
 		<h1>Contact Us</h1>
@@ -19,25 +27,21 @@
 			<div class="sprite sp-location"></div>
 			<div class="title">Address</div>
 			<div class="block-content" itemprop="address">
-				Suite 203, I.a.d.t. Media Cube<br />
-				Kill Ave<br />
-				Dublin
+				Suite 203, I.a.d.t. Media Cube<br /> Kill Ave<br /> Dublin
 			</div>
 		</div>
 		<div class="block">
 			<div class="sprite sp-phone-2"></div>
 			<div class="title">Phone</div>
 			<div class="block-content" itemprop="telephone">
-				+353 (0)89 2548285<br />
-				Skype: mathew_henson
+				+353 (0)89 2548285<br /> Skype: mathew_henson
 			</div>
 		</div>
 		<div class="block">
 			<div class="sprite sp-email-2"></div>
 			<div class="title">Email</div>
 			<div class="block-content" itemprop="email">
-				sales@webinate.net <br />
-				support@webinate.net
+				sales@webinate.net <br /> support@webinate.net
 			</div>
 		</div>
 		<div class="fix"></div>
@@ -45,12 +49,17 @@
 	<div class="contact-form">
 		<h2>Drop Us A Message</h2>
 		<form name="mailForm" novalidate id="contact-form">
-			<input class="small-input" name="iName" data-ng-class="{error: (mailForm.$submitted || mailForm.iName.$touched) && mailForm.iName.$error.required}" type="text" data-ng-model="controller.mail.name" required="" placeholder="Your Name" />
-			<input class="small-input" name="iEmail" data-ng-class="{error: (mailForm.$submitted || mailForm.iEmail.$touched) && mailForm.iEmail.$error.required}" type="email" data-ng-model="controller.mail.email" required="" placeholder="Your Email" />
-			<input class="small-input" name="iPhone" type="number" data-ng-model="controller.mail.phone" placeholder="Your Phone Number" />
+			<input class="small-input" name="iName" data-ng-class="{error: (mailForm.$submitted || mailForm.iName.$touched) && mailForm.iName.$error.required}"
+				type="text" data-ng-model="controller.mail.name" required="" placeholder="Your Name" />
+			<input class="small-input" name="iEmail" data-ng-class="{error: (mailForm.$submitted || mailForm.iEmail.$touched) && mailForm.iEmail.$error.required}"
+				type="email" data-ng-model="controller.mail.email" required="" placeholder="Your Email" />
+			<input class="small-input" name="iPhone" type="number" data-ng-model="controller.mail.phone" placeholder="Your Phone Number"
+			/>
 			<input class="small-input" name="iSite" type="text" data-ng-model="controller.mail.website" placeholder="Your Website" />
-			<textarea class="big-input" name="iMessage" data-ng-class="{error: (mailForm.$submitted || mailForm.iMessage.$touched) && (mailForm.iMessage.$error.required || mailForm.iMessage.$error.minlength)}" cols="50" data-ng-model="controller.mail.message" required="" rows="6" data-ng-minlength="5" placeholder="Enter Message"></textarea>
-			<input type="submit" class="button success blue" value="Send Message" data-ng-click="(mailForm.$valid && controller.sendMessage())" />
+			<textarea class="big-input" name="iMessage" data-ng-class="{error: (mailForm.$submitted || mailForm.iMessage.$touched) && (mailForm.iMessage.$error.required || mailForm.iMessage.$error.minlength)}"
+				cols="50" data-ng-model="controller.mail.message" required="" rows="6" data-ng-minlength="5" placeholder="Enter Message"></textarea>
+			<input type="submit" class="button success blue" value="Send Message" data-ng-click="(mailForm.$valid && controller.sendMessage())"
+			/>
 			<div data-ng-show="mailForm.$submitted">
 				<div class="error" data-ng-show="mailForm.$invalid">Please check your details</div>
 			</div>
