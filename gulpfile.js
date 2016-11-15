@@ -226,5 +226,5 @@ gulp.task( 'bump-patch', function() { return setup.bumpVersion( setup.bumpPatchN
 gulp.task( 'bump-minor', function() { return setup.bumpVersion( setup.bumpMidNum, configFiles ) });
 gulp.task( 'bump-major', function() { return setup.bumpVersion( setup.bumpMajorNum, configFiles ) });
 gulp.task( 'install', [ 'install-definitions', 'install-third-parties' ] );
-gulp.task( 'build-all', [ 'deploy-third-party', 'html-to-ng', 'copy-index', 'sass', 'tslint' ] );
-gulp.task( 'build-all-release', [ 'deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass-release', 'ts-code-release' ] );
+gulp.task( 'build', [ 'deploy-third-party', 'html-to-ng', 'copy-index', 'sass', 'tslint' ] );
+gulp.task( 'build-release', [ 'deploy-third-party-release', 'html-to-ng', 'copy-index-release', 'sass-release', 'ts-code-release' ] );
